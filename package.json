@@ -1,0 +1,33 @@
+{
+  "name": "cloudflare4",
+  "version": "0.0.1",
+  "author": "Chad Scira <_@chad.so> (chad.so)",
+  "description": "CloudFlare V4 API wrapper",
+  "contributors": [
+  ],
+  "keywords": [
+    "cloudflare",
+    "cloudflare-api",
+    "cloudflare v4",
+    "cloud flare api"
+  ],
+  "homepage": "https://github.com/icodeforlove/cloudflare4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/icodeforlove/cloudflare4.git"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.27",
+    "colors": "^1.1.0",
+    "debug": "^2.1.1",
+    "joi": "^6.4.3",
+    "promise-object": "^0.1.5",
+    "promise-retryer": "0.0.1",
+    "request": "2.x",
+    "xtend": "2.x"
+  }
+}
