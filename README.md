@@ -63,33 +63,33 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 - ~~[Plan details](https://api.cloudflare.com/#zone-plan-plan-details)~~
 
 ## [Zone Settings](https://api.cloudflare.com/#zone-settings)
-- [ ] [Get all Zone settings](https://api.cloudflare.com/#zone-settings-get-all-zone-settings)
+- [x] [Get all Zone settings](https://api.cloudflare.com/#zone-settings-get-all-zone-settings)
 *	~~[Get Advanced DDOS setting](https://api.cloudflare.com/#zone-settings-get-advanced-ddos-setting)~~
-- [ ] [Get Always Online setting](https://api.cloudflare.com/#zone-settings-get-always-online-setting)
-- [ ] [Get Browser Cache TTL setting](https://api.cloudflare.com/#zone-settings-get-browser-cache-ttl-setting)
-- [ ] [Get Browser Check setting](https://api.cloudflare.com/#zone-settings-get-browser-check-setting)
-- [ ] [Get Cache Level setting](https://api.cloudflare.com/#zone-settings-get-cache-level-setting)
-- [ ] [Get Challenge TTL setting](https://api.cloudflare.com/#zone-settings-get-challenge-ttl-setting)
-- [ ] [Get Development Mode setting](https://api.cloudflare.com/#zone-settings-get-development-mode-setting)
-- [ ] [Get Email Obfuscation setting](https://api.cloudflare.com/#zone-settings-get-email-obfuscation-setting)
-- [ ] [Get Hotlink Protection setting](https://api.cloudflare.com/#zone-settings-get-hotlink-protection-setting)
-- [ ] [Get IP Geolocation setting](https://api.cloudflare.com/#zone-settings-get-ip-geolocation-setting)
-- [ ] [Get IPv6 setting](https://api.cloudflare.com/#zone-settings-get-ipv6-setting)
-- [ ] [Get Minify setting](https://api.cloudflare.com/#zone-settings-get-minify-setting)
-- [ ] [Get Mobile Redirect setting](https://api.cloudflare.com/#zone-settings-get-mobile-redirect-setting)
-- [ ] [Get Mirage setting](https://api.cloudflare.com/#zone-settings-get-mirage-setting)
+- [x] [Get Always Online setting](https://api.cloudflare.com/#zone-settings-get-always-online-setting)
+- [x] [Get Browser Cache TTL setting](https://api.cloudflare.com/#zone-settings-get-browser-cache-ttl-setting)
+- [x] [Get Browser Check setting](https://api.cloudflare.com/#zone-settings-get-browser-check-setting)
+- [x] [Get Cache Level setting](https://api.cloudflare.com/#zone-settings-get-cache-level-setting)
+- [x] [Get Challenge TTL setting](https://api.cloudflare.com/#zone-settings-get-challenge-ttl-setting)
+- [x] [Get Development Mode setting](https://api.cloudflare.com/#zone-settings-get-development-mode-setting)
+- [x] [Get Email Obfuscation setting](https://api.cloudflare.com/#zone-settings-get-email-obfuscation-setting)
+- [x] [Get Hotlink Protection setting](https://api.cloudflare.com/#zone-settings-get-hotlink-protection-setting)
+- [x] [Get IP Geolocation setting](https://api.cloudflare.com/#zone-settings-get-ip-geolocation-setting)
+- [x] [Get IPv6 setting](https://api.cloudflare.com/#zone-settings-get-ipv6-setting)
+- [x] [Get Minify setting](https://api.cloudflare.com/#zone-settings-get-minify-setting)
+- [x] [Get Mobile Redirect setting](https://api.cloudflare.com/#zone-settings-get-mobile-redirect-setting)
+- [x] [Get Mirage setting](https://api.cloudflare.com/#zone-settings-get-mirage-setting)
 *	~~[Get Enable Error Pages On setting](https://api.cloudflare.com/#zone-settings-get-enable-error-pages-on-setting)~~
-- [ ] [Get Polish setting](https://api.cloudflare.com/#zone-settings-get-polish-setting)
+- [x] [Get Polish setting](https://api.cloudflare.com/#zone-settings-get-polish-setting)
 *	~~[Get Prefetch Preload setting](https://api.cloudflare.com/#zone-settings-get-prefetch-preload-setting)~~
 *	~~[Get Response Buffering setting](https://api.cloudflare.com/#zone-settings-get-response-buffering-setting)~~
-- [ ] [Get Rocket Loader setting](https://api.cloudflare.com/#zone-settings-get-rocket-loader-setting)
-- [ ] [Get Security Header (HSTS) setting](https://api.cloudflare.com/#zone-settings-get-security-header-hsts-setting)
-- [ ] [Get Security Level setting](https://api.cloudflare.com/#zone-settings-get-security-level-setting)
-- [ ] [Get Server Side Exclude setting](https://api.cloudflare.com/#zone-settings-get-server-side-exclude-setting)
+- [x] [Get Rocket Loader setting](https://api.cloudflare.com/#zone-settings-get-rocket-loader-setting)
+- [x] [Get Security Header (HSTS) setting](https://api.cloudflare.com/#zone-settings-get-security-header-hsts-setting)
+- [x] [Get Security Level setting](https://api.cloudflare.com/#zone-settings-get-security-level-setting)
+- [x] [Get Server Side Exclude setting](https://api.cloudflare.com/#zone-settings-get-server-side-exclude-setting)
 *	~~[Get Enable Query String Sort setting](https://api.cloudflare.com/#zone-settings-get-enable-query-string-sort-setting)~~
-- [ ] [Get SSL setting](https://api.cloudflare.com/#zone-settings-get-ssl-setting)
+- [x] [Get SSL setting](https://api.cloudflare.com/#zone-settings-get-ssl-setting)
 *	~~[Get Zone Enable TLS 1.2 setting](https://api.cloudflare.com/#zone-settings-get-zone-enable-tls-1-2-setting)~~
-- [ ] [Get TLS Client Auth setting](https://api.cloudflare.com/#zone-settings-get-tls-client-auth-setting)
+- [x] [Get TLS Client Auth setting](https://api.cloudflare.com/#zone-settings-get-tls-client-auth-setting)
 *	~~[Get True Client IP setting](https://api.cloudflare.com/#zone-settings-get-true-client-ip-setting)~~
 *	~~[Get Web Application Firewall (WAF) setting](https://api.cloudflare.com/#zone-settings-get-web-application-firewall-waf-setting)~~
 - [ ] [Edit zone settings info](https://api.cloudflare.com/#zone-settings-edit-zone-settings-info)

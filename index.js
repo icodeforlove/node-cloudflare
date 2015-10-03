@@ -358,6 +358,448 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+	/**
+	 * Get all settings for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-all-zone-settings
+	 */
+	zoneSettingsGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			query: query
+		}, raw));
+	},
+
+	/**
+	 * Get always online setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-always-online-setting
+	 */
+	zoneSettingsAlwaysOnlineGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsAlwaysOnlineGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/always_online',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get browser cache TTL setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-always-online-setting
+	 */
+	zoneSettingsBrowserCacheTTLGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsBrowserCacheTTLGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/browser_cache_ttl',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get browser check setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-browser-check-setting
+	 */
+	zoneSettingsBrowserCheckGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsBrowserCheckGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/browser_check',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get cache level setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-cache-level-setting
+	 */
+	zoneSettingsCacheLevelGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsCacheLevelGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/cache_level',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get challenge TTL setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-challenge-ttl-setting
+	 */
+	zoneSettingsChallengeTTLGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsChallengeTTLGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/challenge_ttl',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get development mode setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-development-mode-setting
+	 */
+	zoneSettingsDevelopmentModeGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsDevelopmentModeGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/development_mode',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+	
+	/**
+	 * Get email obfuscation setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-email-obfuscation-setting
+	 */
+	zoneSettingsEmailObfuscationGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsEmailObfuscationGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/email_obfuscation',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get hotlink protection setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-hotlink-protection-setting
+	 */
+	zoneSettingsHotlinkProtectionGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsHotlinkProtectionGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/hotlink_protection',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get IP geolocation setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-ip-geolocation-setting
+	 */
+	zoneSettingsIPGeolocationGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsIPGeolocationGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/ip_geolocation',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+	
+	/**
+	 * Get ipv6 setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-ipv6-setting
+	 */
+	zoneSettingsIPv6Get: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsIPv6Get',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/ipv6',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+	
+	/**
+	 * Get minify setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-minify-setting
+	 */
+	zoneSettingsMinifyGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsMinifyGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/minify',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get mobile redirect setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-mobile-redirect-setting
+	 */
+	zoneSettingsMobileRedirectGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsMobileRedirectGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/mobile_redirect',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get mirage setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-mirage-setting
+	 */
+	zoneSettingsMirageGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsMirageGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/mirage',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+	
+	/**
+	 * Get polish setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-polish-setting
+	 */
+	zoneSettingsPolishGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsPolishGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/polish',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get rocket loader setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-rocket-loader-setting
+	 */
+	zoneSettingsRocketLoaderGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsRocketLoaderGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/rocket_loader',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get security header setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-security-header-hsts-setting
+	 */
+	zoneSettingsSecurityHeaderGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsSecurityHeaderGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/security_header',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+	
+	/**
+	 * Get security level setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-security-level-setting
+	 */
+	zoneSettingsSecurityLevelGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsSecurityLevelGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/security_level',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+	
+	/**
+	 * Get server side exclude setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-server-side-exclude-setting
+	 */
+	zoneSettingsServerSideExcludeGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsServerSideExcludeGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/server_side_exclude',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get SSL setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-ssl-setting
+	 */
+	zoneSettingsSSLGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsSSLGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/ssl',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get TLS client auth setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-tls-client-auth-setting
+	 */
+	zoneSettingsTLSClientAuthGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsTLSClientAuthGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/tls_client_auth',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+	
 	//PUT /zones/:identifier/activation_check
 
 	// /**
