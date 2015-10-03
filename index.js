@@ -140,7 +140,7 @@ var CloudFlare = PromiseObject.create({
 				$deferred.resolve($self._tryRequest(payload));
 			})
 			.catch(function (error) {
-				var errorMessage = ('DigitalOceanApiError: validation error when calling "' + payload.callee + '"\n[' + payload.method + '] /' + $self._resolvePath(payload.path, payload.params) + '\n').red;
+				var errorMessage = ('CloudFlareApiError: validation error when calling "' + payload.callee + '"\n[' + payload.method + '] /' + $self._resolvePath(payload.path, payload.params) + '\n').red;
 
 				errorMessage += error.annotate();
 
@@ -799,8 +799,395 @@ var CloudFlare = PromiseObject.create({
 			}
 		}, raw));
 	},
+
+	/**
+	 * Update settings for zone
+	 *
+	 * zones/:zone_identifier/settings
+	 * 
+	 * https://api.cloudflare.com/#zone-settings-edit-zone-settings-info
+	 */
+	zoneSettingsUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				items: Joi.array().items(
+					Joi.object().keys({
+						id: Joi.string().required(),
+						value: Joi.string().required()
+					}).required()
+				).required()
+			}
+		}, {
+			callee: 'zoneSettingsUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update always online setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-always-online-setting
+	 */
+	zoneSettingsAlwaysOnlineUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off').required()
+			}
+		}, {
+			callee: 'zoneSettingsAlwaysOnlineUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/always_online',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update browser cache TTL setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-browser-cache-ttl-setting
+	 */
+	zoneSettingsBrowserCacheTTLUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.number().valid(
+					30,
+					60,
+					300,
+					1200,
+					1800,
+					3600,
+					7200,
+					10800,
+					14400,
+					18000,
+					28800,
+					43200,
+					57600,
+					72000,
+					86400,
+					172800,
+					259200,
+					345600,
+					432000,
+					691200,
+					1382400,
+					2073600,
+					2678400,
+					5356800,
+					16070400,
+					31536000
+				).required()
+			}
+		}, {
+			callee: 'zoneSettingsBrowserCacheTTLUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/browser_cache_ttl',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update browser check setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-browser-check-setting
+	 */
+	zoneSettingsBrowserCheckUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off').required()
+			}
+		}, {
+			callee: 'zoneSettingsBrowserCheckUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/browser_check',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update cache level setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-cache-level-setting
+	 */
+	zoneSettingsCacheLevelUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('aggressive', 'basic', 'simplified').required()
+			}
+		}, {
+			callee: 'zoneSettingsCacheLevelUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/cache_level',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update challenge TTL setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-challenge-ttl-setting
+	 */
+	zoneSettingsChallengeTTLUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.number().valid(
+					300,
+					900,
+					1800,
+					2700,
+					3600,
+					7200,
+					10800,
+					14400,
+					28800,
+					57600,
+					86400,
+					604800,
+					2592000,
+					31536000
+				).required()
+			}
+		}, {
+			callee: 'zoneSettingsChallengeTTLUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/challenge_ttl',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
 	
-	//PUT /zones/:identifier/activation_check
+	/**
+	 * Update development mode setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-development-mode-setting
+	 */
+	zoneSettingsDevelopmentModeUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off').required()
+			}
+		}, {
+			callee: 'zoneSettingsDevelopmentModeUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/development_mode',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update email obfuscation setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-email-obfuscation-setting
+	 */
+	zoneSettingsEmailObfuscationUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off').required()
+			}
+		}, {
+			callee: 'zoneSettingsEmailObfuscationUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/email_obfuscation',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update hotlink protection setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-hotlink-protection-setting
+	 * hotlink_protection
+	 */
+	zoneSettingsHotlinkProtectionUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off').required()
+			}
+		}, {
+			callee: 'zoneSettingsHotlinkProtectionUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/hotlink_protection',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update IP geolocation setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-ip-geolocation-setting
+	 * ip_geolocation
+	 */
+	zoneSettingsIPGeolocationUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off').required()
+			}
+		}, {
+			callee: 'zoneSettingsIPGeolocationUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/ip_geolocation',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+	
+	/**
+	 * Update ipv6 setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-ipv6-setting
+	 * ipv6
+	 */
+	zoneSettingsIPv6Update: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off').required()
+			}
+		}, {
+			callee: 'zoneSettingsIPv6Update',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/ipv6',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+	
+	/**
+	 * Update minify setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-minify-setting
+	 * minify
+	 */
+	zoneSettingsMinifyUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.object({
+					css: Joi.string().valid('on', 'off'),
+					html: Joi.string().valid('on', 'off'),
+					js: Joi.string().valid('on', 'off')
+				}).min(1).required()
+			}
+		}, {
+			callee: 'zoneSettingsMinifyUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/minify',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update mobile redirect setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-mobile-redirect-setting
+	 * mobile_redirect
+	 */
+	zoneSettingsMobileRedirectUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.object({
+					status: Joi.string().valid('on', 'off').required(),
+					mobile_subdomain: Joi.string().required(),
+					strip_uri: Joi.boolean().required()
+				}).required()
+			}
+		}, {
+			callee: 'zoneSettingsMobileRedirectUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/mobile_redirect',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	// END ZONE SETTINGS
 
 	// /**
 	//  * Zone Subscription List

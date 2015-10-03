@@ -92,21 +92,21 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 - [x] [Get TLS Client Auth setting](https://api.cloudflare.com/#zone-settings-get-tls-client-auth-setting)
 *	~~[Get True Client IP setting](https://api.cloudflare.com/#zone-settings-get-true-client-ip-setting)~~
 *	~~[Get Web Application Firewall (WAF) setting](https://api.cloudflare.com/#zone-settings-get-web-application-firewall-waf-setting)~~
-- [ ] [Edit zone settings info](https://api.cloudflare.com/#zone-settings-edit-zone-settings-info)
-- [ ] [Change Always Online setting](https://api.cloudflare.com/#zone-settings-change-always-online-setting)
-- [ ] [Change Browser Cache TTL setting](https://api.cloudflare.com/#zone-settings-change-browser-cache-ttl-setting)
-- [ ] [Change Browser Check setting](https://api.cloudflare.com/#zone-settings-change-browser-check-setting)
-- [ ] [Change Cache Level setting](https://api.cloudflare.com/#zone-settings-change-cache-level-setting)
-- [ ] [Change Challenge TTL setting](https://api.cloudflare.com/#zone-settings-change-challenge-ttl-setting)
-- [ ] [Change Development Mode setting](https://api.cloudflare.com/#zone-settings-change-development-mode-setting)
-- [ ] [Change Email Obfuscation setting](https://api.cloudflare.com/#zone-settings-change-email-obfuscation-setting)
+- [x] [Edit zone settings info](https://api.cloudflare.com/#zone-settings-edit-zone-settings-info)
+- [x] [Change Always Online setting](https://api.cloudflare.com/#zone-settings-change-always-online-setting)
+- [x] [Change Browser Cache TTL setting](https://api.cloudflare.com/#zone-settings-change-browser-cache-ttl-setting)
+- [x] [Change Browser Check setting](https://api.cloudflare.com/#zone-settings-change-browser-check-setting)
+- [x] [Change Cache Level setting](https://api.cloudflare.com/#zone-settings-change-cache-level-setting)
+- [x] [Change Challenge TTL setting](https://api.cloudflare.com/#zone-settings-change-challenge-ttl-setting)
+- [x] [Change Development Mode setting](https://api.cloudflare.com/#zone-settings-change-development-mode-setting)
+- [x] [Change Email Obfuscation setting](https://api.cloudflare.com/#zone-settings-change-email-obfuscation-setting)
 *	~~[Change Enable Error Pages On setting](https://api.cloudflare.com/#zone-settings-change-enable-error-pages-on-setting)~~
 *	~~[Change Enable Query String Sort setting](https://api.cloudflare.com/#zone-settings-change-enable-query-string-sort-setting)~~
-- [ ] [Change Hotlink Protection setting](https://api.cloudflare.com/#zone-settings-change-hotlink-protection-setting)
-- [ ] [Change IP Geolocation setting](https://api.cloudflare.com/#zone-settings-change-ip-geolocation-setting)
-- [ ] [Change IPv6 setting](https://api.cloudflare.com/#zone-settings-change-ipv6-setting)
-- [ ] [Change Minify setting](https://api.cloudflare.com/#zone-settings-change-minify-setting)
-- [ ] [Change Mobile Redirect setting](https://api.cloudflare.com/#zone-settings-change-mobile-redirect-setting)
+- [x] [Change Hotlink Protection setting](https://api.cloudflare.com/#zone-settings-change-hotlink-protection-setting)
+- [x] [Change IP Geolocation setting](https://api.cloudflare.com/#zone-settings-change-ip-geolocation-setting)
+- [x] [Change IPv6 setting](https://api.cloudflare.com/#zone-settings-change-ipv6-setting)
+- [x] [Change Minify setting](https://api.cloudflare.com/#zone-settings-change-minify-setting)
+- [x] [Change Mobile Redirect setting](https://api.cloudflare.com/#zone-settings-change-mobile-redirect-setting)
 *	~~[Change Mirage setting](https://api.cloudflare.com/#zone-settings-change-mirage-setting)~~
 *	~~[Change Polish setting](https://api.cloudflare.com/#zone-settings-change-polish-setting)~~
 *	~~[Change Prefetch Preload setting](https://api.cloudflare.com/#zone-settings-change-prefetch-preload-setting)~~
