@@ -11,9 +11,9 @@ var extend = require('xtend'),
 BlueBird.promisifyAll(Joi);
 
 /**
- * Digitalocean API Client
+ * CloudFlare v4 API Client
  */
-var DigitalOcean = PromiseObject.create({
+var CloudFlare = PromiseObject.create({
 	initialize: function ($config) {
 		this._key = $config.key;
 		this._email = $config.email;
@@ -298,4 +298,4 @@ var DigitalOcean = PromiseObject.create({
 	}
 });
 
-module.exports = DigitalOcean;
+module.exports = CloudFlare;
