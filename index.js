@@ -1187,7 +1187,230 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
-	// END ZONE SETTINGS
+	/**
+	 * Update mirage setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-mirage-setting
+	 * mirage
+	 */
+	zoneSettingsMirageUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off').required()
+			}
+		}, {
+			callee: 'zoneSettingsMirageUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/mirage',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+	
+	/**
+	 * Update polish setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-polish-setting
+	 * polish
+	 */
+	zoneSettingsPolishUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('off', 'lossless', 'lossy').required()
+			}
+		}, {
+			callee: 'zoneSettingsPolishUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/polish',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update rocket loader setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-rocket-loader-setting
+	 * rocket_loader
+	 */
+	zoneSettingsRocketLoaderUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off', 'manual').required()
+			}
+		}, {
+			callee: 'zoneSettingsRocketLoaderUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/rocket_loader',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+	
+	/**
+	 * Update security header setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-security-header-hsts-setting
+	 * security_header
+	 */
+	zoneSettingsSecurityHeaderUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.object({
+					strict_transport_security: Joi.object({
+						preload: Joi.boolean().required(),
+						enabled: Joi.boolean().required(),
+						max_age: Joi.number().max(86400).required(),
+						include_subdomains: Joi.boolean().required(),
+						nosniff: Joi.boolean().required()
+					}).required()
+				}).required()
+			}
+		}, {
+			callee: 'zoneSettingsSecurityHeaderUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/security_header',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update security level setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-security-level-setting
+	 * security_level
+	 */
+	zoneSettingsSecurityLevelUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid(
+					'essentially_off',
+					'low',
+					'medium',
+					'high',
+					'under_attack'
+				).required()
+			}
+		}, {
+			callee: 'zoneSettingsSecurityLevelUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/security_level',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+	
+	/**
+	 * Update server side exclude setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-server-side-exclude-setting
+	 */
+	zoneSettingsServerSideExcludeUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off').required()
+			}
+		}, {
+			callee: 'zoneSettingsServerSideExcludeUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/server_side_exclude',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update SSL setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-ssl-setting
+	 */
+	zoneSettingsSSLUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('off', 'flexible', 'full', 'full_strict').required()
+			}
+		}, {
+			callee: 'zoneSettingsSSLUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/ssl',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	// /**
+	//  * Update TLS client auth setting for zone
+	//  *
+	//  * https://api.cloudflare.com/#zone-settings-change-tls-client-auth-setting
+	//  * tls_client_auth
+	//  */
+	// zoneSettingsTLSClientAuthUpdate: function($deferred, zone_identifier, body, raw) {
+	// 	$deferred.resolve(this._request({
+	// 		params: {
+	// 			zone_identifier: Joi.string().length(32).required()
+	// 		},
+	// 		body: {
+	// 			value: Joi.object({
+	// 				id: Joi.string().valid('tls_client_auth'),
+	// 				value: Joi.string().valid('on', 'off').required(),
+	// 				editable: Joi.boolean(),
+	// 				modified_on: Joi.string()
+	// 			}).required()
+	// 		}
+	// 	}, {
+	// 		callee: 'zoneSettingsTLSClientAuthUpdate',
+	// 		method: 'PATCH',
+	// 		path: 'zones/:zone_identifier/settings/tls_client_auth',
+	// 		required: 'result',
+	// 		params: {
+	// 			zone_identifier: zone_identifier
+	// 		},
+	// 		body: body
+	// 	}, raw));
+	// },
 
 	// /**
 	//  * Zone Subscription List

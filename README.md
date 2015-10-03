@@ -107,16 +107,16 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 - [x] [Change IPv6 setting](https://api.cloudflare.com/#zone-settings-change-ipv6-setting)
 - [x] [Change Minify setting](https://api.cloudflare.com/#zone-settings-change-minify-setting)
 - [x] [Change Mobile Redirect setting](https://api.cloudflare.com/#zone-settings-change-mobile-redirect-setting)
-*	~~[Change Mirage setting](https://api.cloudflare.com/#zone-settings-change-mirage-setting)~~
-*	~~[Change Polish setting](https://api.cloudflare.com/#zone-settings-change-polish-setting)~~
+- [x] [Change Mirage setting](https://api.cloudflare.com/#zone-settings-change-mirage-setting)
+- [x] [Change Polish setting](https://api.cloudflare.com/#zone-settings-change-polish-setting)
 *	~~[Change Prefetch Preload setting](https://api.cloudflare.com/#zone-settings-change-prefetch-preload-setting)~~
 *	~~[Change Response Buffering setting](https://api.cloudflare.com/#zone-settings-change-response-buffering-setting)~~
-- [ ] [Change Rocket Loader setting](https://api.cloudflare.com/#zone-settings-change-rocket-loader-setting)
-- [ ] [Change Security Header (HSTS) setting](https://api.cloudflare.com/#zone-settings-change-security-header-hsts-setting)
-- [ ] [Change Security Level setting](https://api.cloudflare.com/#zone-settings-change-security-level-setting)
-- [ ] [Change Server Side Exclude setting](https://api.cloudflare.com/#zone-settings-change-server-side-exclude-setting)
-- [ ] [Change SSL setting](https://api.cloudflare.com/#zone-settings-change-ssl-setting)
-- [ ] [Change TLS Client Auth setting](https://api.cloudflare.com/#zone-settings-change-tls-client-auth-setting)
+- [x] [Change Rocket Loader setting](https://api.cloudflare.com/#zone-settings-change-rocket-loader-setting)
+- [x] [Change Security Header (HSTS) setting](https://api.cloudflare.com/#zone-settings-change-security-header-hsts-setting)
+- [x] [Change Security Level setting](https://api.cloudflare.com/#zone-settings-change-security-level-setting)
+- [x] [Change Server Side Exclude setting](https://api.cloudflare.com/#zone-settings-change-server-side-exclude-setting)
+- [x] [Change SSL setting](https://api.cloudflare.com/#zone-settings-change-ssl-setting)
+*	~~[Change TLS Client Auth setting](https://api.cloudflare.com/#zone-settings-change-tls-client-auth-setting)~~
 *	~~[Change True Client IP setting](https://api.cloudflare.com/#zone-settings-change-true-client-ip-setting)~~
 *	~~[Change TLS 1.2 setting](https://api.cloudflare.com/#zone-settings-change-tls-1-2-setting)~~
 *	~~[Change Web Application Firewall (WAF) setting](https://api.cloudflare.com/#zone-settings-change-web-application-firewall-waf-setting)~~
