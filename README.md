@@ -122,11 +122,11 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 *	~~[Change Web Application Firewall (WAF) setting](https://api.cloudflare.com/#zone-settings-change-web-application-firewall-waf-setting)~~
 
 ## [DNS Records for a Zone](https://api.cloudflare.com/#dns-records-for-a-zone)
-- [ ] [Create DNS record](https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record)
-- [ ] [List DNS Records](https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records)
-- [ ] [DNS record details](https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details)
-- [ ] [Update DNS record](https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record)
-- [ ] [Delete DNS record](https://api.cloudflare.com/#dns-records-for-a-zone-delete-dns-record)
+- [x] [Create DNS record](https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record)
+- [x] [List DNS Records](https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records)
+- [x] [DNS record details](https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details)
+- [x] [Update DNS record](https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record)
+- [x] [Delete DNS record](https://api.cloudflare.com/#dns-records-for-a-zone-delete-dns-record)
 
 ## [Railgun connections for a Zone](https://api.cloudflare.com/#railgun-connections-for-a-zone)
 *	~~[Get available Railguns](https://api.cloudflare.com/#railgun-connections-for-a-zone-get-available-railguns)~~
@@ -135,7 +135,7 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 *	~~[Connect or disconnect a Railgun](https://api.cloudflare.com/#railgun-connections-for-a-zone-connect-or-disconnect-a-railgun)~~
 
 ## [Zone Analytics](https://api.cloudflare.com/#zone-analytics)
-- [ ] [Dashboard](https://api.cloudflare.com/#zone-analytics-dashboard)
+- [x] [Dashboard](https://api.cloudflare.com/#zone-analytics-dashboard)
 *	~~[Analytics by Co-locations](https://api.cloudflare.com/#zone-analytics-analytics-by-co-locations)~~
 
 ## [Railgun](https://api.cloudflare.com/#railgun)
@@ -167,10 +167,10 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 *	~~[Delete Keyless configuration](https://api.cloudflare.com/#keyless-ssl-for-a-zone-delete-keyless-configuration)~~
 
 ## [Firewall access rule for a Zone](https://api.cloudflare.com/#firewall-access-rule-for-a-zone)
-- [ ] [List access rules](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules)
-- [ ] [Create access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-create-access-rule)
-- [ ] [Update access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-update-access-rule)
-- [ ] [Delete access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-delete-access-rule)
+- [x] [List access rules](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules)
+- [x] [Create access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-create-access-rule)
+- [x] [Update access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-update-access-rule)
+- [x] [Delete access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-delete-access-rule)
 
 ## [WAF Rule Packages](https://api.cloudflare.com/#waf-rule-packages)
 *	~~[List firewall packages](https://api.cloudflare.com/#waf-rule-packages-list-firewall-packages)~~

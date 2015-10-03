@@ -1411,6 +1411,287 @@ var CloudFlare = PromiseObject.create({
 	// 		body: body
 	// 	}, raw));
 	// },
+	// 
+
+	/**
+	 * List DNS records for zone
+	 *
+	 * https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
+	 */
+	zoneDNSRecordGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				type: Joi.string().valid('A', 'AAAA', 'CNAME', 'TXT', 'SRV', 'LOC', 'MX', 'NS', 'SPF'),
+				name: Joi.string().max(255),
+				content: Joi.string(),
+				order: Joi.string().valid('type', 'name', 'content', 'ttl', 'proxied'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'zoneDNSRecordsGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/dns_records',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Create DNS record for zone
+	 *
+	 * https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
+	 */
+	zoneDNSRecordNew: function ($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				type: Joi.string().valid('A', 'AAAA', 'CNAME', 'TXT', 'SRV', 'LOC', 'MX', 'NS', 'SPF').required(),
+				name: Joi.string().max(255).required(),
+				content: Joi.string().required(),
+				ttl: Joi.number().max(2147483647)
+			}
+		}, {
+			callee: 'zoneDNSRecordCreate',
+			method: 'POST',
+			path: 'zones/:zone_identifier/dns_records',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	
+	/**
+	 * Get DNS record for zone
+	 *
+	 * https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
+	 */
+	zoneDNSRecordGet: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/dns_records/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update dns record for zone
+	 *
+	 * https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
+	 */
+	zoneDNSRecordUpdate: function ($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				type: Joi.string().valid('A', 'AAAA', 'CNAME', 'TXT', 'SRV', 'LOC', 'MX', 'NS', 'SPF'),
+				name: Joi.string().max(255),
+				content: Joi.string(),
+				ttl: Joi.number().max(2147483647)
+			}).min(1).required()
+		}, {
+			callee: 'zoneDNSRecordUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/dns_records/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Delete dns record for zone
+	 *
+	 * https://api.cloudflare.com/#dns-records-for-a-zone-delete-dns-record
+	 */
+	zoneDNSRecordDestroy: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneDNSRecordDestroy',
+			method: 'DELETE',
+			path: 'zones/:zone_identifier/dns_records/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get analytics dashboard data
+	 *
+	 * https://api.cloudflare.com/#zone-analytics-dashboard
+	 */
+	zoneAnalyticsDashboardGet: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				since: Joi.alternatives().try(Joi.string(), Joi.number()),
+				until: Joi.alternatives().try(Joi.string(), Joi.number()),
+				exclude_series: Joi.boolean(),
+				continuous: Joi.boolean()
+			}
+		}, {
+			callee: 'zoneGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/analytics/dashboard',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+
+
+	/**
+	 * List firewall access rules for zone
+	 *
+	 * https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules
+	 */
+	zoneFirewallAccessRuleGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				mode: Joi.any().valid('block', 'challenge', 'whitelist'),
+				configuration_target: Joi.any().valid('ip', 'ip_range', 'country'),
+				configuration_value: Joi.string(),
+				order: Joi.any().valid('configuration_target', 'configuration_value', 'mode'),
+				direction: Joi.any().valid('asc', 'desc'),
+				match: Joi.any().valid('any', 'all')
+			}
+		}, {
+			callee: 'zoneFirewallAccessRulesGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/firewall/access_rules/rules',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Create firewall access rule for zone
+	 *
+	 * https://api.cloudflare.com/#firewall-access-rule-for-a-zone-create-access-rule
+	 */
+	zoneFirewallAccessRuleNew: function ($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
+				configuration: Joi.object({
+					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
+					value: Joi.string().required()
+				}).required(),
+				notes: Joi.string()
+			}
+		}, {
+			callee: 'firewallAccessRuleNew',
+			method: 'POST',
+			path: 'zones/:zone_identifier/firewall/access_rules/rules',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Update firewall access rule for zone
+	 *
+	 * https://api.cloudflare.com/#firewall-access-rule-for-a-zone-update-access-rule
+	 */
+	zoneFirewallAccessRuleUpdate: function($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().required()
+			},
+			body: {
+				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
+				configuration: Joi.object({
+					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
+					value: Joi.string().required()
+				}).required(),
+				notes: Joi.string()
+			}
+		}, {
+			callee: 'zoneFirewallAccessRuleUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/firewall/access_rules/rules/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Delete firewall access rule for zone
+	 *
+	 * https://api.cloudflare.com/#firewall-access-rule-for-a-zone-delete-access-rule
+	 */
+	zoneFirewallAccessRuleDestroy: function($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().required()
+			}
+		}, {
+			callee: 'zoneFirewallAccessRuleDestroy',
+			method: 'DELETE',
+			path: 'zones/:zone_identifier/firewall/access_rules/rules/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+		}, raw));
+	},
 
 	// /**
 	//  * Zone Subscription List
@@ -1464,11 +1745,11 @@ var CloudFlare = PromiseObject.create({
 	// },
 
 	/**
-	 * List firewall access rules
+	 * List firewall access rules for user
 	 *
-	 * Search, sort, and filter IP/country access rules
+	 * https://api.cloudflare.com/#user-level-firewall-access-rule-list-access-rules
 	 */
-	firewallAccessRulesGetAll: function ($deferred, query, raw) {
+	firewallAccessRuleGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
 				mode: Joi.any().valid('block', 'challenge', 'whitelist'),
@@ -1479,7 +1760,7 @@ var CloudFlare = PromiseObject.create({
 				match: Joi.any().valid('any', 'all')
 			}
 		}, {
-			callee: 'firewallAccessRulesGetAll',
+			callee: 'firewallAccessRuleGetAll',
 			method: 'GET',
 			path: 'user/firewall/access_rules/rules',
 			required: 'result',
@@ -1488,12 +1769,9 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
-	 * Create firewall access rule
+	 * Create firewall access rule for user
 	 *
-	 * Make a new IP, IP range, or country access rule for the zone. 
-	 * 
-	 * Note: If you would like to create an access rule that applies across all of your owned zones, 
-	 * use the user or organization firewall endpoints as appropriate.
+	 * https://api.cloudflare.com/#user-level-firewall-access-rule-create-access-rule
 	 */
 	firewallAccessRuleNew: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
@@ -1515,10 +1793,9 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
-	 * Update firewall access rule
+	 * Update firewall access rule for user
 	 *
-	 * Update rule state and/or configuration for the zone. Note: you can only edit rules in the 'zone' group via this endpoint.
-	 * Use the appropriate owner rules endpoint if trying to manage owner-level rules
+	 * https://api.cloudflare.com/#user-level-firewall-access-rule-update-access-rule
 	 */
 	firewallAccessRuleUpdate: function($deferred, identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1546,13 +1823,9 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
-	 * Delete firewall access rule
+	 * Delete firewall access rule for user
 	 *
-	 * Remove an access rule so it is no longer evaluated during requests. Optionally, specify 
-	 * how to delete rules that match the mode and configuration across all other zones that this 
-	 * zone owner manages. 'none' is the default, and will only delete this rule. 'basic' will delete 
-	 * rules that match the same mode and configuration. 'aggressive' will delete rules that match 
-	 * the same configuration.
+	 * https://api.cloudflare.com/#user-level-firewall-access-rule-delete-access-rule
 	 */
 	firewallAccessRuleDestroy: function($deferred, identifier, raw) {
 		$deferred.resolve(this._request({
