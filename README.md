@@ -4,7 +4,7 @@ This is a work in progress, but i do actively intend on creating a 100% complete
 
 # TODO LIST
 
-At the moment I can only flesh out the free endpoints, I have marked all the paid ones wish a ~~strikethrough~~.
+At the moment I can only flesh out the free endpoints, I have marked all the paid ones with a ~~strikethrough~~.
 
 
 
