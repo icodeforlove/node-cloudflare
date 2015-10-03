@@ -7,38 +7,47 @@ This is a work in progress, but i do actively intend on creating a 100% complete
 At the moment I can only flesh out the free endpoints, I have marked all the paid ones wish a ~~strikethrough~~.
 
 
+
 ## [User](#user)
 - [x] [User details](#user-user-details)
 - [x] [Update user](#user-update-user)
+
 ## [User Billing Profile](#user-billing-profile)
 - [ ] [Billing Profile](#user-billing-profile-billing-profile)
 - [ ] [Create billing profile](#user-billing-profile-create-billing-profile)
 - [ ] [Update billing profile](#user-billing-profile-update-billing-profile)
 - [ ] [Update particular elements of your billing profile](#user-billing-profile-update-particular-elements-of-your-billing-profile)
 - [ ] [Delete billing profile](#user-billing-profile-delete-billing-profile)
+
 ## [User Billing History](#user-billing-history)
 - [ ] [Billing history](#user-billing-history-billing-history)
+
 ## [App Subscription](#app-subscription)
 - [ ] [List](#app-subscription-list)
 - [ ] [Search, sort, and paginate](#app-subscription-search-sort-and-paginate)
 - [ ] [Info](#app-subscription-info)
+
 ## [Zone Subscription](#zone-subscription)
 - [ ] [List](#zone-subscription-list)
 - [ ] [Search, sort, and paginate](#zone-subscription-search-sort-and-paginate)
 - [ ] [Info](#zone-subscription-info)
+
 ## [User-level Firewall access rule](#user-level-firewall-access-rule)
 - [ ] [List access rules](#user-level-firewall-access-rule-list-access-rules)
 - [ ] [Create access rule](#user-level-firewall-access-rule-create-access-rule)
 - [ ] [Update access rule](#user-level-firewall-access-rule-update-access-rule)
 - [ ] [Delete access rule](#user-level-firewall-access-rule-delete-access-rule)
+
 ## [User&#x27;s Organizations](#user-s-organizations)
 - [ ] [List organizations](#user-s-organizations-list-organizations)
 - [ ] [Organization details](#user-s-organizations-organization-details)
 - [ ] [Leave organization](#user-s-organizations-leave-organization)
+
 ## [User&#x27;s Invites](#user-s-invites)
 - [ ] [List invitations](#user-s-invites-list-invitations)
 - [ ] [Invitation details](#user-s-invites-invitation-details)
 - [ ] [Respond to Invitation](#user-s-invites-respond-to-invitation)
+
 ## [Zone](#zone)
 - [ ] [Create a zone](#zone-create-a-zone)
 - [ ] [Initiate another zone activation check](#zone-initiate-another-zone-activation-check)
@@ -48,9 +57,11 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 - [ ] [Purge all files](#zone-purge-all-files)
 - [ ] [Purge individual files by URL and Cache-Tags](#zone-purge-individual-files-by-url-and-cache-tags)
 - [ ] [Delete a zone](#zone-delete-a-zone)
+
 ## [Zone Plan](#zone-plan)
 - [ ] [Available plans](#zone-plan-available-plans)
 - [ ] [Plan details](#zone-plan-plan-details)
+
 ## [Zone Settings](#zone-settings)
 - [ ] [Get all Zone settings](#zone-settings-get-all-zone-settings)
 ----	~~[Get Advanced DDOS setting](#zone-settings-get-advanced-ddos-setting)~~
@@ -109,20 +120,24 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 ----	~~[Change True Client IP setting](#zone-settings-change-true-client-ip-setting)~~
 ----	~~[Change TLS 1.2 setting](#zone-settings-change-tls-1-2-setting)~~
 ----	~~[Change Web Application Firewall (WAF) setting](#zone-settings-change-web-application-firewall-waf-setting)~~
+
 ## [DNS Records for a Zone](#dns-records-for-a-zone)
 - [ ] [Create DNS record](#dns-records-for-a-zone-create-dns-record)
 - [ ] [List DNS Records](#dns-records-for-a-zone-list-dns-records)
 - [ ] [DNS record details](#dns-records-for-a-zone-dns-record-details)
 - [ ] [Update DNS record](#dns-records-for-a-zone-update-dns-record)
 - [ ] [Delete DNS record](#dns-records-for-a-zone-delete-dns-record)
+
 ## [Railgun connections for a Zone](#railgun-connections-for-a-zone)
 ----	~~[Get available Railguns](#railgun-connections-for-a-zone-get-available-railguns)~~
 ----	~~[Get Railgun details](#railgun-connections-for-a-zone-get-railgun-details)~~
 ----	~~[Test Railgun connection](#railgun-connections-for-a-zone-test-railgun-connection)~~
 ----	~~[Connect or disconnect a Railgun](#railgun-connections-for-a-zone-connect-or-disconnect-a-railgun)~~
+
 ## [Zone Analytics](#zone-analytics)
 - [ ] [Dashboard](#zone-analytics-dashboard)
 ----	~~[Analytics by Co-locations](#zone-analytics-analytics-by-co-locations)~~
+
 ## [Railgun](#railgun)
 ----	~~[Create Railgun](#railgun-create-railgun)~~
 ----	~~[List Railguns](#railgun-list-railguns)~~
@@ -130,10 +145,12 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 ----	~~[Get zones connected to a Railgun](#railgun-get-zones-connected-to-a-railgun)~~
 ----	~~[Enable or disable a Railgun](#railgun-enable-or-disable-a-railgun)~~
 ----	~~[Delete Railgun](#railgun-delete-railgun)~~
+
 ## [Custom Pages for a Zone](#custom-pages-for-a-zone)
 ----	~~[Available Custom Pages](#custom-pages-for-a-zone-available-custom-pages)~~
 ----	~~[Custom Page details](#custom-pages-for-a-zone-custom-page-details)~~
 ----	~~[Update Custom page URL](#custom-pages-for-a-zone-update-custom-page-url)~~
+
 ## [Custom SSL for a Zone](#custom-ssl-for-a-zone)
 ----	~~[Create SSL configuration](#custom-ssl-for-a-zone-create-ssl-configuration)~~
 ----	~~[List SSL configurations](#custom-ssl-for-a-zone-list-ssl-configurations)~~
@@ -141,46 +158,56 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 ----	~~[Update SSL configuration](#custom-ssl-for-a-zone-update-ssl-configuration)~~
 ----	~~[Re-prioritize SSL certificates](#custom-ssl-for-a-zone-re-prioritize-ssl-certificates)~~
 ----	~~[Delete an SSL certificate](#custom-ssl-for-a-zone-delete-an-ssl-certificate)~~
+
 ## [Keyless SSL for a Zone](#keyless-ssl-for-a-zone)
 ----	~~[Create a Keyless SSL configuration](#keyless-ssl-for-a-zone-create-a-keyless-ssl-configuration)~~
 ----	~~[List Keyless SSL Configurations](#keyless-ssl-for-a-zone-list-keyless-ssl-configurations)~~
 ----	~~[Keyless SSL details](#keyless-ssl-for-a-zone-keyless-ssl-details)~~
 ----	~~[Update Keyless configuration](#keyless-ssl-for-a-zone-update-keyless-configuration)~~
 ----	~~[Delete Keyless configuration](#keyless-ssl-for-a-zone-delete-keyless-configuration)~~
+
 ## [Firewall access rule for a Zone](#firewall-access-rule-for-a-zone)
 - [x] [List access rules](#firewall-access-rule-for-a-zone-list-access-rules)
 - [x] [Create access rule](#firewall-access-rule-for-a-zone-create-access-rule)
 - [x] [Update access rule](#firewall-access-rule-for-a-zone-update-access-rule)
 - [x] [Delete access rule](#firewall-access-rule-for-a-zone-delete-access-rule)
+
 ## [WAF Rule Packages](#waf-rule-packages)
 ----	~~[List firewall packages](#waf-rule-packages-list-firewall-packages)~~
 ----	~~[Firewall package info](#waf-rule-packages-firewall-package-info)~~
 ----	~~[Change anomaly-detection web application firewall package settings](#waf-rule-packages-change-anomaly-detection-web-application-firewall-package-settings)~~
+
 ## [WAF Rule Groups](#waf-rule-groups)
 ----	~~[List rule groups](#waf-rule-groups-list-rule-groups)~~
 ----	~~[Rule group info](#waf-rule-groups-rule-group-info)~~
 ----	~~[Update Rule group](#waf-rule-groups-update-rule-group)~~
+
 ## [WAF Rules](#waf-rules)
 ----	~~[List rules](#waf-rules-list-rules)~~
 ----	~~[Rule info](#waf-rules-rule-info)~~
 ----	~~[Update rule](#waf-rules-update-rule)~~
+
 ## [Organizations](#organizations)
 ----	~~[Organization details](#organizations-organization-details)~~
 ----	~~[Update organization](#organizations-update-organization)~~
+
 ## [Organization Members](#organization-members)
 ----	~~[List members](#organization-members-list-members)~~
 ----	~~[Member details](#organization-members-member-details)~~
 ----	~~[Update member roles](#organization-members-update-member-roles)~~
 ----	~~[Remove member](#organization-members-remove-member)~~
+
 ## [Organization Invites](#organization-invites)
 ----	~~[Create invitation](#organization-invites-create-invitation)~~
 ----	~~[List invitations](#organization-invites-list-invitations)~~
 ----	~~[Invitation details](#organization-invites-invitation-details)~~
 ----	~~[Update invitation roles](#organization-invites-update-invitation-roles)~~
 ----	~~[Cancel Invitation](#organization-invites-cancel-invitation)~~
+
 ## [Organization Roles](#organization-roles)
 ----	~~[List roles](#organization-roles-list-roles)~~
 ----	~~[Role details](#organization-roles-role-details)~~
+
 ## [Organization-level Firewall access rule](#organization-level-firewall-access-rule)
 ----	~~[List access rules](#organization-level-firewall-access-rule-list-access-rules)~~
 ----	~~[Create access rule](#organization-level-firewall-access-rule-create-access-rule)~~
