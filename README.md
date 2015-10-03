@@ -13,54 +13,54 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 - [x] [Update user](https://api.cloudflare.com/#user-update-user)
 
 ## [User Billing Profile](https://api.cloudflare.com/#user-billing-profile)
-- [ ] [Billing Profile](https://api.cloudflare.com/#user-billing-profile-billing-profile)
-- [ ] [Create billing profile](https://api.cloudflare.com/#user-billing-profile-create-billing-profile)
-- [ ] [Update billing profile](https://api.cloudflare.com/#user-billing-profile-update-billing-profile)
-- [ ] [Update particular elements of your billing profile](https://api.cloudflare.com/#user-billing-profile-update-particular-elements-of-your-billing-profile)
-- [ ] [Delete billing profile](https://api.cloudflare.com/#user-billing-profile-delete-billing-profile)
+- ~~[Billing Profile](https://api.cloudflare.com/#user-billing-profile-billing-profile)~~
+- ~~[Create billing profile](https://api.cloudflare.com/#user-billing-profile-create-billing-profile)~~
+- ~~[Update billing profile](https://api.cloudflare.com/#user-billing-profile-update-billing-profile)~~
+- ~~[Update particular elements of your billing profile](https://api.cloudflare.com/#user-billing-profile-update-particular-elements-of-your-billing-profile)~~
+- ~~[Delete billing profile](https://api.cloudflare.com/#user-billing-profile-delete-billing-profile)~~
 
 ## [User Billing History](https://api.cloudflare.com/#user-billing-history)
-- [ ] [Billing history](https://api.cloudflare.com/#user-billing-history-billing-history)
+- ~~[Billing history](https://api.cloudflare.com/#user-billing-history-billing-history)~~
 
 ## [App Subscription](https://api.cloudflare.com/#app-subscription)
-- [ ] [List](https://api.cloudflare.com/#app-subscription-list)
-- [ ] [Search, sort, and paginate](https://api.cloudflare.com/#app-subscription-search-sort-and-paginate)
-- [ ] [Info](https://api.cloudflare.com/#app-subscription-info)
+- ~~[List](https://api.cloudflare.com/#app-subscription-list)~~
+- ~~[Search, sort, and paginate](https://api.cloudflare.com/#app-subscription-search-sort-and-paginate)~~
+- ~~[Info](https://api.cloudflare.com/#app-subscription-info)~~
 
 ## [Zone Subscription](https://api.cloudflare.com/#zone-subscription)
-- [ ] [List](https://api.cloudflare.com/#zone-subscription-list)
-- [ ] [Search, sort, and paginate](https://api.cloudflare.com/#zone-subscription-search-sort-and-paginate)
-- [ ] [Info](https://api.cloudflare.com/#zone-subscription-info)
+- ~~[List](https://api.cloudflare.com/#zone-subscription-list)~~
+- ~~[Search, sort, and paginate](https://api.cloudflare.com/#zone-subscription-search-sort-and-paginate)~~
+- ~~[Info](https://api.cloudflare.com/#zone-subscription-info)~~
 
 ## [User-level Firewall access rule](https://api.cloudflare.com/#user-level-firewall-access-rule)
-- [ ] [List access rules](https://api.cloudflare.com/#user-level-firewall-access-rule-list-access-rules)
-- [ ] [Create access rule](https://api.cloudflare.com/#user-level-firewall-access-rule-create-access-rule)
-- [ ] [Update access rule](https://api.cloudflare.com/#user-level-firewall-access-rule-update-access-rule)
-- [ ] [Delete access rule](https://api.cloudflare.com/#user-level-firewall-access-rule-delete-access-rule)
+- [x] [List access rules](https://api.cloudflare.com/#user-level-firewall-access-rule-list-access-rules)
+- [x] [Create access rule](https://api.cloudflare.com/#user-level-firewall-access-rule-create-access-rule)
+- [x] [Update access rule](https://api.cloudflare.com/#user-level-firewall-access-rule-update-access-rule)
+- [x] [Delete access rule](https://api.cloudflare.com/#user-level-firewall-access-rule-delete-access-rule)
 
 ## [User&#x27;s Organizations](https://api.cloudflare.com/#user-s-organizations)
-- [ ] [List organizations](https://api.cloudflare.com/#user-s-organizations-list-organizations)
-- [ ] [Organization details](https://api.cloudflare.com/#user-s-organizations-organization-details)
-- [ ] [Leave organization](https://api.cloudflare.com/#user-s-organizations-leave-organization)
+- ~~[List organizations](https://api.cloudflare.com/#user-s-organizations-list-organizations)~~
+- ~~[Organization details](https://api.cloudflare.com/#user-s-organizations-organization-details)~~
+- ~~[Leave organization](https://api.cloudflare.com/#user-s-organizations-leave-organization)~~
 
 ## [User&#x27;s Invites](https://api.cloudflare.com/#user-s-invites)
-- [ ] [List invitations](https://api.cloudflare.com/#user-s-invites-list-invitations)
-- [ ] [Invitation details](https://api.cloudflare.com/#user-s-invites-invitation-details)
-- [ ] [Respond to Invitation](https://api.cloudflare.com/#user-s-invites-respond-to-invitation)
+- ~~[List invitations](https://api.cloudflare.com/#user-s-invites-list-invitations)~~
+- ~~[Invitation details](https://api.cloudflare.com/#user-s-invites-invitation-details)~~
+- ~~[Respond to Invitation](https://api.cloudflare.com/#user-s-invites-respond-to-invitation)~~
 
 ## [Zone](https://api.cloudflare.com/#zone)
-- [ ] [Create a zone](https://api.cloudflare.com/#zone-create-a-zone)
-- [ ] [Initiate another zone activation check](https://api.cloudflare.com/#zone-initiate-another-zone-activation-check)
-- [ ] [List zones](https://api.cloudflare.com/#zone-list-zones)
-- [ ] [Zone details](https://api.cloudflare.com/#zone-zone-details)
-- [ ] [Edit Zone Properties](https://api.cloudflare.com/#zone-edit-zone-properties)
-- [ ] [Purge all files](https://api.cloudflare.com/#zone-purge-all-files)
-- [ ] [Purge individual files by URL and Cache-Tags](https://api.cloudflare.com/#zone-purge-individual-files-by-url-and-cache-tags)
-- [ ] [Delete a zone](https://api.cloudflare.com/#zone-delete-a-zone)
+- [x] [Create a zone](https://api.cloudflare.com/#zone-create-a-zone)
+- [x] [Initiate another zone activation check](https://api.cloudflare.com/#zone-initiate-another-zone-activation-check)
+- [x] [List zones](https://api.cloudflare.com/#zone-list-zones)
+- [x] [Zone details](https://api.cloudflare.com/#zone-zone-details)
+- [x] [Edit Zone Properties](https://api.cloudflare.com/#zone-edit-zone-properties)
+- [x] [Purge all files](https://api.cloudflare.com/#zone-purge-all-files)
+- [x] [Purge individual files by URL and Cache-Tags](https://api.cloudflare.com/#zone-purge-individual-files-by-url-and-cache-tags)
+- [x] [Delete a zone](https://api.cloudflare.com/#zone-delete-a-zone)
 
 ## [Zone Plan](https://api.cloudflare.com/#zone-plan)
-- [ ] [Available plans](https://api.cloudflare.com/#zone-plan-available-plans)
-- [ ] [Plan details](https://api.cloudflare.com/#zone-plan-plan-details)
+- ~~[Available plans](https://api.cloudflare.com/#zone-plan-available-plans)~~
+- ~~[Plan details](https://api.cloudflare.com/#zone-plan-plan-details)~~
 
 ## [Zone Settings](https://api.cloudflare.com/#zone-settings)
 - [ ] [Get all Zone settings](https://api.cloudflare.com/#zone-settings-get-all-zone-settings)
@@ -167,10 +167,10 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 *	~~[Delete Keyless configuration](https://api.cloudflare.com/#keyless-ssl-for-a-zone-delete-keyless-configuration)~~
 
 ## [Firewall access rule for a Zone](https://api.cloudflare.com/#firewall-access-rule-for-a-zone)
-- [x] [List access rules](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules)
-- [x] [Create access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-create-access-rule)
-- [x] [Update access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-update-access-rule)
-- [x] [Delete access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-delete-access-rule)
+- [ ] [List access rules](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules)
+- [ ] [Create access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-create-access-rule)
+- [ ] [Update access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-update-access-rule)
+- [ ] [Delete access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-delete-access-rule)
 
 ## [WAF Rule Packages](https://api.cloudflare.com/#waf-rule-packages)
 *	~~[List firewall packages](https://api.cloudflare.com/#waf-rule-packages-list-firewall-packages)~~

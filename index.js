@@ -163,14 +163,59 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Create a zone
+	 *
+	 * https://api.cloudflare.com/#zone-create-a-zone
+	 */
+	zoneNew: function ($deferred, body, raw) {
+		$deferred.resolve(this._request({
+			body: {
+				name: Joi.string().max(253).required(),
+				jump_start: Joi.boolean(),
+				organization: Joi.object({
+					id: Joi.string().required().length(32),
+					name: Joi.string().max(100)
+				})
+			}
+		}, {
+			callee: 'zoneNew',
+			method: 'POST',
+			path: 'zones',
+			required: 'result',
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Initiate another zone activation check
+	 *
+	 * https://api.cloudflare.com/#zone-initiate-another-zone-activation-check
+	 */
+	zoneActivationCheckNew: function ($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneActivationCheck',
+			method: 'PUT',
+			path: 'zones/:identifier/activation_check',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
 	 * List zones
 	 *
-	 * List, search, sort, and filter your zones
+	 * https://api.cloudflare.com/#zone-list-zones
 	 */
-	zonesGetAll: function ($deferred, query, raw) {
+	zoneGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
-				name: Joi.string().length(253),
+				name: Joi.string().max(253),
 				status: Joi.any().valid('active', 'pending', 'initializing', 'moved', 'deleted', 'deactivated'),
 				order: Joi.any().valid('name', 'status', 'email'),
 				direction: Joi.any().valid('asc', 'desc'),
@@ -186,55 +231,185 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
-	 * Zone Subscription List
-	 * 
-	 * List all of your zone plan subscriptions
+	 * Zone details
+	 *
+	 * https://api.cloudflare.com/#zone-zone-details
 	 */
-	zonesSubscriptionGetAll: function ($deferred, query, raw) {
-		$deferred.resolve(this._request({
-			query: {
-				order: Joi.any().valid('created_on', 'expires_on', 'activated_on', 'renewed_on', 'cancelled_on', 'name', 'status', 'price'),
-				status: Joi.any().valid('active', 'expired', 'cancelled'),
-				price: Joi.number(),
-				// NOTE: for dates we may need custom validation or force date objects, and later convert to our format?
-				activated_on: Joi.string(),
-				expires_on: Joi.string(),
-				expired_on: Joi.string(),
-				cancelled_on: Joi.string(),
-				renewed_on: Joi.string(),
-				direction: Joi.any().valid('asc', 'desc'),
-				match: Joi.any().valid('any', 'all')
-			}
-		}, {
-			callee: 'zonesSubscriptionGetAll',
-			method: 'GET',
-			path: 'user/billing/subscriptions/zones',
-			required: 'result',
-			query: query || {}
-		}, raw));
-	},
-
-
-	/**
-	 * Zone Subscription Info
-	 * 
-	 * Billing subscription details
-	 */
-	zoneSubscriptionGet: function ($deferred, identifier, raw) {
+	zoneGet: function ($deferred, identifier, raw) {
 		$deferred.resolve(this._request({
 			params: {
-				identifier: Joi.string().required()
+				identifier: Joi.string().length(32).required()
 			}
 		}, {
-			callee: 'zoneSubscriptionGet',
+			callee: 'zoneGet',
 			method: 'GET',
-			path: 'user/billing/subscriptions/zones/:identifier',
+			path: 'zones/:identifier',
 			required: 'result',
 			params: {
 				identifier: identifier
 			}
 		}, raw));
 	},
+
+	/**
+	 * Zone update
+	 *
+	 * https://api.cloudflare.com/#zone-edit-zone-properties
+	 */
+	zoneUpdate: function($deferred, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			},
+			body: {
+				paused: Joi.boolean(),
+				vanity_name_servers: Joi.array(),
+				plan: {
+					id: Joi.string().max(32)
+				}
+			}
+		}, {
+			callee: 'zoneUpdate',
+			method: 'PATCH',
+			path: 'zones/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Zone purge cache
+	 *
+	 * https://api.cloudflare.com/#zone-purge-all-files
+	 */
+	zonePurgeCache: function($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			},
+			body: {
+				purge_everything: Joi.boolean().required()
+			}
+		}, {
+			callee: 'zonePurgeCache',
+			method: 'DELETE',
+			path: 'zones/:identifier/purge_cache',
+			required: 'result',
+			params: {
+				identifier: identifier
+			},
+			body: {
+				purge_everything: true
+			}
+		}, raw));
+	},
+
+	/**
+	 * Zone purge cachge by URL or Cache-Tags
+	 *
+	 * https://api.cloudflare.com/#zone-purge-individual-files-by-url-and-cache-tags
+	 */
+	zonePurgeCacheBy: function($deferred, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.alternatives().try(
+				{
+					files: Joi.array().max(30).required()
+				},
+				{
+					tags: Joi.array().max(30).required()
+				}
+			).required()
+		}, {
+			callee: 'zonePurgeCacheBy',
+			method: 'DELETE',
+			path: 'zones/:identifier/purge_cache',
+			required: 'result',
+			params: {
+				identifier: identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Zone delete
+	 *
+	 * https://api.cloudflare.com/#zone-delete-a-zone
+	 */
+	zoneDestroy: function($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneDestroy',
+			method: 'DELETE',
+			path: 'zones/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	//PUT /zones/:identifier/activation_check
+
+	// /**
+	//  * Zone Subscription List
+	//  * 
+	//  * List all of your zone plan subscriptions
+	//  */
+	// zonesSubscriptionGetAll: function ($deferred, query, raw) {
+	// 	$deferred.resolve(this._request({
+	// 		query: {
+	// 			order: Joi.any().valid('created_on', 'expires_on', 'activated_on', 'renewed_on', 'cancelled_on', 'name', 'status', 'price'),
+	// 			status: Joi.any().valid('active', 'expired', 'cancelled'),
+	// 			price: Joi.number(),
+	// 			// NOTE: for dates we may need custom validation or force date objects, and later convert to our format?
+	// 			activated_on: Joi.string(),
+	// 			expires_on: Joi.string(),
+	// 			expired_on: Joi.string(),
+	// 			cancelled_on: Joi.string(),
+	// 			renewed_on: Joi.string(),
+	// 			direction: Joi.any().valid('asc', 'desc'),
+	// 			match: Joi.any().valid('any', 'all')
+	// 		}
+	// 	}, {
+	// 		callee: 'zonesSubscriptionGetAll',
+	// 		method: 'GET',
+	// 		path: 'user/billing/subscriptions/zones',
+	// 		required: 'result',
+	// 		query: query || {}
+	// 	}, raw));
+	// },
+
+
+	// /**
+	//  * Zone Subscription Info
+	//  * 
+	//  * Billing subscription details
+	//  */
+	// zoneSubscriptionGet: function ($deferred, identifier, raw) {
+	// 	$deferred.resolve(this._request({
+	// 		params: {
+	// 			identifier: Joi.string().required()
+	// 		}
+	// 	}, {
+	// 		callee: 'zoneSubscriptionGet',
+	// 		method: 'GET',
+	// 		path: 'user/billing/subscriptions/zones/:identifier',
+	// 		required: 'result',
+	// 		params: {
+	// 			identifier: identifier
+	// 		}
+	// 	}, raw));
+	// },
 
 	/**
 	 * List firewall access rules
@@ -341,7 +516,23 @@ var CloudFlare = PromiseObject.create({
 				identifier: identifier
 			}
 		}, raw));
-	}
+	},
+
+	
+	// /**
+	//  * Get user billing profile
+	//  *
+	//  * https://api.cloudflare.com/#user-billing-profile-billing-profile
+	//  */
+	// userBillingProdileGet: function ($deferred, raw) {
+	// 	$deferred.resolve(this._request(null, {
+	// 		callee: 'userBillingProdileGet',
+	// 		method: 'GET',
+	// 		path: 'user/billing/profile',
+	// 		required: 'result'
+	// 	}, raw));
+	// },
+
 });
 
 module.exports = CloudFlare;
