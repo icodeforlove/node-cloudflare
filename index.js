@@ -149,7 +149,9 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
-	 * Get User Information
+	 * User details
+	 *
+	 * The currently logged in/authenticated User
 	 */
 	userGet: function ($deferred, raw) {
 		$deferred.resolve(this._request(null, {
@@ -160,6 +162,11 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+	/**
+	 * List zones
+	 *
+	 * List, search, sort, and filter your zones
+	 */
 	zonesGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
@@ -178,6 +185,11 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+	/**
+	 * Zone Subscription List
+	 * 
+	 * List all of your zone plan subscriptions
+	 */
 	zonesSubscriptionGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
@@ -202,6 +214,12 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+
+	/**
+	 * Zone Subscription Info
+	 * 
+	 * Billing subscription details
+	 */
 	zoneSubscriptionGet: function ($deferred, identifier, raw) {
 		$deferred.resolve(this._request({
 			params: {
@@ -218,6 +236,11 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+	/**
+	 * List firewall access rules
+	 *
+	 * Search, sort, and filter IP/country access rules
+	 */
 	firewallAccessRulesGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
@@ -237,6 +260,14 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+	/**
+	 * Create firewall access rule
+	 *
+	 * Make a new IP, IP range, or country access rule for the zone. 
+	 * 
+	 * Note: If you would like to create an access rule that applies across all of your owned zones, 
+	 * use the user or organization firewall endpoints as appropriate.
+	 */
 	firewallAccessRuleNew: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
 			body: {
@@ -256,6 +287,12 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+	/**
+	 * Update firewall access rule
+	 *
+	 * Update rule state and/or configuration for the zone. Note: you can only edit rules in the 'zone' group via this endpoint.
+	 * Use the appropriate owner rules endpoint if trying to manage owner-level rules
+	 */
 	firewallAccessRuleUpdate: function($deferred, identifier, body, raw) {
 		$deferred.resolve(this._request({
 			params: {
@@ -281,6 +318,15 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+	/**
+	 * Delete firewall access rule
+	 *
+	 * Remove an access rule so it is no longer evaluated during requests. Optionally, specify 
+	 * how to delete rules that match the mode and configuration across all other zones that this 
+	 * zone owner manages. 'none' is the default, and will only delete this rule. 'basic' will delete 
+	 * rules that match the same mode and configuration. 'aggressive' will delete rules that match 
+	 * the same configuration.
+	 */
 	firewallAccessRuleDestroy: function($deferred, identifier, raw) {
 		$deferred.resolve(this._request({
 			params: {
