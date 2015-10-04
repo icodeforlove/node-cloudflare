@@ -1,6 +1,113 @@
-# CloudFlare API v4
+# Cloudflare4
 
-This is a work in progress, but i do actively intend on creating a 100% complete api wrapper for v4
+** I am still trying to impliment paid tier endpoints, and i am having trouble as i do no have access to paid tier accounts. If you want to assist me you can do so here [#2](https://github.com/icodeforlove/cloudflare4/issues/2)  **
+
+The Cloudflare4 module allows you to communicate with the [CloudFlare V4 API](https://api.cloudflare.com) from node.js in a promise friendly manner.
+
+It also supports automatic request retries.
+
+## Installation
+
+This module is published in NPM:
+
+```
+npm install cloudflare4 --save
+```
+
+The `--save` tells NPM to automatically add it to your `package.json` file
+
+## Usage
+
+```js
+// Import a module
+var CloudFlareAPI = require('cloudflare4');
+
+// Create an instance with your API V4 credentials
+var api = new CloudFlareAPI({email: 'email@domain.com', key: 'my_key'});
+
+// Get things done
+api.firewallAccessRulesGetAll().then(function (rules) {
+	console.log(rules);
+});
+```
+
+## Config
+```js
+new CloudFlare({
+	email: 'email@domain.com',
+	key: 'my_key',
+	itemsPerPage: 100, // default=100
+	maxRetries: 5, // default=5
+	raw: false // default=false
+});
+```
+
+## Pagination
+you can pass pagination params into any method that has a `body` or `query` argument.
+
+```js
+api.firewallAccessRulesGetAll({per_page: 1, page: 2}).then(function (rules) {
+	console.log(rules);
+});
+```
+
+## Raw
+if you set raw it will return the full response body including pagination details
+
+```js
+api.userGet(true)
+```
+
+would return
+```
+{
+	result: { 
+		id: 'dc19c3231tds452eb4ebc123d6eb4c99',
+		email: 'email@domain.com',
+		username: 'username',
+		first_name: 'Foo',
+		last_name: 'Bar',
+		telephone: '5555555555',
+		country: null,
+		zipcode: null,
+		two_factor_authentication_enabled: false,
+		two_factor_authentication_locked: false,
+		created_on: '2014-09-29T13:21:56.807670Z',
+		modified_on: '2015-10-04T00:02:50.855108Z',
+		organizations: null,
+		has_pro_zones: true,
+		has_business_zones: false,
+		has_enterprise_zones: false
+	},
+	success: true,
+	errors: [],
+	messages: []
+}
+```
+
+and with raw set to false (the default), it would return
+
+```
+	{
+		droplet_limit: 25,
+		email: 'email@domain.com',
+		uuid: 'f5bbaffce3a8792421593a7075b486bafd66672f',
+		email_verified: true
+	}
+```
+
+## Debugging
+we use the debug module so you can debug the http requests by doing the following
+
+```
+DEBUG=http node myfile.js
+```
+
+also all methods enforce type checking so invalid usage would result in errors like this
+
+## Methods
+
+All methods follow the [official API documentation](https://api.cloudflare.com/).
 
 ## [User](https://api.cloudflare.com/#user)
 - [userGet([Boolean raw])](https://api.cloudflare.com/#user-user-details)
