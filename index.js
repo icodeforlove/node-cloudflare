@@ -151,7 +151,7 @@ var CloudFlare = PromiseObject.create({
 	/**
 	 * Get user details
 	 *
-	 * The currently logged in/authenticated User
+	 * https://api.cloudflare.com/#user-user-details
 	 */
 	userGet: function ($deferred, raw) {
 		$deferred.resolve(this._request(null, {
@@ -165,7 +165,7 @@ var CloudFlare = PromiseObject.create({
 	/**
 	 * Update user details
 	 *
-	 * The currently logged in/authenticated User
+	 * https://api.cloudflare.com/#user-update-user
 	 */
 	userUpdate: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
@@ -1076,7 +1076,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update hotlink protection setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-hotlink-protection-setting
-	 * hotlink_protection
 	 */
 	zoneSettingsHotlinkProtectionUpdate: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1102,7 +1101,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update IP geolocation setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-ip-geolocation-setting
-	 * ip_geolocation
 	 */
 	zoneSettingsIPGeolocationUpdate: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1128,7 +1126,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update ipv6 setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-ipv6-setting
-	 * ipv6
 	 */
 	zoneSettingsIPv6Update: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1154,7 +1151,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update minify setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-minify-setting
-	 * minify
 	 */
 	zoneSettingsMinifyUpdate: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1184,7 +1180,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update mobile redirect setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-mobile-redirect-setting
-	 * mobile_redirect
 	 */
 	zoneSettingsMobileRedirectUpdate: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1214,7 +1209,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update mirage setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-mirage-setting
-	 * mirage
 	 */
 	zoneSettingsMirageUpdate: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1240,7 +1234,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update polish setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-polish-setting
-	 * polish
 	 */
 	zoneSettingsPolishUpdate: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1266,7 +1259,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update rocket loader setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-rocket-loader-setting
-	 * rocket_loader
 	 */
 	zoneSettingsRocketLoaderUpdate: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1292,7 +1284,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update security header setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-security-header-hsts-setting
-	 * security_header
 	 */
 	zoneSettingsSecurityHeaderUpdate: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1326,7 +1317,6 @@ var CloudFlare = PromiseObject.create({
 	 * Update security level setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-security-level-setting
-	 * security_level
 	 */
 	zoneSettingsSecurityLevelUpdate: function($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
@@ -1403,38 +1393,6 @@ var CloudFlare = PromiseObject.create({
 			body: body
 		}, raw));
 	},
-
-	// /**
-	//  * Update TLS client auth setting for zone
-	//  *
-	//  * https://api.cloudflare.com/#zone-settings-change-tls-client-auth-setting
-	//  * tls_client_auth
-	//  */
-	// zoneSettingsTLSClientAuthUpdate: function($deferred, zone_identifier, body, raw) {
-	// 	$deferred.resolve(this._request({
-	// 		params: {
-	// 			zone_identifier: Joi.string().length(32).required()
-	// 		},
-	// 		body: {
-	// 			value: Joi.object({
-	// 				id: Joi.string().valid('tls_client_auth'),
-	// 				value: Joi.string().valid('on', 'off').required(),
-	// 				editable: Joi.boolean(),
-	// 				modified_on: Joi.string()
-	// 			}).required()
-	// 		}
-	// 	}, {
-	// 		callee: 'zoneSettingsTLSClientAuthUpdate',
-	// 		method: 'PATCH',
-	// 		path: 'zones/:zone_identifier/settings/tls_client_auth',
-	// 		required: 'result',
-	// 		params: {
-	// 			zone_identifier: zone_identifier
-	// 		},
-	// 		body: body
-	// 	}, raw));
-	// },
-	// 
 
 	/**
 	 * List DNS records for zone
@@ -1668,7 +1626,7 @@ var CloudFlare = PromiseObject.create({
 		$deferred.resolve(this._request({
 			params: {
 				zone_identifier: Joi.string().length(32).required(),
-				identifier: Joi.string().required()
+				identifier: Joi.string().length(32).required()
 			},
 			body: {
 				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
@@ -1700,7 +1658,7 @@ var CloudFlare = PromiseObject.create({
 		$deferred.resolve(this._request({
 			params: {
 				zone_identifier: Joi.string().length(32).required(),
-				identifier: Joi.string().required()
+				identifier: Joi.string().length(32).required()
 			}
 		}, {
 			callee: 'zoneFirewallAccessRuleDestroy',
@@ -1713,57 +1671,6 @@ var CloudFlare = PromiseObject.create({
 			},
 		}, raw));
 	},
-
-	// /**
-	//  * Zone Subscription List
-	//  * 
-	//  * List all of your zone plan subscriptions
-	//  */
-	// zonesSubscriptionGetAll: function ($deferred, query, raw) {
-	// 	$deferred.resolve(this._request({
-	// 		query: {
-	// 			order: Joi.any().valid('created_on', 'expires_on', 'activated_on', 'renewed_on', 'cancelled_on', 'name', 'status', 'price'),
-	// 			status: Joi.any().valid('active', 'expired', 'cancelled'),
-	// 			price: Joi.number(),
-	// 			// NOTE: for dates we may need custom validation or force date objects, and later convert to our format?
-	// 			activated_on: Joi.string(),
-	// 			expires_on: Joi.string(),
-	// 			expired_on: Joi.string(),
-	// 			cancelled_on: Joi.string(),
-	// 			renewed_on: Joi.string(),
-	// 			direction: Joi.any().valid('asc', 'desc'),
-	// 			match: Joi.any().valid('any', 'all')
-	// 		}
-	// 	}, {
-	// 		callee: 'zonesSubscriptionGetAll',
-	// 		method: 'GET',
-	// 		path: 'user/billing/subscriptions/zones',
-	// 		required: 'result',
-	// 		query: query || {}
-	// 	}, raw));
-	// },
-
-
-	// /**
-	//  * Zone Subscription Info
-	//  * 
-	//  * Billing subscription details
-	//  */
-	// zoneSubscriptionGet: function ($deferred, identifier, raw) {
-	// 	$deferred.resolve(this._request({
-	// 		params: {
-	// 			identifier: Joi.string().required()
-	// 		}
-	// 	}, {
-	// 		callee: 'zoneSubscriptionGet',
-	// 		method: 'GET',
-	// 		path: 'user/billing/subscriptions/zones/:identifier',
-	// 		required: 'result',
-	// 		params: {
-	// 			identifier: identifier
-	// 		}
-	// 	}, raw));
-	// },
 
 	/**
 	 * List firewall access rules for user
@@ -1821,7 +1728,7 @@ var CloudFlare = PromiseObject.create({
 	userFirewallAccessRuleUpdate: function($deferred, identifier, body, raw) {
 		$deferred.resolve(this._request({
 			params: {
-				identifier: Joi.string().required()
+				identifier: Joi.string().length(32).required()
 			},
 			body: {
 				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
@@ -1851,7 +1758,7 @@ var CloudFlare = PromiseObject.create({
 	userFirewallAccessRuleDestroy: function($deferred, identifier, raw) {
 		$deferred.resolve(this._request({
 			params: {
-				identifier: Joi.string().required()
+				identifier: Joi.string().length(32).required()
 			}
 		}, {
 			callee: 'userFirewallAccessRuleDestroy',
@@ -1862,23 +1769,7 @@ var CloudFlare = PromiseObject.create({
 				identifier: identifier
 			}
 		}, raw));
-	},
-
-	
-	// /**
-	//  * Get user billing profile
-	//  *
-	//  * https://api.cloudflare.com/#user-billing-profile-billing-profile
-	//  */
-	// userBillingProdileGet: function ($deferred, raw) {
-	// 	$deferred.resolve(this._request(null, {
-	// 		callee: 'userBillingProdileGet',
-	// 		method: 'GET',
-	// 		path: 'user/billing/profile',
-	// 		required: 'result'
-	// 	}, raw));
-	// },
-
+	}
 });
 
 module.exports = CloudFlare;
