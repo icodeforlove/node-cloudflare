@@ -2,15 +2,9 @@
 
 This is a work in progress, but i do actively intend on creating a 100% complete api wrapper for v4
 
-# TODO LIST
-
-At the moment I can only flesh out the free endpoints, I have marked all the paid ones with a ~~strikethrough~~.
-
-
-
 ## [User](https://api.cloudflare.com/#user)
-- [x] [User details](https://api.cloudflare.com/#user-user-details)
-- [x] [Update user](https://api.cloudflare.com/#user-update-user)
+- [userGet([Boolean raw])](https://api.cloudflare.com/#user-user-details)
+- [userUpdate(Object body [, Boolean raw])](https://api.cloudflare.com/#user-update-user)
 
 ## [User Billing Profile](https://api.cloudflare.com/#user-billing-profile)
 - ~~[Billing Profile](https://api.cloudflare.com/#user-billing-profile-billing-profile)~~
@@ -33,10 +27,10 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 - ~~[Info](https://api.cloudflare.com/#zone-subscription-info)~~
 
 ## [User-level Firewall access rule](https://api.cloudflare.com/#user-level-firewall-access-rule)
-- [x] [List access rules](https://api.cloudflare.com/#user-level-firewall-access-rule-list-access-rules)
-- [x] [Create access rule](https://api.cloudflare.com/#user-level-firewall-access-rule-create-access-rule)
-- [x] [Update access rule](https://api.cloudflare.com/#user-level-firewall-access-rule-update-access-rule)
-- [x] [Delete access rule](https://api.cloudflare.com/#user-level-firewall-access-rule-delete-access-rule)
+- [userFirewallAccessRuleGetAll([Object query, Boolean raw])](https://api.cloudflare.com/#user-level-firewall-access-rule-list-access-rules)
+- [userFirewallAccessRuleNew(Object body [, Boolean raw])](https://api.cloudflare.com/#user-level-firewall-access-rule-create-access-rule)
+- [userFirewallAccessRuleUpdate(String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#user-level-firewall-access-rule-update-access-rule)
+- [userFirewallAccessRuleDestroy(String identifier [, Boolean raw])](https://api.cloudflare.com/#user-level-firewall-access-rule-delete-access-rule)
 
 ## [User&#x27;s Organizations](https://api.cloudflare.com/#user-s-organizations)
 - ~~[List organizations](https://api.cloudflare.com/#user-s-organizations-list-organizations)~~
@@ -49,84 +43,84 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 - ~~[Respond to Invitation](https://api.cloudflare.com/#user-s-invites-respond-to-invitation)~~
 
 ## [Zone](https://api.cloudflare.com/#zone)
-- [x] [Create a zone](https://api.cloudflare.com/#zone-create-a-zone)
-- [x] [Initiate another zone activation check](https://api.cloudflare.com/#zone-initiate-another-zone-activation-check)
-- [x] [List zones](https://api.cloudflare.com/#zone-list-zones)
-- [x] [Zone details](https://api.cloudflare.com/#zone-zone-details)
-- [x] [Edit Zone Properties](https://api.cloudflare.com/#zone-edit-zone-properties)
-- [x] [Purge all files](https://api.cloudflare.com/#zone-purge-all-files)
-- [x] [Purge individual files by URL and Cache-Tags](https://api.cloudflare.com/#zone-purge-individual-files-by-url-and-cache-tags)
-- [x] [Delete a zone](https://api.cloudflare.com/#zone-delete-a-zone)
+- [zoneNew(Object body [, Boolean raw])](https://api.cloudflare.com/#zone-create-a-zone)
+- [zoneActivationCheckNew(String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-initiate-another-zone-activation-check)
+- [zoneGetAll([Object query, Boolean raw])](https://api.cloudflare.com/#zone-list-zones)
+- [zoneGet(String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-zone-details)
+- [zoneUpdate(String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-edit-zone-properties)
+- [zonePurgeCache(String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-purge-all-files)
+- [zonePurgeCacheBy(String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-purge-individual-files-by-url-and-cache-tags)
+- [zoneDestroy(String identifier, [, Boolean raw])](https://api.cloudflare.com/#zone-delete-a-zone)
 
 ## [Zone Plan](https://api.cloudflare.com/#zone-plan)
 - ~~[Available plans](https://api.cloudflare.com/#zone-plan-available-plans)~~
 - ~~[Plan details](https://api.cloudflare.com/#zone-plan-plan-details)~~
 
 ## [Zone Settings](https://api.cloudflare.com/#zone-settings)
-- [x] [Get all Zone settings](https://api.cloudflare.com/#zone-settings-get-all-zone-settings)
+- [zoneSettingsGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-all-zone-settings)
 *	~~[Get Advanced DDOS setting](https://api.cloudflare.com/#zone-settings-get-advanced-ddos-setting)~~
-- [x] [Get Always Online setting](https://api.cloudflare.com/#zone-settings-get-always-online-setting)
-- [x] [Get Browser Cache TTL setting](https://api.cloudflare.com/#zone-settings-get-browser-cache-ttl-setting)
-- [x] [Get Browser Check setting](https://api.cloudflare.com/#zone-settings-get-browser-check-setting)
-- [x] [Get Cache Level setting](https://api.cloudflare.com/#zone-settings-get-cache-level-setting)
-- [x] [Get Challenge TTL setting](https://api.cloudflare.com/#zone-settings-get-challenge-ttl-setting)
-- [x] [Get Development Mode setting](https://api.cloudflare.com/#zone-settings-get-development-mode-setting)
-- [x] [Get Email Obfuscation setting](https://api.cloudflare.com/#zone-settings-get-email-obfuscation-setting)
-- [x] [Get Hotlink Protection setting](https://api.cloudflare.com/#zone-settings-get-hotlink-protection-setting)
-- [x] [Get IP Geolocation setting](https://api.cloudflare.com/#zone-settings-get-ip-geolocation-setting)
-- [x] [Get IPv6 setting](https://api.cloudflare.com/#zone-settings-get-ipv6-setting)
-- [x] [Get Minify setting](https://api.cloudflare.com/#zone-settings-get-minify-setting)
-- [x] [Get Mobile Redirect setting](https://api.cloudflare.com/#zone-settings-get-mobile-redirect-setting)
-- [x] [Get Mirage setting](https://api.cloudflare.com/#zone-settings-get-mirage-setting)
+- [zoneSettingsAlwaysOnlineGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-always-online-setting)
+- [zoneSettingsBrowserCacheTTLGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-browser-cache-ttl-setting)
+- [zoneSettingsBrowserCheckGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-browser-check-setting)
+- [zoneSettingsCacheLevelGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-cache-level-setting)
+- [zoneSettingsChallengeTTLGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-challenge-ttl-setting)
+- [zoneSettingsDevelopmentModeGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-development-mode-setting)
+- [zoneSettingsEmailObfuscationGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-email-obfuscation-setting)
+- [zoneSettingsHotlinkProtectionGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-hotlink-protection-setting)
+- [zoneSettingsIPGeolocationGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-ip-geolocation-setting)
+- [zoneSettingsIPv6Get(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-ipv6-setting)
+- [zoneSettingsMinifyGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-minify-setting)
+- [zoneSettingsMobileRedirectGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-mobile-redirect-setting)
+- [zoneSettingsMirageGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-mirage-setting)
 *	~~[Get Enable Error Pages On setting](https://api.cloudflare.com/#zone-settings-get-enable-error-pages-on-setting)~~
-- [x] [Get Polish setting](https://api.cloudflare.com/#zone-settings-get-polish-setting)
+- [zoneSettingsPolishGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-polish-setting)
 *	~~[Get Prefetch Preload setting](https://api.cloudflare.com/#zone-settings-get-prefetch-preload-setting)~~
 *	~~[Get Response Buffering setting](https://api.cloudflare.com/#zone-settings-get-response-buffering-setting)~~
-- [x] [Get Rocket Loader setting](https://api.cloudflare.com/#zone-settings-get-rocket-loader-setting)
-- [x] [Get Security Header (HSTS) setting](https://api.cloudflare.com/#zone-settings-get-security-header-hsts-setting)
-- [x] [Get Security Level setting](https://api.cloudflare.com/#zone-settings-get-security-level-setting)
-- [x] [Get Server Side Exclude setting](https://api.cloudflare.com/#zone-settings-get-server-side-exclude-setting)
+- [zoneSettingsRocketLoaderGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-rocket-loader-setting)
+- [zoneSettingsSecurityHeaderGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-security-header-hsts-setting)
+- [zoneSettingsSecurityLevelGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-security-level-setting)
+- [zoneSettingsServerSideExcludeGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-server-side-exclude-setting)
 *	~~[Get Enable Query String Sort setting](https://api.cloudflare.com/#zone-settings-get-enable-query-string-sort-setting)~~
-- [x] [Get SSL setting](https://api.cloudflare.com/#zone-settings-get-ssl-setting)
+- [zoneSettingsSSLGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-ssl-setting)
 *	~~[Get Zone Enable TLS 1.2 setting](https://api.cloudflare.com/#zone-settings-get-zone-enable-tls-1-2-setting)~~
-- [x] [Get TLS Client Auth setting](https://api.cloudflare.com/#zone-settings-get-tls-client-auth-setting)
+- [zoneSettingsTLSClientAuthGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-tls-client-auth-setting)
 *	~~[Get True Client IP setting](https://api.cloudflare.com/#zone-settings-get-true-client-ip-setting)~~
 *	~~[Get Web Application Firewall (WAF) setting](https://api.cloudflare.com/#zone-settings-get-web-application-firewall-waf-setting)~~
-- [x] [Edit zone settings info](https://api.cloudflare.com/#zone-settings-edit-zone-settings-info)
-- [x] [Change Always Online setting](https://api.cloudflare.com/#zone-settings-change-always-online-setting)
-- [x] [Change Browser Cache TTL setting](https://api.cloudflare.com/#zone-settings-change-browser-cache-ttl-setting)
-- [x] [Change Browser Check setting](https://api.cloudflare.com/#zone-settings-change-browser-check-setting)
-- [x] [Change Cache Level setting](https://api.cloudflare.com/#zone-settings-change-cache-level-setting)
-- [x] [Change Challenge TTL setting](https://api.cloudflare.com/#zone-settings-change-challenge-ttl-setting)
-- [x] [Change Development Mode setting](https://api.cloudflare.com/#zone-settings-change-development-mode-setting)
-- [x] [Change Email Obfuscation setting](https://api.cloudflare.com/#zone-settings-change-email-obfuscation-setting)
+- [zoneSettingsUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-edit-zone-settings-info)
+- [zoneSettingsAlwaysOnlineUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-always-online-setting)
+- [zoneSettingsBrowserCacheTTLUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-browser-cache-ttl-setting)
+- [zoneSettingsBrowserCheckUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-browser-check-setting)
+- [zoneSettingsCacheLevelUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-cache-level-setting)
+- [zoneSettingsChallengeTTLUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-challenge-ttl-setting)
+- [zoneSettingsDevelopmentModeUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-development-mode-setting)
+- [zoneSettingsEmailObfuscationUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-email-obfuscation-setting)
 *	~~[Change Enable Error Pages On setting](https://api.cloudflare.com/#zone-settings-change-enable-error-pages-on-setting)~~
 *	~~[Change Enable Query String Sort setting](https://api.cloudflare.com/#zone-settings-change-enable-query-string-sort-setting)~~
-- [x] [Change Hotlink Protection setting](https://api.cloudflare.com/#zone-settings-change-hotlink-protection-setting)
-- [x] [Change IP Geolocation setting](https://api.cloudflare.com/#zone-settings-change-ip-geolocation-setting)
-- [x] [Change IPv6 setting](https://api.cloudflare.com/#zone-settings-change-ipv6-setting)
-- [x] [Change Minify setting](https://api.cloudflare.com/#zone-settings-change-minify-setting)
-- [x] [Change Mobile Redirect setting](https://api.cloudflare.com/#zone-settings-change-mobile-redirect-setting)
-- [x] [Change Mirage setting](https://api.cloudflare.com/#zone-settings-change-mirage-setting)
-- [x] [Change Polish setting](https://api.cloudflare.com/#zone-settings-change-polish-setting)
+- [zoneSettingsHotlinkProtectionUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-hotlink-protection-setting)
+- [zoneSettingsIPGeolocationUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-ip-geolocation-setting)
+- [zoneSettingsIPv6Update(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-ipv6-setting)
+- [zoneSettingsMinifyUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-minify-setting)
+- [zoneSettingsMobileRedirectUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-mobile-redirect-setting)
+- [zoneSettingsMirageUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-mirage-setting)
+- [zoneSettingsPolishUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-polish-setting)
 *	~~[Change Prefetch Preload setting](https://api.cloudflare.com/#zone-settings-change-prefetch-preload-setting)~~
 *	~~[Change Response Buffering setting](https://api.cloudflare.com/#zone-settings-change-response-buffering-setting)~~
-- [x] [Change Rocket Loader setting](https://api.cloudflare.com/#zone-settings-change-rocket-loader-setting)
-- [x] [Change Security Header (HSTS) setting](https://api.cloudflare.com/#zone-settings-change-security-header-hsts-setting)
-- [x] [Change Security Level setting](https://api.cloudflare.com/#zone-settings-change-security-level-setting)
-- [x] [Change Server Side Exclude setting](https://api.cloudflare.com/#zone-settings-change-server-side-exclude-setting)
-- [x] [Change SSL setting](https://api.cloudflare.com/#zone-settings-change-ssl-setting)
+- [zoneSettingsRocketLoaderUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-rocket-loader-setting)
+- [zoneSettingsSecurityHeaderUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-security-header-hsts-setting)
+- [zoneSettingsSecurityLevelUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-security-level-setting)
+- [zoneSettingsServerSideExcludeUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-server-side-exclude-setting)
+- [zoneSettingsSSLUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-ssl-setting)
 *	~~[Change TLS Client Auth setting](https://api.cloudflare.com/#zone-settings-change-tls-client-auth-setting)~~
 *	~~[Change True Client IP setting](https://api.cloudflare.com/#zone-settings-change-true-client-ip-setting)~~
 *	~~[Change TLS 1.2 setting](https://api.cloudflare.com/#zone-settings-change-tls-1-2-setting)~~
 *	~~[Change Web Application Firewall (WAF) setting](https://api.cloudflare.com/#zone-settings-change-web-application-firewall-waf-setting)~~
 
 ## [DNS Records for a Zone](https://api.cloudflare.com/#dns-records-for-a-zone)
-- [x] [Create DNS record](https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record)
-- [x] [List DNS Records](https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records)
-- [x] [DNS record details](https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details)
-- [x] [Update DNS record](https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record)
-- [x] [Delete DNS record](https://api.cloudflare.com/#dns-records-for-a-zone-delete-dns-record)
+- [zoneDNSRecordNew(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record)
+- [zoneDNSRecordGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records)
+- [zoneDNSRecordGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details)
+- [zoneDNSRecordUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record)
+- [zoneDNSRecordDestroy(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#dns-records-for-a-zone-delete-dns-record)
 
 ## [Railgun connections for a Zone](https://api.cloudflare.com/#railgun-connections-for-a-zone)
 *	~~[Get available Railguns](https://api.cloudflare.com/#railgun-connections-for-a-zone-get-available-railguns)~~
@@ -135,7 +129,7 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 *	~~[Connect or disconnect a Railgun](https://api.cloudflare.com/#railgun-connections-for-a-zone-connect-or-disconnect-a-railgun)~~
 
 ## [Zone Analytics](https://api.cloudflare.com/#zone-analytics)
-- [x] [Dashboard](https://api.cloudflare.com/#zone-analytics-dashboard)
+- [zoneAnalyticsDashboardGet(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-analytics-dashboard)
 *	~~[Analytics by Co-locations](https://api.cloudflare.com/#zone-analytics-analytics-by-co-locations)~~
 
 ## [Railgun](https://api.cloudflare.com/#railgun)
@@ -166,11 +160,11 @@ At the moment I can only flesh out the free endpoints, I have marked all the pai
 *	~~[Update Keyless configuration](https://api.cloudflare.com/#keyless-ssl-for-a-zone-update-keyless-configuration)~~
 *	~~[Delete Keyless configuration](https://api.cloudflare.com/#keyless-ssl-for-a-zone-delete-keyless-configuration)~~
 
-## [Firewall access rule for a Zone](https://api.cloudflare.com/#firewall-access-rule-for-a-zone)
-- [x] [List access rules](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules)
-- [x] [Create access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-create-access-rule)
-- [x] [Update access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-update-access-rule)
-- [x] [Delete access rule](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-delete-access-rule)
+## [Firewall access rule for a Zone](https://api.cloudflare.com/#firewall-access-rule-for-a-
+- [zoneFirewallAccessRuleGetAll(String zone_identifier, [Object query, Boolean raw])](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules)
+- [zoneFirewallAccessRuleNew(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-create-access-rule)
+- [zoneFirewallAccessRuleUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-update-access-rule)
+- [zoneFirewallAccessRuleDestroy(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-delete-access-rule)
 
 ## [WAF Rule Packages](https://api.cloudflare.com/#waf-rule-packages)
 *	~~[List firewall packages](https://api.cloudflare.com/#waf-rule-packages-list-firewall-packages)~~

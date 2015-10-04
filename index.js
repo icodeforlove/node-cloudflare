@@ -149,7 +149,7 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
-	 * User details
+	 * Get user details
 	 *
 	 * The currently logged in/authenticated User
 	 */
@@ -159,6 +159,29 @@ var CloudFlare = PromiseObject.create({
 			method: 'GET',
 			path: 'user',
 			required: 'result'
+		}, raw));
+	},
+
+	/**
+	 * Update user details
+	 *
+	 * The currently logged in/authenticated User
+	 */
+	userUpdate: function ($deferred, body, raw) {
+		$deferred.resolve(this._request({
+			body: {
+				first_name: Joi.string().max(60),
+				last_name: Joi.string().max(60),
+				telephone: Joi.string().max(20),
+				country: Joi.string().max(30),
+				zipcode: Joi.string().max(20)
+			}
+		}, {
+			callee: 'userGet',
+			method: 'PATCH',
+			path: 'user',
+			required: 'result',
+			body: body || {}
 		}, raw));
 	},
 
@@ -1576,8 +1599,6 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
-
-
 	/**
 	 * List firewall access rules for zone
 	 *
@@ -1749,7 +1770,7 @@ var CloudFlare = PromiseObject.create({
 	 *
 	 * https://api.cloudflare.com/#user-level-firewall-access-rule-list-access-rules
 	 */
-	firewallAccessRuleGetAll: function ($deferred, query, raw) {
+	userFirewallAccessRuleGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
 				mode: Joi.any().valid('block', 'challenge', 'whitelist'),
@@ -1760,7 +1781,7 @@ var CloudFlare = PromiseObject.create({
 				match: Joi.any().valid('any', 'all')
 			}
 		}, {
-			callee: 'firewallAccessRuleGetAll',
+			callee: 'userFirewallAccessRuleGetAll',
 			method: 'GET',
 			path: 'user/firewall/access_rules/rules',
 			required: 'result',
@@ -1773,7 +1794,7 @@ var CloudFlare = PromiseObject.create({
 	 *
 	 * https://api.cloudflare.com/#user-level-firewall-access-rule-create-access-rule
 	 */
-	firewallAccessRuleNew: function ($deferred, body, raw) {
+	userFirewallAccessRuleNew: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
 			body: {
 				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
@@ -1784,7 +1805,7 @@ var CloudFlare = PromiseObject.create({
 				notes: Joi.string()
 			}
 		}, {
-			callee: 'firewallAccessRuleNew',
+			callee: 'userFirewallAccessRuleNew',
 			method: 'POST',
 			path: 'user/firewall/access_rules/rules',
 			required: 'result',
@@ -1797,7 +1818,7 @@ var CloudFlare = PromiseObject.create({
 	 *
 	 * https://api.cloudflare.com/#user-level-firewall-access-rule-update-access-rule
 	 */
-	firewallAccessRuleUpdate: function($deferred, identifier, body, raw) {
+	userFirewallAccessRuleUpdate: function($deferred, identifier, body, raw) {
 		$deferred.resolve(this._request({
 			params: {
 				identifier: Joi.string().required()
@@ -1811,7 +1832,7 @@ var CloudFlare = PromiseObject.create({
 				notes: Joi.string()
 			}
 		}, {
-			callee: 'firewallAccessRuleUpdate',
+			callee: 'userFirewallAccessRuleUpdate',
 			method: 'PATCH',
 			path: 'user/firewall/access_rules/rules/:identifier',
 			required: 'result',
@@ -1827,13 +1848,13 @@ var CloudFlare = PromiseObject.create({
 	 *
 	 * https://api.cloudflare.com/#user-level-firewall-access-rule-delete-access-rule
 	 */
-	firewallAccessRuleDestroy: function($deferred, identifier, raw) {
+	userFirewallAccessRuleDestroy: function($deferred, identifier, raw) {
 		$deferred.resolve(this._request({
 			params: {
 				identifier: Joi.string().required()
 			}
 		}, {
-			callee: 'firewallAccessRuleDestroy',
+			callee: 'userFirewallAccessRuleDestroy',
 			method: 'DELETE',
 			path: 'user/firewall/access_rules/rules/:identifier',
 			required: 'result',
