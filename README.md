@@ -1,6 +1,6 @@
 # Cloudflare4
 
-<p style="color: red; font-weight: bold">I am still trying to impliment paid tier endpoints, and i am having trouble as i do no have access to paid tier accounts. If you want to assist me you can do so here [#2](https://github.com/icodeforlove/cloudflare4/issues/2)</p>
+**I am still trying to impliment paid tier endpoints, and i am having trouble as i do no have access to paid tier accounts. If you want to assist me you can do so here [#2](https://github.com/icodeforlove/cloudflare4/issues/2)**
 
 The Cloudflare4 module allows you to communicate with the [CloudFlare V4 API](https://api.cloudflare.com) from node.js in a promise friendly manner.
 
