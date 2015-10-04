@@ -1,4 +1,4 @@
-# Cloudflare4
+# CloudFlare API v4
 
 **I am still trying to impliment paid tier endpoints, and i am having trouble as i do no have access to paid tier accounts. If you want to assist me you can do so here [#2](https://github.com/icodeforlove/cloudflare4/issues/2)**
 
