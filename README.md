@@ -160,7 +160,7 @@ This is a work in progress, but i do actively intend on creating a 100% complete
 *	~~[Update Keyless configuration](https://api.cloudflare.com/#keyless-ssl-for-a-zone-update-keyless-configuration)~~
 *	~~[Delete Keyless configuration](https://api.cloudflare.com/#keyless-ssl-for-a-zone-delete-keyless-configuration)~~
 
-## [Firewall access rule for a Zone](https://api.cloudflare.com/#firewall-access-rule-for-a-
+## [Firewall access rule for a Zone](https://api.cloudflare.com/#firewall-access-rule-for-a-zone)
 - [zoneFirewallAccessRuleGetAll(String zone_identifier, [Object query, Boolean raw])](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules)
 - [zoneFirewallAccessRuleNew(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-create-access-rule)
 - [zoneFirewallAccessRuleUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-update-access-rule)
