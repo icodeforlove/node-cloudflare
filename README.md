@@ -88,12 +88,24 @@ would return
 and with raw set to false (the default), it would return
 
 ```
-	{
-		droplet_limit: 25,
-		email: 'email@domain.com',
-		uuid: 'f5bbaffce3a8792421593a7075b486bafd66672f',
-		email_verified: true
-	}
+{ 
+	id: 'dc19c3231tds452eb4ebc123d6eb4c99',
+	email: 'email@domain.com',
+	username: 'username',
+	first_name: 'Foo',
+	last_name: 'Bar',
+	telephone: '5555555555',
+	country: null,
+	zipcode: null,
+	two_factor_authentication_enabled: false,
+	two_factor_authentication_locked: false,
+	created_on: '2014-09-29T13:21:56.807670Z',
+	modified_on: '2015-10-04T00:02:50.855108Z',
+	organizations: null,
+	has_pro_zones: true,
+	has_business_zones: false,
+	has_enterprise_zones: false
+}
 ```
 
 ## Debugging
