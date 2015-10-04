@@ -1648,7 +1648,7 @@ var CloudFlare = PromiseObject.create({
 				notes: Joi.string()
 			}
 		}, {
-			callee: 'firewallAccessRuleNew',
+			callee: 'zoneFirewallAccessRuleNew',
 			method: 'POST',
 			path: 'zones/:zone_identifier/firewall/access_rules/rules',
 			required: 'result',

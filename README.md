@@ -26,7 +26,7 @@ var CloudFlareAPI = require('cloudflare4');
 var api = new CloudFlareAPI({email: 'email@domain.com', key: 'my_key'});
 
 // Get things done
-api.firewallAccessRulesGetAll().then(function (rules) {
+api.userFirewallAccessRuleGetAll().then(function (rules) {
 	console.log(rules);
 });
 ```
@@ -46,7 +46,7 @@ new CloudFlareAPI({
 you can pass pagination params into any method that has a `body` or `query` argument.
 
 ```js
-api.firewallAccessRulesGetAll({per_page: 1, page: 2}).then(function (rules) {
+api.userFirewallAccessRuleGetAll({per_page: 1, page: 2}).then(function (rules) {
 	console.log(rules);
 });
 ```
