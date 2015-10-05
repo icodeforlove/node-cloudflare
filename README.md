@@ -126,11 +126,11 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [userUpdate(Object body [, Boolean raw])](https://api.cloudflare.com/#user-update-user)
 
 ## [User Billing Profile](https://api.cloudflare.com/#user-billing-profile)
-- ~~[Billing Profile](https://api.cloudflare.com/#user-billing-profile-billing-profile)~~
-- ~~[Create billing profile](https://api.cloudflare.com/#user-billing-profile-create-billing-profile)~~
-- ~~[Update billing profile](https://api.cloudflare.com/#user-billing-profile-update-billing-profile)~~
-- ~~[Update particular elements of your billing profile](https://api.cloudflare.com/#user-billing-profile-update-particular-elements-of-your-billing-profile)~~
-- ~~[Delete billing profile](https://api.cloudflare.com/#user-billing-profile-delete-billing-profile)~~
+- [userBillingProfileGet([Boolean raw])](https://api.cloudflare.com/#user-billing-profile-billing-profile)
+- [userBillingProfileNew(Object body [, Boolean raw])](https://api.cloudflare.com/#user-billing-profile-create-billing-profile)
+- [userBillingProfileUpdate(Object body [, Boolean raw])](https://api.cloudflare.com/#user-billing-profile-update-billing-profile)
+- [userBillingProfileVATUpdate(Object body [, Boolean raw])](https://api.cloudflare.com/#user-billing-profile-update-particular-elements-of-your-billing-profile)
+- [userBillingProfileDestroy([Boolean raw])](https://api.cloudflare.com/#user-billing-profile-delete-billing-profile)
 
 ## [User Billing History](https://api.cloudflare.com/#user-billing-history)
 - ~~[Billing history](https://api.cloudflare.com/#user-billing-history-billing-history)~~
