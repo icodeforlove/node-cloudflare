@@ -148,6 +148,120 @@ var CloudFlare = PromiseObject.create({
 			});
 	},
 
+	
+	/**
+	 * Create billing profile for user
+	 *
+	 * https://api.cloudflare.com/#user-billing-profile-create-billing-profile
+	 */
+	userBillingProfileNew: function ($deferred, body, raw) {
+		$deferred.resolve(this._request({
+			body: {
+				first_name: Joi.string().max(50).required(),
+				last_name: Joi.string().max(90).required(),
+				address: Joi.string().max(100).required(),
+				city: Joi.string().max(80).required(),
+				state: Joi.string().max(40).required(),
+				zipcode: Joi.string().max(25).required(),
+				country: Joi.string().max(50).required(),
+				telephone: Joi.string().max(20).required(),
+				card_number: Joi.string().max(19).required(),
+				card_expiry_year: Joi.number().required(),
+				card_expiry_month: Joi.number().required(),
+				card_cvv: Joi.string().max(4).required(),
+
+				address2: Joi.string().max(100),
+				vat: Joi.string().max(255)
+			}
+		}, {
+			callee: 'userBillingProfileNew',
+			method: 'POST',
+			path: 'user/billing/profile',
+			required: 'result',
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Update billing profile for user
+	 *
+	 * https://api.cloudflare.com/#user-billing-profile-update-billing-profile
+	 */
+	userBillingProfileUpdate: function ($deferred, body, raw) {
+		$deferred.resolve(this._request({
+			body: {
+				first_name: Joi.string().max(50).required(),
+				last_name: Joi.string().max(90).required(),
+				address: Joi.string().max(100).required(),
+				city: Joi.string().max(80).required(),
+				state: Joi.string().max(40).required(),
+				zipcode: Joi.string().max(25).required(),
+				country: Joi.string().max(50).required(),
+				telephone: Joi.string().max(20).required(),
+				card_number: Joi.string().max(19).required(),
+				card_expiry_year: Joi.number().required(),
+				card_expiry_month: Joi.number().required(),
+				card_cvv: Joi.string().max(4).required(),
+
+				address2: Joi.string().max(100),
+				vat: Joi.string().max(255)
+			}
+		}, {
+			callee: 'userBillingProfileUpdate',
+			method: 'PUT',
+			path: 'user/billing/profile',
+			required: 'result',
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Update billing profile VAT for user
+	 *
+	 * https://api.cloudflare.com/#user-billing-profile-update-particular-elements-of-your-billing-profile
+	 */
+	userBillingProfileVATUpdate: function ($deferred, body, raw) {
+		$deferred.resolve(this._request({
+			body: {
+				vat: Joi.string().max(255).required()
+			}
+		}, {
+			callee: 'userBillingProfileVATUpdate',
+			method: 'PATCH',
+			path: 'user/billing/profile',
+			required: 'result',
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Get billing profile for user
+	 *
+	 * https://api.cloudflare.com/#user-billing-profile-billing-profile
+	 */
+	userBillingProfileGet: function ($deferred, raw) {
+		$deferred.resolve(this._request(null, {
+			callee: 'userBillingProfileGet',
+			method: 'GET',
+			path: 'user/billing/profile',
+			required: 'result'
+		}, raw));
+	},
+
+	/**
+	 * Delete billing profile for user
+	 *
+	 * https://api.cloudflare.com/#user-billing-profile-delete-billing-profile
+	 */
+	userBillingProfileDestroy: function ($deferred, raw) {
+		$deferred.resolve(this._request(null, {
+			callee: 'userBillingProfileDestroy',
+			method: 'DELETE',
+			path: 'user/billing/profile',
+			required: 'result'
+		}, raw));
+	},
+
 	/**
 	 * Get user details
 	 *
