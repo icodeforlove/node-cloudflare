@@ -133,7 +133,7 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [userBillingProfileDestroy([Boolean raw])](https://api.cloudflare.com/#user-billing-profile-delete-billing-profile)
 
 ## [User Billing History](https://api.cloudflare.com/#user-billing-history)
-- ~~[Billing history](https://api.cloudflare.com/#user-billing-history-billing-history)~~
+- [userBillingHistoryGetAll(Object body [, Boolean raw])](https://api.cloudflare.com/#user-billing-history-billing-history)
 
 ## [App Subscription](https://api.cloudflare.com/#app-subscription)
 - ~~[List](https://api.cloudflare.com/#app-subscription-list)~~

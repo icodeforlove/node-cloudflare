@@ -262,6 +262,23 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+	userBillingHistoryGetAll: function ($deferred, query, raw) {
+		$deferred.resolve(this._request({
+			query: {
+				order: Joi.string().valid('type', 'occured_at', 'action'),
+				type: Joi.string(),
+				occured_at: Joi.string(),
+				action: Joi.string()
+			}
+		}, {
+			callee: 'userBillingHistoryGetAll',
+			method: 'GET',
+			path: 'user/billing/history',
+			required: 'result',
+			query: query || {}
+		}, raw));
+	},
+
 	/**
 	 * Get user details
 	 *
