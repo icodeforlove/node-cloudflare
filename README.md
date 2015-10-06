@@ -170,8 +170,8 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneDestroy(String identifier, [, Boolean raw])](https://api.cloudflare.com/#zone-delete-a-zone)
 
 ## [Zone Plan](https://api.cloudflare.com/#zone-plan)
-- ~~[Available plans](https://api.cloudflare.com/#zone-plan-available-plans)~~
-- ~~[Plan details](https://api.cloudflare.com/#zone-plan-plan-details)~~
+- [zoneAvailablePlanGetAll(String identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-plan-available-plans)
+- [zoneAvailablePlanGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-plan-plan-details)
 
 ## [Zone Settings](https://api.cloudflare.com/#zone-settings)
 - [zoneSettingsGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-all-zone-settings)

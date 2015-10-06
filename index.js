@@ -444,6 +444,51 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Get all available plans for zone
+	 *
+	 * https://api.cloudflare.com/#zone-plan-available-plans
+	 */
+	zoneAvailablePlanGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/available_plans',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			query: query
+		}, raw));
+	},
+
+	/**
+	 * Get available plan for zone
+	 *
+	 * https://api.cloudflare.com/#zone-plan-plan-details
+	 */
+	zoneAvailablePlanGet: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/available_plans/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
 	 * Create a zone
 	 *
 	 * https://api.cloudflare.com/#zone-create-a-zone
