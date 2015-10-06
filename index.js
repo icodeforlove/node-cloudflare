@@ -156,7 +156,7 @@ var CloudFlare = PromiseObject.create({
 	 */
 	userBillingProfileNew: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
-			body: {
+			body: Joi.object({
 				first_name: Joi.string().max(50).required(),
 				last_name: Joi.string().max(90).required(),
 				address: Joi.string().max(100).required(),
@@ -172,13 +172,13 @@ var CloudFlare = PromiseObject.create({
 
 				address2: Joi.string().max(100),
 				vat: Joi.string().max(255)
-			}
+			}).required()
 		}, {
 			callee: 'userBillingProfileNew',
 			method: 'POST',
 			path: 'user/billing/profile',
 			required: 'result',
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -189,7 +189,7 @@ var CloudFlare = PromiseObject.create({
 	 */
 	userBillingProfileUpdate: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
-			body: {
+			body: Joi.object({
 				first_name: Joi.string().max(50).required(),
 				last_name: Joi.string().max(90).required(),
 				address: Joi.string().max(100).required(),
@@ -205,13 +205,13 @@ var CloudFlare = PromiseObject.create({
 
 				address2: Joi.string().max(100),
 				vat: Joi.string().max(255)
-			}
+			}).required()
 		}, {
 			callee: 'userBillingProfileUpdate',
 			method: 'PUT',
 			path: 'user/billing/profile',
 			required: 'result',
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -222,15 +222,15 @@ var CloudFlare = PromiseObject.create({
 	 */
 	userBillingProfileVATUpdate: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
-			body: {
+			body: Joi.object({
 				vat: Joi.string().max(255).required()
-			}
+			}).required()
 		}, {
 			callee: 'userBillingProfileVATUpdate',
 			method: 'PATCH',
 			path: 'user/billing/profile',
 			required: 'result',
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -427,19 +427,19 @@ var CloudFlare = PromiseObject.create({
 	 */
 	userUpdate: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
-			body: {
+			body: Joi.object({
 				first_name: Joi.string().max(60),
 				last_name: Joi.string().max(60),
 				telephone: Joi.string().max(20),
 				country: Joi.string().max(30),
 				zipcode: Joi.string().max(20)
-			}
+			}).required()
 		}, {
 			callee: 'userGet',
 			method: 'PATCH',
 			path: 'user',
 			required: 'result',
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -461,7 +461,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: zone_identifier
 			},
-			query: query
+			query: query || {}
 		}, raw));
 	},
 
@@ -495,20 +495,20 @@ var CloudFlare = PromiseObject.create({
 	 */
 	zoneNew: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
-			body: {
+			body: Joi.object({
 				name: Joi.string().max(253).required(),
 				jump_start: Joi.boolean(),
 				organization: Joi.object({
 					id: Joi.string().required().length(32),
 					name: Joi.string().max(100)
 				})
-			}
+			}).required()
 		}, {
 			callee: 'zoneNew',
 			method: 'POST',
 			path: 'zones',
 			required: 'result',
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -587,13 +587,13 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				paused: Joi.boolean(),
 				vanity_name_servers: Joi.array(),
 				plan: {
 					id: Joi.string().max(32)
 				}
-			}
+			}).required()
 		}, {
 			callee: 'zoneUpdate',
 			method: 'PATCH',
@@ -616,9 +616,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				purge_everything: Joi.boolean().required()
-			}
+			}).required()
 		}, {
 			callee: 'zonePurgeCache',
 			method: 'DELETE',
@@ -659,7 +659,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				identifier: identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -1159,14 +1159,14 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				items: Joi.array().items(
 					Joi.object().keys({
 						id: Joi.string().required(),
 						value: Joi.string().required()
 					}).required()
 				).required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsUpdate',
 			method: 'PATCH',
@@ -1189,9 +1189,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsAlwaysOnlineUpdate',
 			method: 'PATCH',
@@ -1214,7 +1214,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.number().valid(
 					30,
 					60,
@@ -1243,7 +1243,7 @@ var CloudFlare = PromiseObject.create({
 					16070400,
 					31536000
 				).required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsBrowserCacheTTLUpdate',
 			method: 'PATCH',
@@ -1266,9 +1266,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsBrowserCheckUpdate',
 			method: 'PATCH',
@@ -1291,9 +1291,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('aggressive', 'basic', 'simplified').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsCacheLevelUpdate',
 			method: 'PATCH',
@@ -1316,7 +1316,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.number().valid(
 					300,
 					900,
@@ -1333,7 +1333,7 @@ var CloudFlare = PromiseObject.create({
 					2592000,
 					31536000
 				).required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsChallengeTTLUpdate',
 			method: 'PATCH',
@@ -1356,9 +1356,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsDevelopmentModeUpdate',
 			method: 'PATCH',
@@ -1381,9 +1381,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsEmailObfuscationUpdate',
 			method: 'PATCH',
@@ -1406,9 +1406,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsHotlinkProtectionUpdate',
 			method: 'PATCH',
@@ -1431,9 +1431,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsIPGeolocationUpdate',
 			method: 'PATCH',
@@ -1456,9 +1456,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsIPv6Update',
 			method: 'PATCH',
@@ -1481,13 +1481,13 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.object({
 					css: Joi.string().valid('on', 'off'),
 					html: Joi.string().valid('on', 'off'),
 					js: Joi.string().valid('on', 'off')
 				}).min(1).required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsMinifyUpdate',
 			method: 'PATCH',
@@ -1510,13 +1510,13 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.object({
 					status: Joi.string().valid('on', 'off').required(),
 					mobile_subdomain: Joi.string().required(),
 					strip_uri: Joi.boolean().required()
 				}).required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsMobileRedirectUpdate',
 			method: 'PATCH',
@@ -1539,9 +1539,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsMirageUpdate',
 			method: 'PATCH',
@@ -1564,9 +1564,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('off', 'lossless', 'lossy').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsPolishUpdate',
 			method: 'PATCH',
@@ -1589,9 +1589,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off', 'manual').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsRocketLoaderUpdate',
 			method: 'PATCH',
@@ -1614,7 +1614,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.object({
 					strict_transport_security: Joi.object({
 						preload: Joi.boolean().required(),
@@ -1624,7 +1624,7 @@ var CloudFlare = PromiseObject.create({
 						nosniff: Joi.boolean().required()
 					}).required()
 				}).required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsSecurityHeaderUpdate',
 			method: 'PATCH',
@@ -1647,7 +1647,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid(
 					'essentially_off',
 					'low',
@@ -1655,7 +1655,7 @@ var CloudFlare = PromiseObject.create({
 					'high',
 					'under_attack'
 				).required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsSecurityLevelUpdate',
 			method: 'PATCH',
@@ -1678,9 +1678,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off')
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsTLSClientAuthUpdate',
 			method: 'PATCH',
@@ -1689,7 +1689,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: zone_identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -1703,9 +1703,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off')
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsWAFUpdate',
 			method: 'PATCH',
@@ -1714,7 +1714,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: zone_identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -1728,9 +1728,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('on', 'off').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsServerSideExcludeUpdate',
 			method: 'PATCH',
@@ -1753,9 +1753,9 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				value: Joi.string().valid('off', 'flexible', 'full', 'full_strict').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsSSLUpdate',
 			method: 'PATCH',
@@ -1823,10 +1823,10 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required(),
 				identifier: Joi.string().required()
 			},
-			body: {
+			body: Joi.object({
 				url: Joi.string().required(),
 				state: Joi.string().valid('default', 'customized').required()
-			}
+			}).required()
 		}, {
 			callee: 'zoneSettingsTLSClientAuthUpdate',
 			method: 'PUT',
@@ -1836,7 +1836,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: zone_identifier,
 				identifier: identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -1915,7 +1915,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: zone_identifier,
 				identifier: identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -2001,7 +2001,7 @@ var CloudFlare = PromiseObject.create({
 				package_identifier: package_identifier,
 				identifier: identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -2088,7 +2088,7 @@ var CloudFlare = PromiseObject.create({
 				package_identifier: package_identifier,
 				identifier: identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -2132,12 +2132,12 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				type: Joi.string().valid('A', 'AAAA', 'CNAME', 'TXT', 'SRV', 'LOC', 'MX', 'NS', 'SPF').required(),
 				name: Joi.string().max(255).required(),
 				content: Joi.string().required(),
 				ttl: Joi.number().max(2147483647)
-			}
+			}).required()
 		}, {
 			callee: 'zoneDNSRecordCreate',
 			method: 'POST',
@@ -2146,7 +2146,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: zone_identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -2200,7 +2200,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: zone_identifier,
 				identifier: identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -2295,14 +2295,14 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
 				configuration: Joi.object({
 					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
 					value: Joi.string().required()
 				}).required(),
 				notes: Joi.string()
-			}
+			}).required()
 		}, {
 			callee: 'zoneFirewallAccessRuleNew',
 			method: 'POST',
@@ -2311,7 +2311,7 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				zone_identifier: zone_identifier
 			},
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -2326,14 +2326,14 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required(),
 				identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
 				configuration: Joi.object({
 					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
 					value: Joi.string().required()
 				}).required(),
 				notes: Joi.string()
-			}
+			}).required()
 		}, {
 			callee: 'zoneFirewallAccessRuleUpdate',
 			method: 'PATCH',
@@ -2401,20 +2401,20 @@ var CloudFlare = PromiseObject.create({
 	 */
 	userFirewallAccessRuleNew: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
-			body: {
+			body: Joi.object({
 				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
 				configuration: Joi.object({
 					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
 					value: Joi.string().required()
 				}).required(),
 				notes: Joi.string()
-			}
+			}).required()
 		}, {
 			callee: 'userFirewallAccessRuleNew',
 			method: 'POST',
 			path: 'user/firewall/access_rules/rules',
 			required: 'result',
-			body: body || {}
+			body: body
 		}, raw));
 	},
 
@@ -2428,14 +2428,14 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				identifier: Joi.string().length(32).required()
 			},
-			body: {
+			body: Joi.object({
 				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
 				configuration: Joi.object({
 					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
 					value: Joi.string().required()
 				}).required(),
 				notes: Joi.string()
-			}
+			}).required()
 		}, {
 			callee: 'userFirewallAccessRuleUpdate',
 			method: 'PATCH',
