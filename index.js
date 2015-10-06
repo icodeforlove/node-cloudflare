@@ -1841,6 +1841,85 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Get WAF packages for zone
+	 *
+	 * https://api.cloudflare.com/#waf-rule-packages-list-firewall-packages
+	 */
+	zoneFirewallWAFPackageGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				name: Joi.string(),
+				order: Joi.string(), // NOTE: This is not clarified properly in their docs
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'zoneFirewallWAFPackageGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/firewall/waf/packages',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get WAF package for zone
+	 *
+	 * https://api.cloudflare.com/#waf-rule-packages-firewall-package-info
+	 */
+	zoneFirewallWAFPackageGet: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneFirewallWAFPackageGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/firewall/waf/packages/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update WAF package for zone
+	 *
+	 * https://api.cloudflare.com/#waf-rule-packages-change-anomaly-detection-web-application-firewall-package-settings
+	 */
+	zoneFirewallWAFPackageUpdate: function ($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				sensitivity: Joi.string().valid('high', 'low', 'off'),
+				action_mode: Joi.string().valid('simulate', 'block', 'challenge')
+			}).min(1).required()
+		}, {
+			callee: 'zoneFirewallWAFPackageUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/firewall/waf/packages/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
 	 * List DNS records for zone
 	 *
 	 * https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records

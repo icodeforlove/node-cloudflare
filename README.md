@@ -284,9 +284,9 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneFirewallAccessRuleDestroy(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-delete-access-rule)
 
 ## [WAF Rule Packages](https://api.cloudflare.com/#waf-rule-packages)
-*	~~[List firewall packages](https://api.cloudflare.com/#waf-rule-packages-list-firewall-packages)~~
-*	~~[Firewall package info](https://api.cloudflare.com/#waf-rule-packages-firewall-package-info)~~
-*	~~[Change anomaly-detection web application firewall package settings](https://api.cloudflare.com/#waf-rule-packages-change-anomaly-detection-web-application-firewall-package-settings)~~
+- [zoneFirewallWAFPackageGetAll(String zone_identifier, [Object query, Boolean raw])](https://api.cloudflare.com/#waf-rule-packages-list-firewall-packages)
+- [zoneFirewallWAFPackageGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#waf-rule-packages-firewall-package-info)
+- [zoneFirewallWAFPackageUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#waf-rule-packages-change-anomaly-detection-web-application-firewall-package-settings)
 
 ## [WAF Rule Groups](https://api.cloudflare.com/#waf-rule-groups)
 *	~~[List rule groups](https://api.cloudflare.com/#waf-rule-groups-list-rule-groups)~~
