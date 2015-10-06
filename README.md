@@ -258,9 +258,9 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 *	~~[Delete Railgun](https://api.cloudflare.com/#railgun-delete-railgun)~~
 
 ## [Custom Pages for a Zone](https://api.cloudflare.com/#custom-pages-for-a-zone)
-*	~~[Available Custom Pages](https://api.cloudflare.com/#custom-pages-for-a-zone-available-custom-pages)~~
-*	~~[Custom Page details](https://api.cloudflare.com/#custom-pages-for-a-zone-custom-page-details)~~
-*	~~[Update Custom page URL](https://api.cloudflare.com/#custom-pages-for-a-zone-update-custom-page-url)~~
+- [zoneCustomPageGetAll(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#custom-pages-for-a-zone-available-custom-pages)
+- [zoneCustomPageGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#custom-pages-for-a-zone-custom-page-details)
+- [zoneCustomPageUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#custom-pages-for-a-zone-update-custom-page-url)
 
 ## [Custom SSL for a Zone](https://api.cloudflare.com/#custom-ssl-for-a-zone)
 *	~~[Create SSL configuration](https://api.cloudflare.com/#custom-ssl-for-a-zone-create-ssl-configuration)~~

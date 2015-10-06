@@ -1769,6 +1769,78 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Get available custom pages for zone
+	 *
+	 * https://api.cloudflare.com/#custom-pages-for-a-zone-available-custom-pages
+	 */
+	zoneCustomPageGetAll: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneCustomPageGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/custom_pages',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get available custom page for zone
+	 *
+	 * https://api.cloudflare.com/#custom-pages-for-a-zone-custom-page-details
+	 */
+	zoneCustomPageGet: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().required()
+			}
+		}, {
+			callee: 'zoneCustomPageGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/custom_pages/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update custom page URL for zone
+	 *
+	 * https://api.cloudflare.com/#custom-pages-for-a-zone-update-custom-page-url
+	 */
+	zoneCustomPageUpdate: function($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().required()
+			},
+			body: {
+				url: Joi.string().required(),
+				state: Joi.string().valid('default', 'customized').required()
+			}
+		}, {
+			callee: 'zoneSettingsTLSClientAuthUpdate',
+			method: 'PUT',
+			path: 'zones/:zone_identifier/custom_pages/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
 	 * List DNS records for zone
 	 *
 	 * https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
@@ -1920,7 +1992,7 @@ var CloudFlare = PromiseObject.create({
 				continuous: Joi.boolean()
 			}
 		}, {
-			callee: 'zoneGet',
+			callee: 'zoneAnalyticsDashboardGet',
 			method: 'GET',
 			path: 'zones/:zone_identifier/analytics/dashboard',
 			required: 'result',
