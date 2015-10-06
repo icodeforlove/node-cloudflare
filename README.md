@@ -289,14 +289,14 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneFirewallWAFPackageUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#waf-rule-packages-change-anomaly-detection-web-application-firewall-package-settings)
 
 ## [WAF Rule Groups](https://api.cloudflare.com/#waf-rule-groups)
-*	~~[List rule groups](https://api.cloudflare.com/#waf-rule-groups-list-rule-groups)~~
-*	~~[Rule group info](https://api.cloudflare.com/#waf-rule-groups-rule-group-info)~~
-*	~~[Update Rule group](https://api.cloudflare.com/#waf-rule-groups-update-rule-group)~~
+- [zoneFirewallWAFRuleGroupGetAll(String zone_identifier, String package_identifier, [Object query, Boolean raw])](https://api.cloudflare.com/#waf-rule-groups-list-rule-groups)
+- [zoneFirewallWAFRuleGroupGet(String zone_identifier, String package_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#waf-rule-groups-rule-group-info)
+- [zoneFirewallWAFRuleGroupUpdate(String zone_identifier, String package_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#waf-rule-groups-update-rule-group)
 
 ## [WAF Rules](https://api.cloudflare.com/#waf-rules)
-*	~~[List rules](https://api.cloudflare.com/#waf-rules-list-rules)~~
-*	~~[Rule info](https://api.cloudflare.com/#waf-rules-rule-info)~~
-*	~~[Update rule](https://api.cloudflare.com/#waf-rules-update-rule)~~
+- [zoneFirewallWAFPackageRuleGetAll(String zone_identifier, String package_identifier, [Object query, Boolean raw])](https://api.cloudflare.com/#waf-rules-list-rules)
+- [zoneFirewallWAFPackageRuleGet(String zone_identifier, String package_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#waf-rules-rule-info)
+- [zoneFirewallWAFPackageRuleUpdate(String zone_identifier, String package_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#waf-rules-update-rule)
 
 ## [Organizations](https://api.cloudflare.com/#organizations)
 *	~~[Organization details](https://api.cloudflare.com/#organizations-organization-details)~~

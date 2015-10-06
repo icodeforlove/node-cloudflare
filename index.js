@@ -1920,6 +1920,179 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Get WAF rule groups for zone
+	 *
+	 * https://api.cloudflare.com/#waf-rule-groups-list-rule-groups
+	 */
+	zoneFirewallWAFRuleGroupGetAll: function ($deferred, zone_identifier, package_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				package_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				name: Joi.string(),
+				mode: Joi.string().valid('on', 'off'),
+				rules_count: Joi.number(),
+				order: Joi.string().valid('mode', 'rules_count'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'zoneFirewallWAFRuleGroupGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/firewall/waf/packages/:package_identifier/groups',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				package_identifier: package_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get WAF rule group for zone
+	 *
+	 * https://api.cloudflare.com/#waf-rule-groups-rule-group-info
+	 */
+	zoneFirewallWAFRuleGroupGet: function ($deferred, zone_identifier, package_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				package_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneFirewallWAFRuleGroupGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/firewall/waf/packages/:package_identifier/groups/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				package_identifier: package_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update WAF rule group for zone
+	 *
+	 * https://api.cloudflare.com/#waf-rule-groups-update-rule-group
+	 */
+	zoneFirewallWAFRuleGroupUpdate: function ($deferred, zone_identifier, package_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				package_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				mode: Joi.string().valid('on', 'off')
+			}).required()
+		}, {
+			callee: 'zoneFirewallWAFRuleGroupUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/firewall/waf/packages/:package_identifier/groups/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				package_identifier: package_identifier,
+				identifier: identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Get WAF package rules for zone
+	 *
+	 * https://api.cloudflare.com/#waf-rules-list-rules
+	 */
+	zoneFirewallWAFPackageRuleGetAll: function ($deferred, zone_identifier, package_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				package_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				description: Joi.string(),
+				mode: Joi.any(), // NOTE: documentation was very unclear about this param
+				priority: Joi.number(),
+				group_id: Joi.string().length(32),
+				order: Joi.string().valid('priority', 'group_id', 'description'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'zoneFirewallWAFPackageRuleGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/firewall/waf/packages/:package_identifier/rules',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				package_identifier: package_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get WAF package rule for zone
+	 *
+	 * https://api.cloudflare.com/#waf-rules-rule-info
+	 */
+	zoneFirewallWAFPackageRuleGet: function ($deferred, zone_identifier, package_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				package_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().required()
+			}
+		}, {
+			callee: 'zoneFirewallWAFPackageRuleGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/firewall/waf/packages/:package_identifier/rules/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				package_identifier: package_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update WAF package rule for zone
+	 *
+	 * https://api.cloudflare.com/#waf-rules-update-rule
+	 */
+	zoneFirewallWAFPackageRuleUpdate: function ($deferred, zone_identifier, package_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				package_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().required()
+			},
+			body: Joi.object({
+				mode: Joi.string().valid('default', 'disable', 'simulate', 'block', 'challenge', 'on', 'off').required()
+			}).required()
+		}, {
+			callee: 'zoneFirewallWAFRuleGroupUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/firewall/waf/packages/:package_identifier/rules/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				package_identifier: package_identifier,
+				identifier: identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
 	 * List DNS records for zone
 	 *
 	 * https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
