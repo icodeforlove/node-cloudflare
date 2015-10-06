@@ -117,6 +117,8 @@ DEBUG=http node myfile.js
 
 also all methods enforce type checking so invalid usage would result in errors like this
 
+![Debug Example](https://img42.com/AvvQr+)
+
 ## Methods
 
 All methods follow the [official API documentation](https://api.cloudflare.com/).
