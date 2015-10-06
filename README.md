@@ -136,14 +136,12 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [userBillingHistoryGetAll(Object body [, Boolean raw])](https://api.cloudflare.com/#user-billing-history-billing-history)
 
 ## [App Subscription](https://api.cloudflare.com/#app-subscription)
-- ~~[List](https://api.cloudflare.com/#app-subscription-list)~~
-- ~~[Search, sort, and paginate](https://api.cloudflare.com/#app-subscription-search-sort-and-paginate)~~
-- ~~[Info](https://api.cloudflare.com/#app-subscription-info)~~
+- [userBillingSubscriptionsAppGetAll(Object body [, Boolean raw])](https://api.cloudflare.com/#app-subscription-search-sort-and-paginate)
+- [userBillingSubscriptionsAppGet(String identifer [, Boolean raw])](https://api.cloudflare.com/#app-subscription-info)
 
 ## [Zone Subscription](https://api.cloudflare.com/#zone-subscription)
-- ~~[List](https://api.cloudflare.com/#zone-subscription-list)~~
-- ~~[Search, sort, and paginate](https://api.cloudflare.com/#zone-subscription-search-sort-and-paginate)~~
-- ~~[Info](https://api.cloudflare.com/#zone-subscription-info)~~
+- [userBillingSubscriptionsZoneGetAll(Object body [, Boolean raw])](https://api.cloudflare.com/#zone-subscription-search-sort-and-paginate)
+- [userBillingSubscriptionsZoneGet(String identifer [, Boolean raw])](https://api.cloudflare.com/#zone-subscription-info)
 
 ## [User-level Firewall access rule](https://api.cloudflare.com/#user-level-firewall-access-rule)
 - [userFirewallAccessRuleGetAll([Object query, Boolean raw])](https://api.cloudflare.com/#user-level-firewall-access-rule-list-access-rules)

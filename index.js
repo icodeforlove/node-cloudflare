@@ -262,6 +262,11 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
+	/**
+	 * Get billing history
+	 *
+	 * https://api.cloudflare.com/#user-billing-history-billing-history
+	 */
 	userBillingHistoryGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
@@ -276,6 +281,128 @@ var CloudFlare = PromiseObject.create({
 			path: 'user/billing/history',
 			required: 'result',
 			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get app subscriptions for user
+	 *
+	 * https://api.cloudflare.com/#app-subscription-list
+	 * https://api.cloudflare.com/#app-subscription-search-sort-and-paginate
+	 */
+	userBillingSubscriptionsAppGetAll: function ($deferred, query, raw) {
+		$deferred.resolve(this._request({
+			query: {
+				order: Joi.string().valid(
+					'created_on',
+					'expires_on',
+					'activated_on',
+					'renewed_on',
+					'cancelled_on',
+					'name',
+					'status',
+					'price'
+				),
+				status: Joi.string().valid('active', 'expired', 'cancelled'),
+				price: Joi.number(),
+				activated_on: Joi.string(),
+				expires_on: Joi.string(),
+				expired_on: Joi.string(),
+				cancelled_on: Joi.string(),
+				renewed_on: Joi.string(),
+				occured_at: Joi.string(),
+				action: Joi.string(),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all'),
+			}
+		}, {
+			callee: 'userBillingSubscriptionsAppsGetAll',
+			method: 'GET',
+			path: 'user/billing/subscriptions/apps',
+			required: 'result',
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get app subscription for user
+	 *
+	 * https://api.cloudflare.com/#zone-zone-details
+	 */
+	userBillingSubscriptionsAppGet: function ($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'userBillingSubscriptionsAppsGet',
+			method: 'GET',
+			path: 'user/billing/subscriptions/apps/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get app subscriptions for zone
+	 *
+	 * https://api.cloudflare.com/#zone-subscription-list
+	 * https://api.cloudflare.com/#zone-subscription-search-sort-and-paginate
+	 */
+	userBillingSubscriptionsZoneGetAll: function ($deferred, query, raw) {
+		$deferred.resolve(this._request({
+			query: {
+				order: Joi.string().valid(
+					'created_on',
+					'expires_on',
+					'activated_on',
+					'renewed_on',
+					'cancelled_on',
+					'name',
+					'status',
+					'price'
+				),
+				status: Joi.string().valid('active', 'expired', 'cancelled'),
+				price: Joi.number(),
+				activated_on: Joi.string(),
+				expires_on: Joi.string(),
+				expired_on: Joi.string(),
+				cancelled_on: Joi.string(),
+				renewed_on: Joi.string(),
+				occured_at: Joi.string(),
+				action: Joi.string(),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all'),
+			}
+		}, {
+			callee: 'userBillingSubscriptionsZoneGetAll',
+			method: 'GET',
+			path: 'user/billing/subscriptions/zones',
+			required: 'result',
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get app subscription for zone
+	 *
+	 * https://api.cloudflare.com/#zone-zone-details
+	 */
+	userBillingSubscriptionsZoneGet: function ($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'userBillingSubscriptionsZoneGet',
+			method: 'GET',
+			path: 'user/billing/subscriptions/zones/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
 		}, raw));
 	},
 
