@@ -202,7 +202,7 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 *	~~[Get Zone Enable TLS 1.2 setting](https://api.cloudflare.com/#zone-settings-get-zone-enable-tls-1-2-setting)~~
 - [zoneSettingsTLSClientAuthGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-tls-client-auth-setting)
 *	~~[Get True Client IP setting](https://api.cloudflare.com/#zone-settings-get-true-client-ip-setting)~~
-*	~~[Get Web Application Firewall (WAF) setting](https://api.cloudflare.com/#zone-settings-get-web-application-firewall-waf-setting)~~
+- [zoneSettingsWAFGet(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-web-application-firewall-waf-setting)
 - [zoneSettingsUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-edit-zone-settings-info)
 - [zoneSettingsAlwaysOnlineUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-always-online-setting)
 - [zoneSettingsBrowserCacheTTLUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-browser-cache-ttl-setting)
@@ -227,10 +227,10 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneSettingsSecurityLevelUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-security-level-setting)
 - [zoneSettingsServerSideExcludeUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-server-side-exclude-setting)
 - [zoneSettingsSSLUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-ssl-setting)
-*	~~[Change TLS Client Auth setting](https://api.cloudflare.com/#zone-settings-change-tls-client-auth-setting)~~
+- [zoneSettingsTLSClientAuthUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-tls-client-auth-setting)
 *	~~[Change True Client IP setting](https://api.cloudflare.com/#zone-settings-change-true-client-ip-setting)~~
 *	~~[Change TLS 1.2 setting](https://api.cloudflare.com/#zone-settings-change-tls-1-2-setting)~~
-*	~~[Change Web Application Firewall (WAF) setting](https://api.cloudflare.com/#zone-settings-change-web-application-firewall-waf-setting)~~
+- [zoneSettingsWAFUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-settings-change-web-application-firewall-waf-setting)
 
 ## [DNS Records for a Zone](https://api.cloudflare.com/#dns-records-for-a-zone)
 - [zoneDNSRecordNew(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record)

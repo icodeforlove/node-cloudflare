@@ -1127,6 +1127,27 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Get WAF setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-web-application-firewall-waf-setting
+	 */
+	zoneSettingsWAFGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsWAFGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/waf',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
 	 * Update settings for zone
 	 *
 	 * zones/:zone_identifier/settings
@@ -1647,6 +1668,56 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 	
+	/**
+	 * Update tls auth setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-tls-client-auth-setting
+	 */
+	zoneSettingsTLSClientAuthUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off')
+			}
+		}, {
+			callee: 'zoneSettingsTLSClientAuthUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/tls_client_auth',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Update WAF setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-web-application-firewall-waf-setting
+	 */
+	zoneSettingsWAFUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: {
+				value: Joi.string().valid('on', 'off')
+			}
+		}, {
+			callee: 'zoneSettingsWAFUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/waf',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
 	/**
 	 * Update server side exclude setting for zone
 	 *
