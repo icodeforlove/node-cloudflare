@@ -2857,6 +2857,226 @@ var CloudFlare = PromiseObject.create({
 				identifier: identifier
 			}
 		}, raw));
+	},
+
+	/**
+	 * Create a railgun
+	 *
+	 * https://api.cloudflare.com/#railgun-create-railgun
+	 */
+	railgunNew: function ($deferred, body, raw) {
+		$deferred.resolve(this._request({
+			body: Joi.object({
+				name: Joi.string().max(160).required()
+			}).required()
+		}, {
+			callee: 'railgunNew',
+			method: 'POST',
+			path: 'railguns',
+			required: 'result',
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Get railguns
+	 *
+	 * https://api.cloudflare.com/#railgun-list-railguns
+	 */
+	railgunGetAll: function ($deferred, query, raw) {
+		$deferred.resolve(this._request({
+			query: {
+				direction: Joi.string().valid('asc', 'desc')
+			}
+		}, {
+			callee: 'railgunGetAll',
+			method: 'GET',
+			path: 'railguns',
+			required: 'result',
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get railgun
+	 *
+	 * https://api.cloudflare.com/#railgun-railgun-details
+	 */
+	railgunGet: function ($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'railgunGet',
+			method: 'GET',
+			path: 'railguns/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get zones for railgun
+	 *
+	 * https://api.cloudflare.com/#railgun-get-zones-connected-to-a-railgun
+	 */
+	railgunZoneGetAll: function ($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'railgunZoneGetAll',
+			method: 'GET',
+			path: 'railguns/:identifier/zones',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update enabled for a railgun
+	 *
+	 * https://api.cloudflare.com/#railgun-enable-or-disable-a-railgun
+	 */
+	railgunEnabledUpdate: function($deferred, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				enabled: Joi.boolean().required()
+			}).required()
+		}, {
+			callee: 'railgunEnabledUpdate',
+			method: 'PATCH',
+			path: 'railguns/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Delete a railgun
+	 *
+	 * https://api.cloudflare.com/#railgun-delete-railgun
+	 */
+	railgunDestroy: function($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'railgunDestroy',
+			method: 'DELETE',
+			path: 'railguns/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get railguns for zone
+	 *
+	 * https://api.cloudflare.com/#railgun-connections-for-a-zone-get-available-railguns
+	 */
+	zoneRailgunGetAll: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneRailgunGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/railguns',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get railgun for zone
+	 *
+	 * https://api.cloudflare.com/#railgun-connections-for-a-zone-get-railgun-details
+	 */
+	zoneRailgunGet: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneRailgunGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/railguns/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get diagnoses for railgun for zone 
+	 *
+	 * https://api.cloudflare.com/#railgun-connections-for-a-zone-test-railgun-connection
+	 */
+	zoneRailgunDiagnoseGet: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneRailgunDiagnoseGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/railguns/:identifier/diagnose',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Connect or disconnect a railgun for a zone
+	 *
+	 * https://api.cloudflare.com/#railgun-connections-for-a-zone-connect-or-disconnect-a-railgun
+	 */
+	zoneRailgunConnectedUpdate: function($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				connected: Joi.boolean().required()
+			}).required()
+		}, {
+			callee: 'zoneRailgunConnectedUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/railguns/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+			body: body
+		}, raw));
 	}
 });
 

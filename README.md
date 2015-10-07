@@ -242,22 +242,22 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneDNSRecordDestroy(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#dns-records-for-a-zone-delete-dns-record)
 
 ## [Railgun connections for a Zone](https://api.cloudflare.com/#railgun-connections-for-a-zone)
-*	~~[Get available Railguns](https://api.cloudflare.com/#railgun-connections-for-a-zone-get-available-railguns)~~
-*	~~[Get Railgun details](https://api.cloudflare.com/#railgun-connections-for-a-zone-get-railgun-details)~~
-*	~~[Test Railgun connection](https://api.cloudflare.com/#railgun-connections-for-a-zone-test-railgun-connection)~~
-*	~~[Connect or disconnect a Railgun](https://api.cloudflare.com/#railgun-connections-for-a-zone-connect-or-disconnect-a-railgun)~~
+- [zoneRailgunGetAll(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#railgun-connections-for-a-zone-get-available-railguns)
+- [zoneRailgunGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#railgun-connections-for-a-zone-get-railgun-details)
+- [zoneRailgunDiagnoseGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#railgun-connections-for-a-zone-test-railgun-connection)
+- [zoneRailgunConnectedUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#railgun-connections-for-a-zone-connect-or-disconnect-a-railgun)
 
 ## [Zone Analytics](https://api.cloudflare.com/#zone-analytics)
 - [zoneAnalyticsDashboardGet(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-analytics-dashboard)
 - [zoneAnalyticsColosGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-analytics-analytics-by-co-locations)
 
 ## [Railgun](https://api.cloudflare.com/#railgun)
-*	~~[Create Railgun](https://api.cloudflare.com/#railgun-create-railgun)~~
-*	~~[List Railguns](https://api.cloudflare.com/#railgun-list-railguns)~~
-*	~~[Railgun details](https://api.cloudflare.com/#railgun-railgun-details)~~
-*	~~[Get zones connected to a Railgun](https://api.cloudflare.com/#railgun-get-zones-connected-to-a-railgun)~~
-*	~~[Enable or disable a Railgun](https://api.cloudflare.com/#railgun-enable-or-disable-a-railgun)~~
-*	~~[Delete Railgun](https://api.cloudflare.com/#railgun-delete-railgun)~~
+- [railgunNew(Object body [, Boolean raw])](https://api.cloudflare.com/#railgun-create-railgun)
+- [railgunGetAll([Object query, Boolean raw])](https://api.cloudflare.com/#railgun-list-railguns)
+- [railgunGet(String identifier [, Boolean raw])](https://api.cloudflare.com/#railgun-railgun-details)
+- [railgunZoneGetAll(String identifier, [Object query, Boolean raw])](https://api.cloudflare.com/#railgun-get-zones-connected-to-a-railgun)
+- [railgunEnabledUpdate(String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#railgun-enable-or-disable-a-railgun)
+- [railgunDestroy(String identifier [, Boolean raw])](https://api.cloudflare.com/#railgun-delete-railgun)
 
 ## [Custom Pages for a Zone](https://api.cloudflare.com/#custom-pages-for-a-zone)
 - [zoneCustomPageGetAll(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#custom-pages-for-a-zone-available-custom-pages)
