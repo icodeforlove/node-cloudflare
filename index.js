@@ -707,6 +707,27 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Get advanced DDOS setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-advanced-ddos-setting
+	 */
+	zoneSettingsAdvancedDDOSGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsAdvancedDDOSGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/advanced_ddos',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
 	 * Get always online setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-get-always-online-setting
@@ -978,6 +999,27 @@ var CloudFlare = PromiseObject.create({
 			}
 		}, raw));
 	},
+
+	/**
+	 * Get origin error page pass through setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-enable-error-pages-on-setting
+	 */
+	zoneSettingsOriginErrorPagePassThruGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsOriginErrorPagePassThruGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/origin_error_page_pass_thru',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
 	
 	/**
 	 * Get polish setting for zone
@@ -993,6 +1035,48 @@ var CloudFlare = PromiseObject.create({
 			callee: 'zoneSettingsPolishGet',
 			method: 'GET',
 			path: 'zones/:zone_identifier/settings/polish',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get prefetch preload setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-prefetch-preload-setting
+	 */
+	zoneSettingsPrefetchPreloadGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsPrefetchPreloadGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/prefetch_preload',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get response buffering setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-response-buffering-setting
+	 */
+	zoneSettingsResponseBufferingGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsResponseBufferingGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/response_buffering',
 			required: 'result',
 			params: {
 				zone_identifier: zone_identifier
@@ -1085,6 +1169,27 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Get sort query string for cache setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-enable-query-string-sort-setting
+	 */
+	zoneSettingsSortQueryStringForCacheGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsSortQueryStringForCacheGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/sort_query_string_for_cache',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
 	 * Get SSL setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-get-ssl-setting
@@ -1119,6 +1224,48 @@ var CloudFlare = PromiseObject.create({
 			callee: 'zoneSettingsTLSClientAuthGet',
 			method: 'GET',
 			path: 'zones/:zone_identifier/settings/tls_client_auth',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get true client IP header setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-true-client-ip-setting
+	 */
+	zoneSettingsTrueClientIPHeaderGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsTrueClientIPHeaderGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/true_client_ip_header',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get enable TLS 1.2 setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-get-zone-enable-tls-1-2-setting
+	 */
+	zoneSettingsTLS1Point2OnlyGet: function ($deferred, zone_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneSettingsTLS1Point2OnlyGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/settings/tls_1_2_only',
 			required: 'result',
 			params: {
 				zone_identifier: zone_identifier
@@ -1397,6 +1544,31 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Update origin error page pass thru setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-enable-error-pages-on-setting
+	 */
+	zoneSettingsOriginErrorPagePassThruUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				value: Joi.string().valid('on', 'off').required()
+			}).required()
+		}, {
+			callee: 'zoneSettingsOriginErrorPagePassThruUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/origin_error_page_pass_thru',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
 	 * Update hotlink protection setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-hotlink-protection-setting
@@ -1553,7 +1725,7 @@ var CloudFlare = PromiseObject.create({
 			body: body
 		}, raw));
 	},
-	
+
 	/**
 	 * Update polish setting for zone
 	 *
@@ -1571,6 +1743,56 @@ var CloudFlare = PromiseObject.create({
 			callee: 'zoneSettingsPolishUpdate',
 			method: 'PATCH',
 			path: 'zones/:zone_identifier/settings/polish',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update prefetch preload setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-prefetch-preload-setting
+	 */
+	zoneSettingsPrefetchPreloadUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				value: Joi.string().valid('on', 'off').required()
+			}).required()
+		}, {
+			callee: 'zoneSettingsPrefetchPreloadUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/prefetch_preload',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update response buffering setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-response-buffering-setting
+	 */
+	zoneSettingsResponseBufferingUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				value: Joi.string().valid('on', 'off').required()
+			}).required()
+		}, {
+			callee: 'zoneSettingsResponseBufferingUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/response_buffering',
 			required: 'result',
 			params: {
 				zone_identifier: zone_identifier
@@ -1669,7 +1891,7 @@ var CloudFlare = PromiseObject.create({
 	},
 	
 	/**
-	 * Update tls auth setting for zone
+	 * Update TLS auth setting for zone
 	 *
 	 * https://api.cloudflare.com/#zone-settings-change-tls-client-auth-setting
 	 */
@@ -1685,6 +1907,56 @@ var CloudFlare = PromiseObject.create({
 			callee: 'zoneSettingsTLSClientAuthUpdate',
 			method: 'PATCH',
 			path: 'zones/:zone_identifier/settings/tls_client_auth',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update true client IP header setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-true-client-ip-setting
+	 */
+	zoneSettingsTrueClientIPHeaderUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				value: Joi.string().valid('on', 'off')
+			}).required()
+		}, {
+			callee: 'zoneSettingsTrueClientIPHeaderUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/true_client_ip_header',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update enable TLS 1.2 setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-tls-1-2-setting
+	 */
+	zoneSettingsTLS1Point2OnlyUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				value: Joi.string().valid('on', 'off')
+			}).required()
+		}, {
+			callee: 'zoneSettingsTLS1Point2OnlyUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/tls_1_2_only',
 			required: 'result',
 			params: {
 				zone_identifier: zone_identifier
@@ -1735,6 +2007,31 @@ var CloudFlare = PromiseObject.create({
 			callee: 'zoneSettingsServerSideExcludeUpdate',
 			method: 'PATCH',
 			path: 'zones/:zone_identifier/settings/server_side_exclude',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update sort query string for cache setting for zone
+	 *
+	 * https://api.cloudflare.com/#zone-settings-change-enable-query-string-sort-setting
+	 */
+	zoneSettingsSortQueryStringForCacheUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				value: Joi.string().valid('on', 'off').required()
+			}).required()
+		}, {
+			callee: 'zoneSettingsSortQueryStringForCacheGet',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/settings/sort_query_string_for_cache',
 			required: 'result',
 			params: {
 				zone_identifier: zone_identifier
@@ -2256,6 +2553,34 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Get analytics dashboard data
+	 *
+	 * https://api.cloudflare.com/#zone-analytics-dashboard
+	 */
+	zoneAnalyticsColosGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				since: Joi.alternatives().try(Joi.string(), Joi.number()),
+				until: Joi.alternatives().try(Joi.string(), Joi.number()),
+				exclude_series: Joi.boolean(),
+				continuous: Joi.boolean()
+			}
+		}, {
+			callee: 'zoneAnalyticsColosGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/analytics/colos',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
 	 * List firewall access rules for zone
 	 *
 	 * https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules
@@ -2462,6 +2787,71 @@ var CloudFlare = PromiseObject.create({
 			callee: 'userFirewallAccessRuleDestroy',
 			method: 'DELETE',
 			path: 'user/firewall/access_rules/rules/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get user organizations
+	 *
+	 * https://api.cloudflare.com/#user-s-organizations-list-organizations
+	 */
+	userOrganizationGetAll: function ($deferred, query, raw) {
+		$deferred.resolve(this._request({
+			query: {
+				status: Joi.string().valid('member', 'invited'),
+				name: Joi.string().max(100),
+				order: Joi.string().valid('id', 'name', 'status'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'userOrganizationGetAll',
+			method: 'GET',
+			path: 'user/organizations',
+			required: 'result',
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * List user organization
+	 *
+	 * https://api.cloudflare.com/#user-s-organizations-organization-details
+	 */
+	userOrganizationGet: function ($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'userOrganizationGetAll',
+			method: 'GET',
+			path: 'user/organizations/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Remove user organization
+	 *
+	 * https://api.cloudflare.com/#user-s-organizations-leave-organization
+	 */
+	userOrganizationDestroy: function($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'userOrganizationDestroy',
+			method: 'DELETE',
+			path: 'user/organizations/:identifier',
 			required: 'result',
 			params: {
 				identifier: identifier

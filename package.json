@@ -1,6 +1,6 @@
 {
   "name": "cloudflare4",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Chad Scira <_@chad.so> (chad.so)",
   "description": "CloudFlare V4 API wrapper",
   "contributors": [
