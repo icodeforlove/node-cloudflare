@@ -157,7 +157,7 @@ var CloudFlare = PromiseObject.create({
 	_validateAndMakeRequest: function ($deferred, $self, schema, payload) {
 		Joi.validateAsync(payload, schema, {abortEarly: false})
 			.then(function () {
-				if (payload.pagination.auto_pagination) {
+				if (payload.pagination && payload.pagination.auto_pagination) {
 					$deferred.resolve($self._paginateRequest(payload));
 				} else {
 					$deferred.resolve($self._tryRequest(payload));
