@@ -316,7 +316,7 @@ var CloudFlare = PromiseObject.create({
 				match: Joi.string().valid('any', 'all'),
 			}
 		}, {
-			callee: 'userBillingSubscriptionsAppsGetAll',
+			callee: 'userBillingSubscriptionsAppGetAll',
 			method: 'GET',
 			path: 'user/billing/subscriptions/apps',
 			required: 'result',
@@ -335,7 +335,7 @@ var CloudFlare = PromiseObject.create({
 				identifier: Joi.string().length(32).required()
 			}
 		}, {
-			callee: 'userBillingSubscriptionsAppsGet',
+			callee: 'userBillingSubscriptionsAppGet',
 			method: 'GET',
 			path: 'user/billing/subscriptions/apps/:identifier',
 			required: 'result',
@@ -435,7 +435,7 @@ var CloudFlare = PromiseObject.create({
 				zipcode: Joi.string().max(20)
 			}).required()
 		}, {
-			callee: 'userGet',
+			callee: 'userUpdate',
 			method: 'PATCH',
 			path: 'user',
 			required: 'result',
@@ -454,7 +454,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required()
 			}
 		}, {
-			callee: 'zoneSettingsGetAll',
+			callee: 'zoneAvailablePlanGetAll',
 			method: 'GET',
 			path: 'zones/:zone_identifier/available_plans',
 			required: 'result',
@@ -477,7 +477,7 @@ var CloudFlare = PromiseObject.create({
 				identifier: Joi.string().length(32).required()
 			}
 		}, {
-			callee: 'zoneSettingsGetAll',
+			callee: 'zoneAvailablePlanGet',
 			method: 'GET',
 			path: 'zones/:zone_identifier/available_plans/:identifier',
 			required: 'result',
@@ -523,7 +523,7 @@ var CloudFlare = PromiseObject.create({
 				identifier: Joi.string().length(32).required()
 			}
 		}, {
-			callee: 'zoneActivationCheck',
+			callee: 'zoneActivationCheckNew',
 			method: 'PUT',
 			path: 'zones/:identifier/activation_check',
 			required: 'result',
@@ -534,7 +534,7 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
-	 * List zones
+	 * Get zones
 	 *
 	 * https://api.cloudflare.com/#zone-list-zones
 	 */
@@ -548,7 +548,7 @@ var CloudFlare = PromiseObject.create({
 				match: Joi.any().valid('any', 'all')
 			}
 		}, {
-			callee: 'zonesGetAll',
+			callee: 'zoneGetAll',
 			method: 'GET',
 			path: 'zones',
 			required: 'result',
@@ -2029,7 +2029,7 @@ var CloudFlare = PromiseObject.create({
 				value: Joi.string().valid('on', 'off').required()
 			}).required()
 		}, {
-			callee: 'zoneSettingsSortQueryStringForCacheGet',
+			callee: 'zoneSettingsSortQueryStringForCacheUpdate',
 			method: 'PATCH',
 			path: 'zones/:zone_identifier/settings/sort_query_string_for_cache',
 			required: 'result',
@@ -2125,7 +2125,7 @@ var CloudFlare = PromiseObject.create({
 				state: Joi.string().valid('default', 'customized').required()
 			}).required()
 		}, {
-			callee: 'zoneSettingsTLSClientAuthUpdate',
+			callee: 'zoneCustomPageUpdate',
 			method: 'PUT',
 			path: 'zones/:zone_identifier/custom_pages/:identifier',
 			required: 'result',
@@ -2376,7 +2376,7 @@ var CloudFlare = PromiseObject.create({
 				mode: Joi.string().valid('default', 'disable', 'simulate', 'block', 'challenge', 'on', 'off').required()
 			}).required()
 		}, {
-			callee: 'zoneFirewallWAFRuleGroupUpdate',
+			callee: 'zoneFirewallWAFPackageRuleUpdate',
 			method: 'PATCH',
 			path: 'zones/:zone_identifier/firewall/waf/packages/:package_identifier/rules/:identifier',
 			required: 'result',
@@ -2408,7 +2408,7 @@ var CloudFlare = PromiseObject.create({
 				match: Joi.string().valid('any', 'all')
 			}
 		}, {
-			callee: 'zoneDNSRecordsGetAll',
+			callee: 'zoneDNSRecordGetAll',
 			method: 'GET',
 			path: 'zones/:zone_identifier/dns_records',
 			required: 'result',
@@ -2436,7 +2436,7 @@ var CloudFlare = PromiseObject.create({
 				ttl: Joi.number().max(2147483647)
 			}).required()
 		}, {
-			callee: 'zoneDNSRecordCreate',
+			callee: 'zoneDNSRecordNew',
 			method: 'POST',
 			path: 'zones/:zone_identifier/dns_records',
 			required: 'result',
@@ -2460,7 +2460,7 @@ var CloudFlare = PromiseObject.create({
 				identifier: Joi.string().length(32).required()
 			}
 		}, {
-			callee: 'zoneGet',
+			callee: 'zoneDNSRecordGet',
 			method: 'GET',
 			path: 'zones/:zone_identifier/dns_records/:identifier',
 			required: 'result',
@@ -2599,7 +2599,7 @@ var CloudFlare = PromiseObject.create({
 				match: Joi.any().valid('any', 'all')
 			}
 		}, {
-			callee: 'zoneFirewallAccessRulesGetAll',
+			callee: 'zoneFirewallAccessRuleGetAll',
 			method: 'GET',
 			path: 'zones/:zone_identifier/firewall/access_rules/rules',
 			required: 'result',
@@ -2818,7 +2818,7 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
-	 * List user organization
+	 * Get user organization
 	 *
 	 * https://api.cloudflare.com/#user-s-organizations-organization-details
 	 */
@@ -2828,7 +2828,7 @@ var CloudFlare = PromiseObject.create({
 				identifier: Joi.string().length(32).required()
 			}
 		}, {
-			callee: 'userOrganizationGetAll',
+			callee: 'userOrganizationGet',
 			method: 'GET',
 			path: 'user/organizations/:identifier',
 			required: 'result',
