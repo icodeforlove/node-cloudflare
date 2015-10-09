@@ -99,9 +99,9 @@ var CloudFlare = PromiseObject.create({
 			maxRetries: $self._maxRetries,
 			onAttempt: function (attempt) {
 				if (attempt === 1) {
-					debug(('[doapi] ' + $config.method + ' "' + getURL + '"')[attempt > 1 ? 'red' : 'grey']);
+					debug(('[CloudFlare] ' + $config.method + ' "' + getURL + '"')[attempt > 1 ? 'red' : 'grey']);
 				} else {
-					debug(('[doapi attempt ' + attempt + '] ' + $config.method + ' "' + getURL + '"')[attempt > 1 ? 'red' : 'grey']);
+					debug(('[CloudFlare Attempt ' + attempt + '] ' + $config.method + ' "' + getURL + '"')[attempt > 1 ? 'red' : 'grey']);
 				}
 			},
 			promise: function (attempt) {
