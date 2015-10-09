@@ -601,10 +601,10 @@ var CloudFlare = PromiseObject.create({
 			query: {
 				auto_pagination: Joi.boolean(),
 				name: Joi.string().max(253),
-				status: Joi.any().valid('active', 'pending', 'initializing', 'moved', 'deleted', 'deactivated'),
-				order: Joi.any().valid('name', 'status', 'email'),
-				direction: Joi.any().valid('asc', 'desc'),
-				match: Joi.any().valid('any', 'all')
+				status: Joi.string().valid('active', 'pending', 'initializing', 'moved', 'deleted', 'deactivated'),
+				order: Joi.string().valid('name', 'status', 'email'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
 			}
 		}, {
 			callee: 'zoneGetAll',
@@ -2663,12 +2663,12 @@ var CloudFlare = PromiseObject.create({
 			},
 			query: {
 				auto_pagination: Joi.boolean(),
-				mode: Joi.any().valid('block', 'challenge', 'whitelist'),
-				configuration_target: Joi.any().valid('ip', 'ip_range', 'country'),
+				mode: Joi.string().valid('block', 'challenge', 'whitelist'),
+				configuration_target: Joi.string().valid('ip', 'ip_range', 'country'),
 				configuration_value: Joi.string(),
-				order: Joi.any().valid('configuration_target', 'configuration_value', 'mode'),
-				direction: Joi.any().valid('asc', 'desc'),
-				match: Joi.any().valid('any', 'all')
+				order: Joi.string().valid('configuration_target', 'configuration_value', 'mode'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
 			}
 		}, {
 			callee: 'zoneFirewallAccessRuleGetAll',
@@ -2693,9 +2693,9 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required()
 			},
 			body: Joi.object({
-				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
+				mode: Joi.string().valid('block', 'challenge', 'whitelist').required(),
 				configuration: Joi.object({
-					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
+					target: Joi.string().valid('ip', 'ip_range', 'country').required(),
 					value: Joi.string().required()
 				}).required(),
 				notes: Joi.string()
@@ -2724,9 +2724,9 @@ var CloudFlare = PromiseObject.create({
 				identifier: Joi.string().length(32).required()
 			},
 			body: Joi.object({
-				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
+				mode: Joi.string().valid('block', 'challenge', 'whitelist').required(),
 				configuration: Joi.object({
-					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
+					target: Joi.string().valid('ip', 'ip_range', 'country').required(),
 					value: Joi.string().required()
 				}).required(),
 				notes: Joi.string()
@@ -2776,12 +2776,12 @@ var CloudFlare = PromiseObject.create({
 		$deferred.resolve(this._request({
 			query: {
 				auto_pagination: Joi.boolean(),
-				mode: Joi.any().valid('block', 'challenge', 'whitelist'),
-				configuration_target: Joi.any().valid('ip', 'ip_range', 'country'),
+				mode: Joi.string().valid('block', 'challenge', 'whitelist'),
+				configuration_target: Joi.string().valid('ip', 'ip_range', 'country'),
 				configuration_value: Joi.string(),
-				order: Joi.any().valid('configuration_target', 'configuration_value', 'mode'),
-				direction: Joi.any().valid('asc', 'desc'),
-				match: Joi.any().valid('any', 'all')
+				order: Joi.string().valid('configuration_target', 'configuration_value', 'mode'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
 			}
 		}, {
 			callee: 'userFirewallAccessRuleGetAll',
@@ -2800,9 +2800,9 @@ var CloudFlare = PromiseObject.create({
 	userFirewallAccessRuleNew: function ($deferred, body, raw) {
 		$deferred.resolve(this._request({
 			body: Joi.object({
-				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
+				mode: Joi.string().valid('block', 'challenge', 'whitelist').required(),
 				configuration: Joi.object({
-					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
+					target: Joi.string().valid('ip', 'ip_range', 'country').required(),
 					value: Joi.string().required()
 				}).required(),
 				notes: Joi.string()
@@ -2827,9 +2827,9 @@ var CloudFlare = PromiseObject.create({
 				identifier: Joi.string().length(32).required()
 			},
 			body: Joi.object({
-				mode: Joi.any().valid('block', 'challenge', 'whitelist').required(),
+				mode: Joi.string().valid('block', 'challenge', 'whitelist').required(),
 				configuration: Joi.object({
-					target: Joi.any().valid('ip', 'ip_range', 'country').required(),
+					target: Joi.string().valid('ip', 'ip_range', 'country').required(),
 					value: Joi.string().required()
 				}).required(),
 				notes: Joi.string()
