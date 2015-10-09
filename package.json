@@ -1,10 +1,9 @@
 {
   "name": "cloudflare4",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Chad Scira <_@chad.so> (chad.so)",
   "description": "CloudFlare V4 API wrapper",
-  "contributors": [
-  ],
+  "contributors": [],
   "keywords": [
     "cloudflare",
     "cloudflare-api",
@@ -25,6 +24,7 @@
     "colors": "^1.1.0",
     "debug": "^2.1.1",
     "joi": "^6.4.3",
+    "lodash": "^3.10.1",
     "promise-object": "^0.1.5",
     "promise-retryer": "0.0.1",
     "request": "2.x",

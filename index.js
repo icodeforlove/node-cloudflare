@@ -6,7 +6,8 @@ var extend = require('xtend'),
 	PromiseObject = require('promise-object')(BlueBird),
 	debug = require('debug')('http'),
 	colors = require('colors'),
-	Joi = require('joi');
+	Joi = require('joi'),
+	_ = require('lodash');
 
 BlueBird.promisifyAll(Joi);
 
@@ -21,6 +22,8 @@ var CloudFlare = PromiseObject.create({
 		this._itemsPerPage = $config.itemsPerPage || 100;
 		this._maxRetries = $config.maxRetries || 1;
 		this._raw = $config.raw || false;
+		this._autoPagination = $config.autoPagination || false;
+		this._autoPaginationConcurrency = $config.autoPaginationConcurrency || 1;
 	},
 
 	API_URL: 'https://api.cloudflare.com/client/v4',
@@ -39,6 +42,19 @@ var CloudFlare = PromiseObject.create({
 				page: 1,
 				per_page: this._itemsPerPage
 			}, payload.query);
+
+			payload.pagination = {};
+			if (payload.query.auto_pagination || this._autoPagination && _.isUndefined(payload.query.auto_pagination) && schema.query.auto_pagination) {
+				payload.pagination.auto_pagination = true;
+				payload.pagination.auto_pagination_concurrency = payload.query.auto_pagination_concurrency || this._autoPaginationConcurrency;
+
+				delete payload.query.auto_pagination;
+				delete payload.query.auto_pagination_concurrency;
+
+				if (!schema.query.auto_pagination) {
+					throw payload.callee + ': does not support pagination';
+				}
+			}
 		}
 
 		if (hasBody) {
@@ -61,6 +77,10 @@ var CloudFlare = PromiseObject.create({
 			per_page: Joi.number().min(1).max(100),
 			page: Joi.number().min(1)
 		}, schema.query);
+		schema.pagination = Joi.object({
+			auto_pagination: Joi.boolean(),
+			auto_pagination_concurrency: Joi.number()
+		});
 		schema.raw = Joi.boolean();
 
 		$deferred.resolve(this._validateAndMakeRequest(schema, payload));
@@ -137,9 +157,14 @@ var CloudFlare = PromiseObject.create({
 	_validateAndMakeRequest: function ($deferred, $self, schema, payload) {
 		Joi.validateAsync(payload, schema, {abortEarly: false})
 			.then(function () {
-				$deferred.resolve($self._tryRequest(payload));
+				if (payload.pagination.auto_pagination) {
+					$deferred.resolve($self._paginateRequest(payload));
+				} else {
+					$deferred.resolve($self._tryRequest(payload));
+				}
 			})
 			.catch(function (error) {
+				console.log(error)
 				var errorMessage = ('CloudFlareApiError: validation error when calling "' + payload.callee + '"\n[' + payload.method + '] /' + $self._resolvePath(payload.path, payload.params) + '\n').red;
 
 				errorMessage += error.annotate();
@@ -148,6 +173,33 @@ var CloudFlare = PromiseObject.create({
 			});
 	},
 
+	_paginateRequest: function ($deferred, $self, payload) {
+		var results = [];
+
+		payload.raw = true;
+
+		this._tryRequest(payload).then(function (result) {
+			if (!result.result_info || !result.result_info.total_pages) {
+				return $deferred.resolve(result.result);
+			}
+			
+			results = results.concat(result.result);
+
+			var pages = _.range(2, result.result_info.total_pages + 1).map(function (page) {
+				var pagePayload = _.cloneDeep(payload);
+				pagePayload.query.page = page;
+				pagePayload.raw = false;
+				return pagePayload;
+			});
+
+			BlueBird.map(pages, $self._tryRequest, {concurrency: payload.pagination.auto_pagination_concurrency}).then(function (responses) {
+				results = results.concat.apply(results, responses);
+				$deferred.resolve(results);
+			}, function (error) {
+				$deferred.reject(error);
+			});
+		});
+	},
 	
 	/**
 	 * Create billing profile for user
@@ -270,6 +322,7 @@ var CloudFlare = PromiseObject.create({
 	userBillingHistoryGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
+				auto_pagination: Joi.boolean(),
 				order: Joi.string().valid('type', 'occured_at', 'action'),
 				type: Joi.string(),
 				occured_at: Joi.string(),
@@ -293,6 +346,7 @@ var CloudFlare = PromiseObject.create({
 	userBillingSubscriptionsAppGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
+				auto_pagination: Joi.boolean(),
 				order: Joi.string().valid(
 					'created_on',
 					'expires_on',
@@ -354,6 +408,7 @@ var CloudFlare = PromiseObject.create({
 	userBillingSubscriptionsZoneGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
+				auto_pagination: Joi.boolean(),
 				order: Joi.string().valid(
 					'created_on',
 					'expires_on',
@@ -452,6 +507,9 @@ var CloudFlare = PromiseObject.create({
 		$deferred.resolve(this._request({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean()
 			}
 		}, {
 			callee: 'zoneAvailablePlanGetAll',
@@ -541,6 +599,7 @@ var CloudFlare = PromiseObject.create({
 	zoneGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
+				auto_pagination: Joi.boolean(),
 				name: Joi.string().max(253),
 				status: Joi.any().valid('active', 'pending', 'initializing', 'moved', 'deleted', 'deactivated'),
 				order: Joi.any().valid('name', 'status', 'email'),
@@ -693,6 +752,9 @@ var CloudFlare = PromiseObject.create({
 		$deferred.resolve(this._request({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean()
 			}
 		}, {
 			callee: 'zoneSettingsGetAll',
@@ -2070,10 +2132,13 @@ var CloudFlare = PromiseObject.create({
 	 *
 	 * https://api.cloudflare.com/#custom-pages-for-a-zone-available-custom-pages
 	 */
-	zoneCustomPageGetAll: function ($deferred, zone_identifier, raw) {
+	zoneCustomPageGetAll: function ($deferred, zone_identifier, query, raw) {
 		$deferred.resolve(this._request({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean()
 			}
 		}, {
 			callee: 'zoneCustomPageGetAll',
@@ -2082,7 +2147,8 @@ var CloudFlare = PromiseObject.create({
 			required: 'result',
 			params: {
 				zone_identifier: zone_identifier
-			}
+			},
+			query: query || {}
 		}, raw));
 	},
 
@@ -2148,6 +2214,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required()
 			},
 			query: {
+				auto_pagination: Joi.boolean(),
 				name: Joi.string(),
 				order: Joi.string(), // NOTE: This is not clarified properly in their docs
 				direction: Joi.string().valid('asc', 'desc'),
@@ -2228,6 +2295,7 @@ var CloudFlare = PromiseObject.create({
 				package_identifier: Joi.string().length(32).required()
 			},
 			query: {
+				auto_pagination: Joi.boolean(),
 				name: Joi.string(),
 				mode: Joi.string().valid('on', 'off'),
 				rules_count: Joi.number(),
@@ -2314,6 +2382,7 @@ var CloudFlare = PromiseObject.create({
 				package_identifier: Joi.string().length(32).required()
 			},
 			query: {
+				auto_pagination: Joi.boolean(),
 				description: Joi.string(),
 				mode: Joi.any(), // NOTE: documentation was very unclear about this param
 				priority: Joi.number(),
@@ -2400,6 +2469,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required()
 			},
 			query: {
+				auto_pagination: Joi.boolean(),
 				type: Joi.string().valid('A', 'AAAA', 'CNAME', 'TXT', 'SRV', 'LOC', 'MX', 'NS', 'SPF'),
 				name: Joi.string().max(255),
 				content: Joi.string(),
@@ -2563,6 +2633,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required()
 			},
 			query: {
+				auto_pagination: Joi.boolean(),
 				since: Joi.alternatives().try(Joi.string(), Joi.number()),
 				until: Joi.alternatives().try(Joi.string(), Joi.number()),
 				exclude_series: Joi.boolean(),
@@ -2591,6 +2662,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required()
 			},
 			query: {
+				auto_pagination: Joi.boolean(),
 				mode: Joi.any().valid('block', 'challenge', 'whitelist'),
 				configuration_target: Joi.any().valid('ip', 'ip_range', 'country'),
 				configuration_value: Joi.string(),
@@ -2703,6 +2775,7 @@ var CloudFlare = PromiseObject.create({
 	userFirewallAccessRuleGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
+				auto_pagination: Joi.boolean(),
 				mode: Joi.any().valid('block', 'challenge', 'whitelist'),
 				configuration_target: Joi.any().valid('ip', 'ip_range', 'country'),
 				configuration_value: Joi.string(),
@@ -2802,6 +2875,7 @@ var CloudFlare = PromiseObject.create({
 	userOrganizationGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
+				auto_pagination: Joi.boolean(),
 				status: Joi.string().valid('member', 'invited'),
 				name: Joi.string().max(100),
 				order: Joi.string().valid('id', 'name', 'status'),
@@ -2886,6 +2960,7 @@ var CloudFlare = PromiseObject.create({
 	railgunGetAll: function ($deferred, query, raw) {
 		$deferred.resolve(this._request({
 			query: {
+				auto_pagination: Joi.boolean(),
 				direction: Joi.string().valid('asc', 'desc')
 			}
 		}, {
@@ -2923,10 +2998,13 @@ var CloudFlare = PromiseObject.create({
 	 *
 	 * https://api.cloudflare.com/#railgun-get-zones-connected-to-a-railgun
 	 */
-	railgunZoneGetAll: function ($deferred, identifier, raw) {
+	railgunZoneGetAll: function ($deferred, identifier, query, raw) {
 		$deferred.resolve(this._request({
 			params: {
 				identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean()
 			}
 		}, {
 			callee: 'railgunZoneGetAll',
@@ -2935,7 +3013,8 @@ var CloudFlare = PromiseObject.create({
 			required: 'result',
 			params: {
 				identifier: identifier
-			}
+			},
+			query: query || {}
 		}, raw));
 	},
 
@@ -2990,10 +3069,13 @@ var CloudFlare = PromiseObject.create({
 	 *
 	 * https://api.cloudflare.com/#railgun-connections-for-a-zone-get-available-railguns
 	 */
-	zoneRailgunGetAll: function ($deferred, zone_identifier, raw) {
+	zoneRailgunGetAll: function ($deferred, zone_identifier, query, raw) {
 		$deferred.resolve(this._request({
 			params: {
 				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean()
 			}
 		}, {
 			callee: 'zoneRailgunGetAll',
@@ -3002,7 +3084,8 @@ var CloudFlare = PromiseObject.create({
 			required: 'result',
 			params: {
 				zone_identifier: zone_identifier
-			}
+			},
+			query: query || {}
 		}, raw));
 	},
 
@@ -3117,6 +3200,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required()
 			},
 			query: {
+				auto_pagination: Joi.boolean(),
 				status: Joi.string().valid('active', 'expired', 'deleted'),
 				order: Joi.string().valid('status', 'issuer', 'priority', 'expires_on'),
 				direction: Joi.string().valid('asc', 'desc'),
@@ -3279,6 +3363,7 @@ var CloudFlare = PromiseObject.create({
 				zone_identifier: Joi.string().length(32).required()
 			},
 			query: {
+				auto_pagination: Joi.boolean(),
 				status: Joi.string().valid('active', 'expired', 'deleted'),
 				order: Joi.string().valid('status'),
 				direction: Joi.string().valid('asc', 'desc'),

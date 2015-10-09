@@ -38,7 +38,9 @@ new CloudFlareAPI({
 	key: 'my_key',
 	itemsPerPage: 100, // default=100
 	maxRetries: 5, // default=5
-	raw: false // default=false
+	raw: false // default=false,
+	autoPagination: false, // default=false
+	autoPaginationConcurrency: 1 // default=1
 });
 ```
 
@@ -50,6 +52,16 @@ api.userFirewallAccessRuleGetAll({per_page: 1, page: 2}).then(function (rules) {
 	console.log(rules);
 });
 ```
+
+or with auto-pagination
+
+```js
+api.userFirewallAccessRuleGetAll({auto_pagination: true, auto_pagination_concurrency: 1}).then(function (rules) {
+	console.log(rules);
+});
+```
+
+**Note: if you use auto_pagination for a GetAll the raw argument is no longer respected**
 
 ## Raw
 if you set raw it will return the full response body including pagination details
@@ -242,7 +254,7 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneDNSRecordDestroy(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#dns-records-for-a-zone-delete-dns-record)
 
 ## [Railgun connections for a Zone](https://api.cloudflare.com/#railgun-connections-for-a-zone)
-- [zoneRailgunGetAll(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#railgun-connections-for-a-zone-get-available-railguns)
+- [zoneRailgunGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#railgun-connections-for-a-zone-get-available-railguns)
 - [zoneRailgunGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#railgun-connections-for-a-zone-get-railgun-details)
 - [zoneRailgunDiagnoseGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#railgun-connections-for-a-zone-test-railgun-connection)
 - [zoneRailgunConnectedUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#railgun-connections-for-a-zone-connect-or-disconnect-a-railgun)
@@ -260,7 +272,7 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [railgunDestroy(String identifier [, Boolean raw])](https://api.cloudflare.com/#railgun-delete-railgun)
 
 ## [Custom Pages for a Zone](https://api.cloudflare.com/#custom-pages-for-a-zone)
-- [zoneCustomPageGetAll(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#custom-pages-for-a-zone-available-custom-pages)
+- [zoneCustomPageGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#custom-pages-for-a-zone-available-custom-pages)
 - [zoneCustomPageGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#custom-pages-for-a-zone-custom-page-details)
 - [zoneCustomPageUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#custom-pages-for-a-zone-update-custom-page-url)
 
