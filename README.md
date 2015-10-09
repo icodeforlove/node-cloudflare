@@ -265,19 +265,19 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneCustomPageUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#custom-pages-for-a-zone-update-custom-page-url)
 
 ## [Custom SSL for a Zone](https://api.cloudflare.com/#custom-ssl-for-a-zone)
-*	~~[Create SSL configuration](https://api.cloudflare.com/#custom-ssl-for-a-zone-create-ssl-configuration)~~
-*	~~[List SSL configurations](https://api.cloudflare.com/#custom-ssl-for-a-zone-list-ssl-configurations)~~
-*	~~[SSL configuration details](https://api.cloudflare.com/#custom-ssl-for-a-zone-ssl-configuration-details)~~
-*	~~[Update SSL configuration](https://api.cloudflare.com/#custom-ssl-for-a-zone-update-ssl-configuration)~~
-*	~~[Re-prioritize SSL certificates](https://api.cloudflare.com/#custom-ssl-for-a-zone-re-prioritize-ssl-certificates)~~
-*	~~[Delete an SSL certificate](https://api.cloudflare.com/#custom-ssl-for-a-zone-delete-an-ssl-certificate)~~
+- [zoneCustomCertificateNew(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#custom-ssl-for-a-zone-create-ssl-configuration)
+- [zoneCustomCertificateGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#custom-ssl-for-a-zone-list-ssl-configurations)
+- [zoneCustomCertificateGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#custom-ssl-for-a-zone-ssl-configuration-details)
+- [zoneCustomCertificateUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#custom-ssl-for-a-zone-update-ssl-configuration)
+- [zoneCustomCertificatePriorityUpdate(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#custom-ssl-for-a-zone-re-prioritize-ssl-certificates)
+- [zoneCustomCertificateDestroy(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#custom-ssl-for-a-zone-delete-an-ssl-certificate)
 
 ## [Keyless SSL for a Zone](https://api.cloudflare.com/#keyless-ssl-for-a-zone)
-*	~~[Create a Keyless SSL configuration](https://api.cloudflare.com/#keyless-ssl-for-a-zone-create-a-keyless-ssl-configuration)~~
-*	~~[List Keyless SSL Configurations](https://api.cloudflare.com/#keyless-ssl-for-a-zone-list-keyless-ssl-configurations)~~
-*	~~[Keyless SSL details](https://api.cloudflare.com/#keyless-ssl-for-a-zone-keyless-ssl-details)~~
-*	~~[Update Keyless configuration](https://api.cloudflare.com/#keyless-ssl-for-a-zone-update-keyless-configuration)~~
-*	~~[Delete Keyless configuration](https://api.cloudflare.com/#keyless-ssl-for-a-zone-delete-keyless-configuration)~~
+- [zoneKeylessCertificateNew(String zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#keyless-ssl-for-a-zone-create-a-keyless-ssl-configuration)
+- [zoneKeylessCertificateGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#keyless-ssl-for-a-zone-list-keyless-ssl-configurations)
+- [zoneKeylessCertificateGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#keyless-ssl-for-a-zone-keyless-ssl-details)
+- [zoneKeylessCertificateUpdate(String zone_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#keyless-ssl-for-a-zone-update-keyless-configuration)
+- [zoneKeylessCertificateDestroy(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#keyless-ssl-for-a-zone-delete-keyless-configuration)
 
 ## [Firewall access rule for a Zone](https://api.cloudflare.com/#firewall-access-rule-for-a-zone)
 - [zoneFirewallAccessRuleGetAll(String zone_identifier, [Object query, Boolean raw])](https://api.cloudflare.com/#firewall-access-rule-for-a-zone-list-access-rules)

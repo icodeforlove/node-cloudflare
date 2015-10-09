@@ -3077,6 +3077,299 @@ var CloudFlare = PromiseObject.create({
 			},
 			body: body
 		}, raw));
+	},
+
+	/**
+	 * Create custom certificate for a zone
+	 *
+	 * https://api.cloudflare.com/#custom-ssl-for-a-zone-create-ssl-configuration
+	 */
+	zoneCustomCertificateNew: function ($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				certificate: Joi.string().required(),
+				private_key: Joi.string().required(),
+				bundle_method: Joi.string().valid('ubiquitous', 'optimal', 'force')
+			}).required()
+		}, {
+			callee: 'zoneCustomCertificateNew',
+			method: 'POST',
+			path: 'zones/:zone_identifier/custom_certificates',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Get custom certificates for a zone
+	 *
+	 * https://api.cloudflare.com/#custom-ssl-for-a-zone-list-ssl-configurations
+	 */
+	zoneCustomCertificateGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				status: Joi.string().valid('active', 'expired', 'deleted'),
+				order: Joi.string().valid('status', 'issuer', 'priority', 'expires_on'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'zoneCustomCertificateGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/custom_certificates',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get a custom certificate for a zone
+	 *
+	 * https://api.cloudflare.com/#custom-ssl-for-a-zone-ssl-configuration-details
+	 */
+	zoneCustomCertificateGet: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneCustomCertificateGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/custom_certificates/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update a custom certificate for a zone
+	 *
+	 * https://api.cloudflare.com/#custom-ssl-for-a-zone-re-prioritize-ssl-certificates
+	 */
+	zoneCustomCertificateUpdate: function($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				certificate: Joi.string().required(),
+				private_key: Joi.string().required(),
+				bundle_method: Joi.string().valid('ubiquitous', 'optimal', 'force')
+			}).required()
+		}, {
+			callee: 'zoneCustomCertificateUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/custom_certificates/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update custom certificate prioritization for a zone
+	 *
+	 * https://api.cloudflare.com/#custom-ssl-for-a-zone-re-prioritize-ssl-certificates
+	 */
+	zoneCustomCertificatePriorityUpdate: function($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				certificates: Joi.array().items(
+					Joi.object({
+						ids: Joi.string().length(32).required(),
+						priority: Joi.number().required()
+					}).required()
+				).required()
+			}).required()
+		}, {
+			callee: 'zoneCustomCertificatePriorityUpdate',
+			method: 'PUT',
+			path: 'zones/:zone_identifier/custom_certificates/prioritize',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Delete a custom certificate from a zone
+	 *
+	 * https://api.cloudflare.com/#custom-ssl-for-a-zone-delete-an-ssl-certificate
+	 */
+	zoneCustomCertificateDestroy: function($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneCustomCertificateDestroy',
+			method: 'DELETE',
+			path: 'zones/:zone_identifier/custom_certificates/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+		}, raw));
+	},
+	
+	/**
+	 * Create keyless certificate for a zone
+	 *
+	 * https://api.cloudflare.com/#custom-ssl-for-a-zone-create-ssl-configuration
+	 */
+	zoneKeylessCertificateNew: function ($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				host: Joi.string().max(253).required(),
+				port: Joi.number().max(65535).required(),
+				name: Joi.string().max(180).required(),
+				certificate: Joi.string().required(),
+				bundle_method: Joi.string().valid('ubiquitous', 'optimal', 'force')
+			}).required()
+		}, {
+			callee: 'zoneKeylessCertificateNew',
+			method: 'POST',
+			path: 'zones/:zone_identifier/keyless_certificates',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Get keyless certificates for a zone
+	 *
+	 * https://api.cloudflare.com/#custom-ssl-for-a-zone-list-ssl-configurations
+	 */
+	zoneKeylessCertificateGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				status: Joi.string().valid('active', 'expired', 'deleted'),
+				order: Joi.string().valid('status'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'zoneKeylessCertificateGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/keyless_certificates',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get a keyless certificate for a zone
+	 *
+	 * hhttps://api.cloudflare.com/#keyless-ssl-for-a-zone-keyless-ssl-details
+	 */
+	zoneKeylessCertificateGet: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneKeylessCertificateGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/keyless_certificates/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update a keyless certificate for a zone
+	 *
+	 * https://api.cloudflare.com/#keyless-ssl-for-a-zone-update-keyless-configuration
+	 */
+	zoneKeylessCertificateUpdate: function($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				host: Joi.string().max(253).required(),
+				port: Joi.number().max(65535).required(),
+				name: Joi.string().max(180).required(),
+				enabled: Joi.boolean()
+			}).required()
+		}, {
+			callee: 'zoneKeylessCertificateUpdate',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/keyless_certificates/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Delete a keyless certificate from a zone
+	 *
+	 * https://api.cloudflare.com/#keyless-ssl-for-a-zone-delete-keyless-configuration
+	 */
+	zoneKeylessCertificateDestroy: function($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zoneKeylessCertificateDestroy',
+			method: 'DELETE',
+			path: 'zones/:zone_identifier/keyless_certificates/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+		}, raw));
 	}
 });
 
