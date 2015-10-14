@@ -3949,14 +3949,14 @@ var CloudFlare = PromiseObject.create({
 	 *
 	 * https://api.cloudflare.com/#organization-level-firewall-access-rule-update-access-rule
 	 */
-	organizationFirewallAccessDestroy: function($deferred, organization_identifier, identifier, raw) {
+	organizationFirewallAccessRuleDestroy: function($deferred, organization_identifier, identifier, raw) {
 		$deferred.resolve(this._request({
 			params: {
 				organization_identifier: Joi.string().length(32).required(),
 				identifier: Joi.string().length(32).required()
 			}
 		}, {
-			callee: 'organizationFirewallAccessDestroy',
+			callee: 'organizationFirewallAccessRuleDestroy',
 			method: 'DELETE',
 			path: 'zones/:organization_identifier/firewall/access_rules/rules/:identifier',
 			required: 'result',
