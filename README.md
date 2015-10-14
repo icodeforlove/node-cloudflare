@@ -330,7 +330,7 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [organizationInviteDestroy(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-invites-cancel-invitation)
 
 ## [Organization Roles](https://api.cloudflare.com/#organization-roles)
-- [organizationRoleGet(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-roles-list-roles)
+- [organizationRoleGetAll(String organization_identifier, String identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#organization-roles-list-roles)
 - [organizationRoleGet(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-roles-role-details)
 
 ## [Organization-level Firewall access rule](https://api.cloudflare.com/#organization-level-firewall-access-rule)
