@@ -499,6 +499,71 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
+	 * Get all invites for user
+	 *
+	 * https://api.cloudflare.com/#user-s-invites-list-invitations
+	 */
+	userInviteGetAll: function ($deferred, query, raw) {
+		$deferred.resolve(this._request({
+			query: {
+				auto_pagination: Joi.boolean()
+			}
+		}, {
+			callee: 'userInviteGetAll',
+			method: 'GET',
+			path: 'user/invites',
+			required: 'result',
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get a invites for user
+	 *
+	 * https://api.cloudflare.com/#user-s-invites-list-invitations
+	 */
+	userInviteGet: function ($deferred, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'userInviteGet',
+			method: 'GET',
+			path: 'user/invites/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update an invite for user
+	 *
+	 * https://api.cloudflare.com/#user-s-invites-respond-to-invitation
+	 */
+	userInviteUpdate: function($deferred, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				status: Joi.string().valid('accepted', 'rejected').required()
+			}).required()
+		}, {
+			callee: 'userInviteUpdate',
+			method: 'PATCH',
+			path: 'user/invites/:identifier',
+			required: 'result',
+			params: {
+				identifier: identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
 	 * Get all available plans for zone
 	 *
 	 * https://api.cloudflare.com/#zone-plan-available-plans
@@ -3452,6 +3517,451 @@ var CloudFlare = PromiseObject.create({
 			required: 'result',
 			params: {
 				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+		}, raw));
+	},
+
+	/**
+	 * Get a organization
+	 * 
+	 * https://api.cloudflare.com/#organizations-organization-details
+	 */
+	organizationGet: function ($deferred, organization_identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'organizationGet',
+			method: 'GET',
+			path: 'organizations/:organization_identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update a organization
+	 *
+	 * https://api.cloudflare.com/#organizations-update-organization
+	 */
+	organizationUpdate: function($deferred, organization_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				name: Joi.string().max(100).required()
+			}).required()
+		}, {
+			callee: 'organizationUpdate',
+			method: 'PATCH',
+			path: 'organizations/:organization_identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Get all members for an organization
+	 *
+	 * https://api.cloudflare.com/#organization-members-list-members
+	 */
+	organizationMemberGetAll: function ($deferred, organization_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean()
+			}
+		}, {
+			callee: 'organizationMemberGetAll',
+			method: 'GET',
+			path: 'organizations/:organization_identifier/members',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get member of an organization
+	 *
+	 * https://api.cloudflare.com/#organization-members-member-details
+	 */
+	organizationMemberGet: function ($deferred, organization_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'organizationMemberGet',
+			method: 'GET',
+			path: 'organizations/:organization_identifier/members/:identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update an organizations member roles
+	 *
+	 * https://api.cloudflare.com/#organization-members-update-member-roles
+	 */
+	organizationMemberUpdate: function ($deferred, organization_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				roles: Joi.array().items(
+					Joi.object({
+						id: Joi.string().length(32).required()
+					})
+				).min(1).required()
+			}).required()
+		}, {
+			callee: 'organizationMemberUpdate',
+			method: 'PATCH',
+			path: 'organizations/:organization_identifier/members/:identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier,
+				identifier: identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Delete an organizations member roles
+	 *
+	 * https://api.cloudflare.com/#organization-members-remove-member
+	 */
+	organizationMemberDestroy: function($deferred, organization_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'organizationMemberDestroy',
+			method: 'DELETE',
+			path: 'organizations/:organization_identifier/members/:identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier,
+				identifier: identifier
+			},
+		}, raw));
+	},
+
+	/**
+	 * Create a organization invitation
+	 *
+	 * https://api.cloudflare.com/#organization-invites-create-invitation
+	 */
+	organizationInviteNew: function ($deferred, organization_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				invited_member_email: Joi.string().max(90).required(),
+				roles: Joi.array().items(
+					Joi.object({
+						id: Joi.string().length(32).required()
+					})
+				).min(1).required()
+			}).required()
+		}, {
+			callee: 'organizationInviteNew',
+			method: 'POST',
+			path: 'organizations/:organization_identifier/invites',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Get all organization invitations
+	 *
+	 * https://api.cloudflare.com/#organization-invites-list-invitations
+	 */
+	organizationInviteGetAll: function ($deferred, organization_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean()
+			}
+		}, {
+			callee: 'organizationInviteGetAll',
+			method: 'GET',
+			path: 'organizations/:organization_identifier/invites',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get an organization invitation
+	 *
+	 * https://api.cloudflare.com/#organization-invites-invitation-details
+	 */
+	organizationInviteGet: function ($deferred, organization_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required(),
+			}
+		}, {
+			callee: 'organizationInviteGet',
+			method: 'GET',
+			path: 'organizations/:organization_identifier/invites/:identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Update member roles for an organizations invite
+	 *
+	 * https://api.cloudflare.com/#organization-invites-update-invitation-roles
+	 */
+	organizationInviteUpdate: function ($deferred, organization_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				roles: Joi.array().items(
+					Joi.object({
+						id: Joi.string().length(32).required()
+					})
+				).min(1).required()
+			}).required()
+		}, {
+			callee: 'organizationInviteUpdate',
+			method: 'PATCH',
+			path: 'organizations/:organization_identifier/invites/:identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier,
+				identifier: identifier
+			},
+			body: body || {}
+		}, raw));
+	},
+
+	/**
+	 * Delete an invitation for an organizations
+	 *
+	 * https://api.cloudflare.com/#organization-invites-cancel-invitation
+	 */
+	organizationInviteDestroy: function ($deferred, organization_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'organizationInviteDestroy',
+			method: 'DELETE',
+			path: 'organizations/:organization_identifier/invites/:identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * Get all organization roles
+	 *
+	 * https://api.cloudflare.com/#organization-roles-list-roles
+	 */
+	organizationRoleGetAll: function ($deferred, organization_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean()
+			}
+		}, {
+			callee: 'organizationRoleGetAll',
+			method: 'GET',
+			path: 'organizations/:organization_identifier/roles',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get a organization role
+	 *
+	 * https://api.cloudflare.com/#organization-roles-role-details
+	 */
+	organizationRoleGet: function ($deferred, organization_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required(),
+			}
+		}, {
+			callee: 'organizationRoleGet',
+			method: 'GET',
+			path: 'organizations/:organization_identifier/roles/:identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier,
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+	/**
+	 * List firewall access rules for organization
+	 *
+	 * https://api.cloudflare.com/#organization-level-firewall-access-rule-list-access-rules
+	 */
+	organizationFirewallAccessRuleGetAll: function ($deferred, organization_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean(),
+				mode: Joi.string().valid('block', 'challenge', 'whitelist'),
+				configuration_target: Joi.string().valid('ip', 'ip_range', 'country'),
+				configuration_value: Joi.string(),
+				order: Joi.string().valid('configuration_target', 'configuration_value', 'mode'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'organizationFirewallAccessRuleGetAll',
+			method: 'GET',
+			path: 'organizations/:organization_identifier/firewall/access_rules/rules',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+
+	/**
+	 * Create firewall access rule for organization
+	 *
+	 * https://api.cloudflare.com/#organization-level-firewall-access-rule-create-access-rule
+	 */
+	organizationFirewallAccessRuleNew: function ($deferred, organization_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				mode: Joi.string().valid('block', 'challenge', 'whitelist').required(),
+				configuration: Joi.object({
+					target: Joi.string().valid('ip', 'ip_range', 'country').required(),
+					value: Joi.string().required()
+				}).required(),
+				notes: Joi.string()
+			}).required()
+		}, {
+			callee: 'organizationFirewallAccessRuleNew',
+			method: 'POST',
+			path: 'zones/:organization_identifier/firewall/access_rules/rules',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Update firewall access rule for organization
+	 *
+	 * https://api.cloudflare.com/#organization-level-firewall-access-rule-update-access-rule
+	 */
+	organizationFirewallAccessRuleUpdate: function($deferred, organization_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				mode: Joi.string().valid('block', 'challenge', 'whitelist').required(),
+				configuration: Joi.object({
+					target: Joi.string().valid('ip', 'ip_range', 'country').required(),
+					value: Joi.string().required()
+				}).required(),
+				notes: Joi.string()
+			}).required()
+		}, {
+			callee: 'organizationFirewallAccessRuleUpdate',
+			method: 'PATCH',
+			path: 'zones/:organization_identifier/firewall/access_rules/rules/:identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier,
+				identifier: identifier
+			},
+			body: body
+		}, raw));
+	},
+
+	/**
+	 * Delete firewall access rule for organization
+	 *
+	 * https://api.cloudflare.com/#organization-level-firewall-access-rule-update-access-rule
+	 */
+	organizationFirewallAccessDestroy: function($deferred, organization_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				organization_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'organizationFirewallAccessDestroy',
+			method: 'DELETE',
+			path: 'zones/:organization_identifier/firewall/access_rules/rules/:identifier',
+			required: 'result',
+			params: {
+				organization_identifier: organization_identifier,
 				identifier: identifier
 			},
 		}, raw));

@@ -169,9 +169,9 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [userOrganizationDestroy(String identifier [, Boolean raw])](https://api.cloudflare.com/#user-s-organizations-leave-organization)
 
 ## [User&#x27;s Invites](https://api.cloudflare.com/#user-s-invites)
-- ~~[List invitations](https://api.cloudflare.com/#user-s-invites-list-invitations)~~
-- ~~[Invitation details](https://api.cloudflare.com/#user-s-invites-invitation-details)~~
-- ~~[Respond to Invitation](https://api.cloudflare.com/#user-s-invites-respond-to-invitation)~~
+- [userInviteGetAll([Object query, Boolean raw])](https://api.cloudflare.com/#user-s-invites-list-invitations)
+- [userInviteGet(String identifier [, Boolean raw])](https://api.cloudflare.com/#user-s-invites-invitation-details)
+- [userInviteUpdate(String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#user-s-invites-respond-to-invitation)
 
 ## [Zone](https://api.cloudflare.com/#zone)
 - [zoneNew(Object body [, Boolean raw])](https://api.cloudflare.com/#zone-create-a-zone)
@@ -313,28 +313,28 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneFirewallWAFPackageRuleUpdate(String zone_identifier, String package_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#waf-rules-update-rule)
 
 ## [Organizations](https://api.cloudflare.com/#organizations)
-*	~~[Organization details](https://api.cloudflare.com/#organizations-organization-details)~~
-*	~~[Update organization](https://api.cloudflare.com/#organizations-update-organization)~~
+- [organizationGet(String organization_identifier [, Boolean raw])](https://api.cloudflare.com/#organizations-organization-details)
+- [organizationUpdate(String organization_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organizations-update-organization)
 
 ## [Organization Members](https://api.cloudflare.com/#organization-members)
-*	~~[List members](https://api.cloudflare.com/#organization-members-list-members)~~
-*	~~[Member details](https://api.cloudflare.com/#organization-members-member-details)~~
-*	~~[Update member roles](https://api.cloudflare.com/#organization-members-update-member-roles)~~
-*	~~[Remove member](https://api.cloudflare.com/#organization-members-remove-member)~~
+- [organizationMemberGetAll(String organization_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#organization-members-list-members)
+- [organizationMemberGet(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-members-member-details)
+- [organizationMemberUpdate(String organization_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organization-members-update-member-roles)
+- [organizationMemberDestroy(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-members-remove-member)
 
 ## [Organization Invites](https://api.cloudflare.com/#organization-invites)
-*	~~[Create invitation](https://api.cloudflare.com/#organization-invites-create-invitation)~~
-*	~~[List invitations](https://api.cloudflare.com/#organization-invites-list-invitations)~~
-*	~~[Invitation details](https://api.cloudflare.com/#organization-invites-invitation-details)~~
-*	~~[Update invitation roles](https://api.cloudflare.com/#organization-invites-update-invitation-roles)~~
-*	~~[Cancel Invitation](https://api.cloudflare.com/#organization-invites-cancel-invitation)~~
+- [organizationInviteNew(String organization_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organization-invites-create-invitation)
+- [organizationInviteGetAll(String organization_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#organization-invites-list-invitations)
+- [organizationInviteGet(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-invites-invitation-details)
+- [organizationInviteUpdate(String organization_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organization-invites-update-invitation-roles)
+- [organizationInviteDestroy(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-invites-cancel-invitation)
 
 ## [Organization Roles](https://api.cloudflare.com/#organization-roles)
-*	~~[List roles](https://api.cloudflare.com/#organization-roles-list-roles)~~
-*	~~[Role details](https://api.cloudflare.com/#organization-roles-role-details)~~
+- [organizationRoleGet(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-roles-list-roles)
+- [organizationRoleGet(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-roles-role-details)
 
 ## [Organization-level Firewall access rule](https://api.cloudflare.com/#organization-level-firewall-access-rule)
-*	~~[List access rules](https://api.cloudflare.com/#organization-level-firewall-access-rule-list-access-rules)~~
-*	~~[Create access rule](https://api.cloudflare.com/#organization-level-firewall-access-rule-create-access-rule)~~
-*	~~[Update access rule](https://api.cloudflare.com/#organization-level-firewall-access-rule-update-access-rule)~~
-*	~~[Delete access rule](https://api.cloudflare.com/#organization-level-firewall-access-rule-delete-access-rule)~~
+- [organizationFirewallAccessRuleGetAll(String organization_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-list-access-rules)
+- [organizationFirewallAccessRuleNew(String organization_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-create-access-rule)
+- [organizationFirewallAccessRuleUpdate(String organization_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-update-access-rule)
+- [organizationFirewallAccessDestroy(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-delete-access-rule)
