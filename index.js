@@ -3903,7 +3903,7 @@ var CloudFlare = PromiseObject.create({
 		}, {
 			callee: 'organizationFirewallAccessRuleNew',
 			method: 'POST',
-			path: 'zones/:organization_identifier/firewall/access_rules/rules',
+			path: 'organizations/:organization_identifier/firewall/access_rules/rules',
 			required: 'result',
 			params: {
 				organization_identifier: organization_identifier
@@ -3934,7 +3934,7 @@ var CloudFlare = PromiseObject.create({
 		}, {
 			callee: 'organizationFirewallAccessRuleUpdate',
 			method: 'PATCH',
-			path: 'zones/:organization_identifier/firewall/access_rules/rules/:identifier',
+			path: 'organizations/:organization_identifier/firewall/access_rules/rules/:identifier',
 			required: 'result',
 			params: {
 				organization_identifier: organization_identifier,
@@ -3958,7 +3958,7 @@ var CloudFlare = PromiseObject.create({
 		}, {
 			callee: 'organizationFirewallAccessRuleDestroy',
 			method: 'DELETE',
-			path: 'zones/:organization_identifier/firewall/access_rules/rules/:identifier',
+			path: 'organizations/:organization_identifier/firewall/access_rules/rules/:identifier',
 			required: 'result',
 			params: {
 				organization_identifier: organization_identifier,
