@@ -2557,7 +2557,7 @@ var CloudFlare = PromiseObject.create({
 	/**
 	 * Create DNS record for zone
 	 *
-	 * https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
+	 * https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
 	 */
 	zoneDNSRecordNew: function ($deferred, zone_identifier, body, raw) {
 		$deferred.resolve(this._request({
