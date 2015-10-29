@@ -1,3 +1,6 @@
+[![NPM version][npm-image]][npm-url]
+[![Downloads][download-badge]][npm-url]
+
 # CloudFlare API v4
 
 The Cloudflare4 module allows you to communicate with the [CloudFlare V4 API](https://api.cloudflare.com) from node.js in a promise friendly manner.
@@ -336,3 +339,7 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [organizationFirewallAccessRuleNew(String organization_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-create-access-rule)
 - [organizationFirewallAccessRuleUpdate(String organization_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-update-access-rule)
 - [organizationFirewallAccessRuleDestroy(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-delete-access-rule)
+
+[npm-url]: https://npmjs.org/package/cloudflare4
+[npm-image]: https://img.shields.io/npm/v/cloudflare4.svg?style=flat-square
+[download-badge]: http://img.shields.io/npm/dm/cloudflare4.svg?style=flat-square
