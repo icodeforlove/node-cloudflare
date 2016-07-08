@@ -2623,7 +2623,8 @@ var CloudFlare = PromiseObject.create({
 				type: Joi.string().valid('A', 'AAAA', 'CNAME', 'TXT', 'SRV', 'LOC', 'MX', 'NS', 'SPF'),
 				name: Joi.string().max(255),
 				content: Joi.string(),
-				ttl: Joi.number().max(2147483647)
+				ttl: Joi.number().max(2147483647),
+				proxied: Joi.boolean()
 			}).min(1).required()
 		}, {
 			callee: 'zoneDNSRecordUpdate',
