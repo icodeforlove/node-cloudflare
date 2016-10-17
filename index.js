@@ -128,14 +128,14 @@ var CloudFlare = PromiseObject.create({
 								return reject(new Error(
 									'Request Failed: ' + error
 								));
-							} else if ($config.required && !body[$config.required]) {
+							} else if ($config.required && body && !body[$config.required]) {
 								return reject(new Error(
 									'\nAPI Error: Response was missing required field (' + $config.required + ')'
 								));
 							} else {
 								if ($config.raw || $self._raw && $config.raw !== false) {
 									resolve(body || {});
-								} else if ($config.required) {
+								} else if (body && $config.required) {
 									resolve(body[$config.required] || {});
 								} else {
 									resolve(body || {});
@@ -182,7 +182,7 @@ var CloudFlare = PromiseObject.create({
 			if (!result.result_info || !result.result_info.total_pages) {
 				return $deferred.resolve(result.result);
 			}
-			
+
 			results = results.concat(result.result);
 
 			var pages = _.range(2, result.result_info.total_pages + 1).map(function (page) {
@@ -200,7 +200,7 @@ var CloudFlare = PromiseObject.create({
 			});
 		});
 	},
-	
+
 	/**
 	 * Create billing profile for user
 	 *
@@ -979,7 +979,7 @@ var CloudFlare = PromiseObject.create({
 			}
 		}, raw));
 	},
-	
+
 	/**
 	 * Get email obfuscation setting for zone
 	 *
@@ -1042,7 +1042,7 @@ var CloudFlare = PromiseObject.create({
 			}
 		}, raw));
 	},
-	
+
 	/**
 	 * Get ipv6 setting for zone
 	 *
@@ -1063,7 +1063,7 @@ var CloudFlare = PromiseObject.create({
 			}
 		}, raw));
 	},
-	
+
 	/**
 	 * Get minify setting for zone
 	 *
@@ -1147,7 +1147,7 @@ var CloudFlare = PromiseObject.create({
 			}
 		}, raw));
 	},
-	
+
 	/**
 	 * Get polish setting for zone
 	 *
@@ -1252,7 +1252,7 @@ var CloudFlare = PromiseObject.create({
 			}
 		}, raw));
 	},
-	
+
 	/**
 	 * Get security level setting for zone
 	 *
@@ -1273,7 +1273,7 @@ var CloudFlare = PromiseObject.create({
 			}
 		}, raw));
 	},
-	
+
 	/**
 	 * Get server side exclude setting for zone
 	 *
@@ -1425,7 +1425,7 @@ var CloudFlare = PromiseObject.create({
 	 * Update settings for zone
 	 *
 	 * zones/:zone_identifier/settings
-	 * 
+	 *
 	 * https://api.cloudflare.com/#zone-settings-edit-zone-settings-info
 	 */
 	zoneSettingsUpdate: function($deferred, zone_identifier, body, raw) {
@@ -1619,7 +1619,7 @@ var CloudFlare = PromiseObject.create({
 			body: body
 		}, raw));
 	},
-	
+
 	/**
 	 * Update development mode setting for zone
 	 *
@@ -1744,7 +1744,7 @@ var CloudFlare = PromiseObject.create({
 			body: body
 		}, raw));
 	},
-	
+
 	/**
 	 * Update ipv6 setting for zone
 	 *
@@ -1769,7 +1769,7 @@ var CloudFlare = PromiseObject.create({
 			body: body
 		}, raw));
 	},
-	
+
 	/**
 	 * Update minify setting for zone
 	 *
@@ -1952,7 +1952,7 @@ var CloudFlare = PromiseObject.create({
 			body: body
 		}, raw));
 	},
-	
+
 	/**
 	 * Update security header setting for zone
 	 *
@@ -2016,7 +2016,7 @@ var CloudFlare = PromiseObject.create({
 			body: body
 		}, raw));
 	},
-	
+
 	/**
 	 * Update TLS auth setting for zone
 	 *
@@ -2584,7 +2584,7 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
-	
+
 	/**
 	 * Get DNS record for zone
 	 *
@@ -3181,7 +3181,7 @@ var CloudFlare = PromiseObject.create({
 	},
 
 	/**
-	 * Get diagnoses for railgun for zone 
+	 * Get diagnoses for railgun for zone
 	 *
 	 * https://api.cloudflare.com/#railgun-connections-for-a-zone-test-railgun-connection
 	 */
@@ -3390,7 +3390,7 @@ var CloudFlare = PromiseObject.create({
 			},
 		}, raw));
 	},
-	
+
 	/**
 	 * Create keyless certificate for a zone
 	 *
@@ -3527,7 +3527,7 @@ var CloudFlare = PromiseObject.create({
 
 	/**
 	 * Get a organization
-	 * 
+	 *
 	 * https://api.cloudflare.com/#organizations-organization-details
 	 */
 	organizationGet: function ($deferred, organization_identifier, raw) {
