@@ -4053,29 +4053,85 @@ var CloudFlare = PromiseObject.create({
         }, raw));
     },
 
+
+    /**
+     * Create a route
+     *
+     * https://developers.cloudflare.com/workers/api/
+     */
+    workersRouteCreate: function ($deferred, zone_identifier, body, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required()
+            },
+            body: {
+                pattern: Joi.string().required(),
+                enabled: Joi.boolean()
+            }
+        }, {
+            callee: 'workersRouteCreate',
+            method: 'POST',
+            path: 'zones/:zone_identifier/workers/filters',
+            required: 'result',
+            params: {
+                zone_identifier: zone_identifier
+            },
+            body: body
+        }, raw));
+    },
+
     /**
      * Delete a route
      *
      * https://developers.cloudflare.com/workers/api/
      */
-    workersRouteDelete: function ($deferred, zone_identifier, identifier, raw) {
+    workersRouteDelete: function ($deferred, zone_identifier, route_identifier, raw) {
         $deferred.resolve(this._request({
             params: {
-                zone_identifier: Joi.string().length(32).required()
+                zone_identifier: Joi.string().length(32).required(),
+                route_identifier: Joi.string().required()
             }
         }, {
             callee: 'workersRouteDelete',
             method: 'DELETE',
-            path: 'zones/:zone_id/workers/filters/:identifier',
+            path: 'zones/:zone_identifier/workers/filters/:route_identifier',
             required: 'result',
             params: {
                 zone_identifier: zone_identifier,
-                identifier: identifier
+                route_identifier: route_identifier
             }
         }, raw));
     },
 
-
+    /**
+     * Update a route (enable / disable)
+     *
+     * Does not work - documentation is not correct
+     *
+     * https://developers.cloudflare.com/workers/api/
+     */
+    workersRouteUpdate: function ($deferred, zone_identifier, route_identifier, body, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required(),
+                route_identifier: Joi.string().required()
+            },
+            body: {
+                pattern: Joi.string().required(),
+                enabled: Joi.boolean().required()
+            }
+        }, {
+            callee: 'workersRouteUpdate',
+            method: 'POST',
+            path: 'zones/:zone_identifier/workers/filters/:route_identifier',
+            required: 'result',
+            params: {
+                zone_identifier: zone_identifier,
+                route_identifier: route_identifier
+            },
+            body: body
+        }, raw));
+    }
 
 });
 
