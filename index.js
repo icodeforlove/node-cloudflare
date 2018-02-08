@@ -113,13 +113,21 @@ var CloudFlare = PromiseObject.create({
 							method: $config.method,
 							url: getURL,
 							json: $config.json !== false,
-							headers: _.merge($config.headers, {
+							headers: _.merge($config.headers || {}, {
 								'X-Auth-Key': $self._key,
 								'X-Auth-Email': $self._email
 							}),
 							body: $config.body
 						},
 						function(error, response, body) {
+                            /**
+                             * Patch for the upload of a worker script, the upload itself is not JSON, however
+                             * the response is
+                             */
+                            if ($config.json === false) {
+                                body = JSON.parse(body);
+                            }
+
 							if (!error && body && (response.statusCode < 200 || response.statusCode > 299)) {
 								var error = body.errors[0] || {};
 
