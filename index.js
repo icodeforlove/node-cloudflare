@@ -72,6 +72,8 @@ var CloudFlare = PromiseObject.create({
 		schema.path = Joi.string().required();
 		schema.callee = Joi.string().required();
 		schema.required = Joi.string();
+        schema.headers = Joi.object();
+        schema.json = Joi.boolean();
 		schema.method = Joi.valid(['GET', 'POST', 'PUT', 'DELETE', 'PATCH']).required();
 		schema.query = extend({
 			per_page: Joi.number().min(1).max(100),
@@ -88,7 +90,7 @@ var CloudFlare = PromiseObject.create({
 
 	_tryRequest: function($deferred, $self, $config) {
 		$config.query = extend({}, $config.query);
-		$config.body = extend({}, $config.body);
+		$config.json !== false && ($config.body = extend({}, $config.body));
 
 		var getURL = this.API_URL + '/' + $self._resolvePath($config.path, $config.params) + (Object.keys($config.query).length ? '?' + querystring.stringify($config.query) : ''); // Construct URL with parameters
 
@@ -110,11 +112,11 @@ var CloudFlare = PromiseObject.create({
 						{
 							method: $config.method,
 							url: getURL,
-							json: true,
-							headers: {
+							json: $config.json !== false,
+							headers: _.merge($config.headers, {
 								'X-Auth-Key': $self._key,
 								'X-Auth-Email': $self._email
-							},
+							}),
 							body: $config.body
 						},
 						function(error, response, body) {
@@ -3968,7 +3970,105 @@ var CloudFlare = PromiseObject.create({
 				identifier: identifier
 			},
 		}, raw));
-	}
+	},
+
+    /**
+	 * Cloudflare workers
+	 *
+	 * https://developers.cloudflare.com/workers/api/
+	 *
+	 * Still in beta!
+     */
+
+    /**
+     * Upload a worker
+     *
+     * https://developers.cloudflare.com/workers/api/
+     */
+    workersUpload: function ($deferred, zone_identifier, script, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required(),
+            },
+            body: Joi.string().required()
+        }, {
+            callee: 'workersUpload',
+			headers: { 'Content-Type' : 'application/javascript' },
+			json: false,
+            method: 'PUT',
+            path: 'zones/:zone_identifier/workers/script',
+            params: {
+                zone_identifier: zone_identifier
+            },
+            body: script
+        }, raw));
+    },
+
+    /**
+	 * Download a worker
+     *
+     * https://developers.cloudflare.com/workers/api/
+     */
+    workersDownload: function ($deferred, zone_identifier, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required()
+            }
+        }, {
+            callee: 'workersDownload',
+            method: 'GET',
+            path: 'zones/:zone_identifier/workers/script',
+            params: {
+                zone_identifier: zone_identifier
+            }
+        }, raw));
+    },
+
+    /**
+     * Get assigned Routes
+	 *
+	 * https://developers.cloudflare.com/workers/api/
+     */
+    workersRoutesGet: function ($deferred, zone_identifier, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required()
+            }
+        }, {
+            callee: 'workersRoutesGet',
+            method: 'GET',
+            path: 'zones/:zone_identifier/workers/filters',
+            required: 'result',
+            params: {
+                zone_identifier: zone_identifier
+            }
+        }, raw));
+    },
+
+    /**
+     * Delete a route
+     *
+     * https://developers.cloudflare.com/workers/api/
+     */
+    workersRouteDelete: function ($deferred, zone_identifier, identifier, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required()
+            }
+        }, {
+            callee: 'workersRouteDelete',
+            method: 'DELETE',
+            path: 'zones/:zone_id/workers/filters/:identifier',
+            required: 'result',
+            params: {
+                zone_identifier: zone_identifier,
+                identifier: identifier
+            }
+        }, raw));
+    },
+
+
+
 });
 
 module.exports = CloudFlare;
