@@ -4072,10 +4072,10 @@ var CloudFlare = PromiseObject.create({
             params: {
                 zone_identifier: Joi.string().length(32).required()
             },
-            body: {
+            body: Joi.object({
                 pattern: Joi.string().required(),
                 enabled: Joi.boolean()
-            }
+            })
         }, {
             callee: 'workersRouteCreate',
             method: 'POST',
