@@ -129,7 +129,15 @@ var CloudFlare = PromiseObject.create({
                             }
 
 							if (!error && body && (response.statusCode < 200 || response.statusCode > 299)) {
-								var error = body.errors[0] || {};
+                                /**
+								 * Patch for the worker API - error handling is a bit different
+                                 */
+								var error =
+									body.errors ?
+										body.errors[0] || {} :
+										(
+											(body.error && body.code) ? { code: body.code, message: body.error } : {}
+										);
 
 								return reject(new Error(
 									'\nAPI Error: ' + (error.code + ' - ' + error.message)
@@ -4106,8 +4114,6 @@ var CloudFlare = PromiseObject.create({
     /**
      * Update a route (enable / disable)
      *
-     * Does not work - documentation is not correct
-     *
      * https://developers.cloudflare.com/workers/api/
      */
     workersRouteUpdate: function ($deferred, zone_identifier, route_identifier, body, raw) {
@@ -4116,13 +4122,13 @@ var CloudFlare = PromiseObject.create({
                 zone_identifier: Joi.string().length(32).required(),
                 route_identifier: Joi.string().required()
             },
-            body: {
+            body: Joi.object({
                 pattern: Joi.string().required(),
                 enabled: Joi.boolean().required()
-            }
+            }).required()
         }, {
             callee: 'workersRouteUpdate',
-            method: 'POST',
+            method: 'PUT',
             path: 'zones/:zone_identifier/workers/filters/:route_identifier',
             required: 'result',
             params: {
