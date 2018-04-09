@@ -2860,29 +2860,29 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
-	/**
-	 * Create firewall access rule for user
-	 *
-	 * https://api.cloudflare.com/#user-level-firewall-access-rule-create-access-rule
-	 */
-	userFirewallAccessRuleNew: function ($deferred, body, raw) {
-		$deferred.resolve(this._request({
-			body: Joi.object({
-				mode: Joi.string().valid('block', 'challenge', 'whitelist').required(),
-				configuration: Joi.object({
-					target: Joi.string().valid('ip', 'ip_range', 'country').required(),
-					value: Joi.string().required()
-				}).required(),
-				notes: Joi.string()
-			}).required()
-		}, {
-			callee: 'userFirewallAccessRuleNew',
-			method: 'POST',
-			path: 'user/firewall/access_rules/rules',
-			required: 'result',
-			body: body
-		}, raw));
-	},
+    /**
+     * Create firewall access rule for user
+     *
+     * https://api.cloudflare.com/#user-level-firewall-access-rule-create-access-rule
+     */
+    userFirewallAccessRuleNew: function ($deferred, body, raw) {
+            $deferred.resolve(this._request({
+                    body: Joi.object({
+                            mode: Joi.string().valid('block', 'challenge', 'whitelist').required(),
+                            configuration: Joi.object({
+                                    target: Joi.string().valid('ip', 'ip_range', 'country').required(),
+                                    value: Joi.string().required()
+                            }).required(),
+                            notes: Joi.string()
+                    }).required()
+            }, {
+                    callee: 'userFirewallAccessRuleNew',
+                    method: 'POST',
+                    path: 'user/firewall/access_rules/rules',
+                    required: 'result',
+                    body: body
+            }, raw));
+    },
 
 	/**
 	 * Update firewall access rule for user
@@ -3967,6 +3967,196 @@ var CloudFlare = PromiseObject.create({
 				organization_identifier: organization_identifier,
 				identifier: identifier
 			},
+		}, raw));
+	},
+
+    /**
+	 * List zone page rules
+	 *
+     * https://api.cloudflare.com/#page-rules-for-a-zone-list-page-rules
+	 */
+	zonePageRulesGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+            params: {
+				zone_identifier: Joi.string().length(32).required()
+            },
+			query: {
+				auto_pagination: Joi.boolean(),
+				order: Joi.string().valid('status', 'priority'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'zonePageRulesGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/pagerules',
+			required: 'result',
+            params: {
+              zone_identifier: zone_identifier
+            },
+			query: query || {}
+		}, raw));
+	},
+	
+    /**
+	 * Get page rules details
+	 *
+     * https://api.cloudflare.com/#page-rules-for-a-zone-page-rule-details
+	 */
+	zonePageRulesGet: function ($deferred, zone_identifier, identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zonePageRulesGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/pagerules/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+                identifier: identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Create a page rule for a zone
+     *
+     * https://api.cloudflare.com/#page-rules-for-a-zone-create-a-page-rule
+	 */
+	zonePageRulesNew: function ($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+            params: {
+              zone_identifier: Joi.string().length(32).required()
+            },
+			body: Joi.object({
+                targets: Joi.array().items(Joi.object({
+                  target: Joi.string().valid('url').required(),
+                  constraint: Joi.object({
+                      operator: Joi.string().valid('matches').required(),
+                      value: Joi.string().required()
+                  })
+                })).required(),
+                actions: Joi.array().items(Joi.object({
+                  id: Joi.string(),
+                  value: Joi.string()
+                })).required(),
+                priority: Joi.number(),
+                status: Joi.string().valid('active', 'disabled')
+			}).required()
+		}, {
+			callee: 'zonePageRulesNew',
+			method: 'POST',
+			path: 'zones/:zone_identifier/pagerules',
+			required: 'result',
+            params: {
+              zone_identifier: zone_identifier
+            },
+			body: body
+		}, raw));
+	},
+	
+    /**
+	 * Update a page rule for a zone
+     *
+     * https://api.cloudflare.com/#page-rules-for-a-zone-update-a-page-rule
+	 */
+	zonePageRulesUpdate: function ($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+            params: {
+              zone_identifier: Joi.string().length(32).required(),
+			  identifier: Joi.string().length(32).required()
+            },
+			body: Joi.object({
+                targets: Joi.array().items(Joi.object({
+                  target: Joi.string().valid('url').required(),
+                  constraint: Joi.object({
+                      operator: Joi.string().valid('matches').required(),
+                      value: Joi.string().required()
+                  })
+                })).required(),
+                actions: Joi.array().items(Joi.object({
+                  id: Joi.string(),
+                  value: Joi.string()
+                })).required(),
+                priority: Joi.number(),
+                status: Joi.string().valid('active', 'disabled')
+			}).required()
+		}, {
+			callee: 'zonePageRulesUpdate',
+			method: 'PUT',
+			path: 'zones/:zone_identifier/pagerules/:identifier',
+			required: 'result',
+            params: {
+              zone_identifier: zone_identifier,
+              identifier: identifier
+            },
+			body: body
+		}, raw));
+	},
+
+    /**
+	 * Change a page rule for a zone
+     *
+     * https://api.cloudflare.com/#page-rules-for-a-zone-change-a-page-rule
+	 */
+	zonePageRulesChange: function ($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+            params: {
+              zone_identifier: Joi.string().length(32).required(),
+			  identifier: Joi.string().length(32).required()
+            },
+			body: Joi.object({
+                targets: Joi.array().items(Joi.object({
+                  target: Joi.string().valid('url').required(),
+                  constraint: Joi.object({
+                      operator: Joi.string().valid('matches').required(),
+                      value: Joi.string().required()
+                  })
+                })),
+                actions: Joi.array().items(Joi.object({
+                  id: Joi.string(),
+                  value: Joi.string()
+                })),
+                priority: Joi.number(),
+                status: Joi.string().valid('active', 'disabled')
+			}).required()
+		}, {
+			callee: 'zonePageRulesChange',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/pagerules/:identifier',
+			required: 'result',
+            params: {
+              zone_identifier: zone_identifier,
+              identifier: identifier
+            },
+			body: body
+		}, raw));
+	},
+	
+    /**
+	 * Delete a page rule for a zone
+     *
+     * https://api.cloudflare.com/#page-rules-for-a-zone-delete-a-page-rule
+	 */
+    zonePageRulesDestroy: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+            params: {
+              zone_identifier: Joi.string().length(32).required(),
+			  identifier: Joi.string().length(32).required()
+            }
+		}, {
+			callee: 'zonePageRulesDestroy',
+			method: 'DELETE',
+			path: 'zones/:zone_identifier/pagerules/:identifier',
+			required: 'result',
+            params: {
+              zone_identifier: zone_identifier,
+              identifier: identifier
+            }
 		}, raw));
 	}
 });
