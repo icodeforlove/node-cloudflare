@@ -69,6 +69,7 @@ var CloudFlare = PromiseObject.create({
 			}
 		}
 
+		schema.contentType = Joi.string();
 		schema.path = Joi.string().required();
 		schema.callee = Joi.string().required();
 		schema.required = Joi.string();
@@ -88,7 +89,11 @@ var CloudFlare = PromiseObject.create({
 
 	_tryRequest: function($deferred, $self, $config) {
 		$config.query = extend({}, $config.query);
-		$config.body = extend({}, $config.body);
+
+		if (typeof $config.body === 'object') {
+			$config.body = extend({}, $config.body);
+			$config.contentType = 'application/json';
+		}
 
 		var getURL = this.API_URL + '/' + $self._resolvePath($config.path, $config.params) + (Object.keys($config.query).length ? '?' + querystring.stringify($config.query) : ''); // Construct URL with parameters
 
@@ -110,14 +115,18 @@ var CloudFlare = PromiseObject.create({
 						{
 							method: $config.method,
 							url: getURL,
-							json: true,
 							headers: {
 								'X-Auth-Key': $self._key,
-								'X-Auth-Email': $self._email
+								'X-Auth-Email': $self._email,
+								'Content-Type': $config.contentType
 							},
-							body: $config.body
+							body: typeof $config.body === 'object' ? JSON.stringify($config.body) : $config.body
 						},
 						function(error, response, body) {
+							if (body && response.headers['content-type'].match(/application\/json/)) {
+								body = JSON.parse(body);
+							}
+
 							if (!error && body && (response.statusCode < 200 || response.statusCode > 299)) {
 								var error = body.errors[0] || {};
 
@@ -726,6 +735,41 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				identifier: identifier
 			},
+			body: body
+		}, raw));
+	},
+
+	zoneWorkersScriptGet: function($deferred, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'workerUpdate',
+			method: 'GET',
+			path: 'zones/:identifier/workers/script',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+
+	zoneWorkersScriptUpdate: function($deferred, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.string().required()
+		}, {
+			callee: 'workerUpdate',
+			method: 'PUT',
+			path: 'zones/:identifier/workers/script',
+			required: 'result',
+			params: {
+				identifier: identifier
+			},
+			contentType: 'text/javascript',
 			body: body
 		}, raw));
 	},

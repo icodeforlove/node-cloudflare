@@ -181,6 +181,8 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneGet(String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-zone-details)
 - [zoneUpdate(String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-edit-zone-properties)
 - [zonePurgeCache(String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-purge-all-files)
+- zoneWorkersScriptGet (String identifier)
+- zoneWorkersScriptUpdate (String identifier, String script)
 - [zonePurgeCacheBy(String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-purge-individual-files-by-url-and-cache-tags)
 - [zoneDestroy(String identifier, [, Boolean raw])](https://api.cloudflare.com/#zone-delete-a-zone)
 
