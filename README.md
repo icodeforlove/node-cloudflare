@@ -181,14 +181,16 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneGet(String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-zone-details)
 - [zoneUpdate(String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-edit-zone-properties)
 - [zonePurgeCache(String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-purge-all-files)
-- zoneWorkersScriptGet (String identifier)
-- zoneWorkersScriptUpdate (String identifier, String script)
 - [zonePurgeCacheBy(String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#zone-purge-individual-files-by-url-and-cache-tags)
 - [zoneDestroy(String identifier, [, Boolean raw])](https://api.cloudflare.com/#zone-delete-a-zone)
 
 ## [Zone Plan](https://api.cloudflare.com/#zone-plan)
 - [zoneAvailablePlanGetAll(String identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-plan-available-plans)
 - [zoneAvailablePlanGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-plan-plan-details)
+
+## [Worker Script](https://api.cloudflare.com/#worker-script-properties)
+- [zoneWorkersScriptGet (String identifier)](https://api.cloudflare.com/#worker-script-download-worker)
+- [zoneWorkersScriptUpdate (String identifier, String script)](https://api.cloudflare.com/#worker-script-upload-worker)
 
 ## [Zone Settings](https://api.cloudflare.com/#zone-settings)
 - [zoneSettingsGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-all-zone-settings)
