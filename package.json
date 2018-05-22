@@ -23,11 +23,11 @@
     "bluebird": "^2.9.27",
     "colors": "^1.1.0",
     "debug": "^2.1.1",
-    "joi": "^6.4.3",
+    "joi": "^13.3.0",
     "lodash": "^3.10.1",
     "promise-object": "^0.1.5",
     "promise-retryer": "0.0.1",
-    "request": "2.x",
+    "request": "^2.87.0",
     "xtend": "2.x"
   }
 }
