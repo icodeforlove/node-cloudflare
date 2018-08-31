@@ -188,6 +188,10 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [zoneAvailablePlanGetAll(String identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-plan-available-plans)
 - [zoneAvailablePlanGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#zone-plan-plan-details)
 
+## [Worker Script](https://api.cloudflare.com/#worker-script-properties)
+- [zoneWorkersScriptGet (String identifier)](https://api.cloudflare.com/#worker-script-download-worker)
+- [zoneWorkersScriptUpdate (String identifier, String script)](https://api.cloudflare.com/#worker-script-upload-worker)
+
 ## [Zone Settings](https://api.cloudflare.com/#zone-settings)
 - [zoneSettingsGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-all-zone-settings)
 - [zoneSettingsAdvancedDDOSGet(String zone_identifier [, Boolean raw])](https://api.cloudflare.com/#zone-settings-get-advanced-ddos-setting)
@@ -339,6 +343,13 @@ All methods follow the [official API documentation](https://api.cloudflare.com/)
 - [organizationFirewallAccessRuleNew(String organization_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-create-access-rule)
 - [organizationFirewallAccessRuleUpdate(String organization_identifier, String identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-update-access-rule)
 - [organizationFirewallAccessRuleDestroy(String organization_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#organization-level-firewall-access-rule-delete-access-rule)
+## [Page rules for a Zone](https://api.cloudflare.com/#page-rules-for-a-zone)
+- [zonePageRulesGetAll(String zone_identifier [, Object query, Boolean raw])](https://api.cloudflare.com/#page-rules-for-a-zone-list-page-rules)
+- [zonePageRulesGet(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#page-rules-for-a-zone-page-rule-details)
+- [zonePageRulesNew(Striung zone_identifier, Object body [, Boolean raw])](https://api.cloudflare.com/#page-rules-for-a-zone-create-a-page-rule)
+- [zonePageRulesUpdate(String zone_identifier, String identifier , Object body [, Boolean raw])](https://api.cloudflare.com/#page-rules-for-a-zone-update-a-page-rule)
+- [zonePageRulesChange(String zone_identifier, String identifier [, Object body , Boolean raw])](https://api.cloudflare.com/#page-rules-for-a-zone-change-a-page-rule)
+- [zonePageRulesDestroy(String zone_identifier, String identifier [, Boolean raw])](https://api.cloudflare.com/#page-rules-for-a-zone-delete-a-page-rule)
 
 [npm-url]: https://npmjs.org/package/cloudflare4
 [npm-image]: https://img.shields.io/npm/v/cloudflare4.svg?style=flat-square

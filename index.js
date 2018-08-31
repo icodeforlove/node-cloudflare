@@ -69,11 +69,10 @@ var CloudFlare = PromiseObject.create({
 			}
 		}
 
+		schema.contentType = Joi.string();
 		schema.path = Joi.string().required();
 		schema.callee = Joi.string().required();
 		schema.required = Joi.string();
-        schema.headers = Joi.object();
-        schema.json = Joi.boolean();
 		schema.method = Joi.valid(['GET', 'POST', 'PUT', 'DELETE', 'PATCH']).required();
 		schema.query = extend({
 			per_page: Joi.number().min(1).max(100),
@@ -90,7 +89,11 @@ var CloudFlare = PromiseObject.create({
 
 	_tryRequest: function($deferred, $self, $config) {
 		$config.query = extend({}, $config.query);
-		$config.json !== false && ($config.body = extend({}, $config.body));
+
+		if (typeof $config.body === 'object') {
+			$config.body = extend({}, $config.body);
+			$config.contentType = 'application/json';
+		}
 
 		var getURL = this.API_URL + '/' + $self._resolvePath($config.path, $config.params) + (Object.keys($config.query).length ? '?' + querystring.stringify($config.query) : ''); // Construct URL with parameters
 
@@ -112,32 +115,20 @@ var CloudFlare = PromiseObject.create({
 						{
 							method: $config.method,
 							url: getURL,
-							json: $config.json !== false,
-							headers: _.merge($config.headers || {}, {
+							headers: {
 								'X-Auth-Key': $self._key,
-								'X-Auth-Email': $self._email
-							}),
-							body: $config.body
+								'X-Auth-Email': $self._email,
+								'Content-Type': $config.contentType
+							},
+							body: typeof $config.body === 'object' ? JSON.stringify($config.body) : $config.body
 						},
 						function(error, response, body) {
-                            /**
-                             * Patch for the upload of a worker script, the upload itself is not JSON, however
-                             * the response is
-                             */
-                            if ($config.json === false) {
-                                body = JSON.parse(body);
-                            }
+							if (body && response.headers['content-type'].match(/application\/json/)) {
+								body = JSON.parse(body);
+							}
 
 							if (!error && body && (response.statusCode < 200 || response.statusCode > 299)) {
-                                /**
-								 * Patch for the worker API - error handling is a bit different
-                                 */
-								var error =
-									body.errors ?
-										body.errors[0] || {} :
-										(
-											(body.error && body.code) ? { code: body.code, message: body.error } : {}
-										);
+								var error = body.errors[0] || {};
 
 								return reject(new Error(
 									'\nAPI Error: ' + (error.code + ' - ' + error.message)
@@ -744,6 +735,41 @@ var CloudFlare = PromiseObject.create({
 			params: {
 				identifier: identifier
 			},
+			body: body
+		}, raw));
+	},
+
+	zoneWorkersScriptGet: function($deferred, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'workerUpdate',
+			method: 'GET',
+			path: 'zones/:identifier/workers/script',
+			params: {
+				identifier: identifier
+			}
+		}, raw));
+	},
+
+
+	zoneWorkersScriptUpdate: function($deferred, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				identifier: Joi.string().length(32).required()
+			},
+			body: Joi.string().required()
+		}, {
+			callee: 'workerUpdate',
+			method: 'PUT',
+			path: 'zones/:identifier/workers/script',
+			required: 'result',
+			params: {
+				identifier: identifier
+			},
+			contentType: 'text/javascript',
 			body: body
 		}, raw));
 	},
@@ -3988,157 +4014,195 @@ var CloudFlare = PromiseObject.create({
 		}, raw));
 	},
 
-    /**
-	 * Cloudflare workers
+	/**
+	 * List zone page rules
 	 *
-	 * https://developers.cloudflare.com/workers/api/
+	 * https://api.cloudflare.com/#page-rules-for-a-zone-list-page-rules
+	 */
+	zonePageRulesGetAll: function ($deferred, zone_identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required()
+			},
+			query: {
+				auto_pagination: Joi.boolean(),
+				order: Joi.string().valid('status', 'priority'),
+				direction: Joi.string().valid('asc', 'desc'),
+				match: Joi.string().valid('any', 'all')
+			}
+		}, {
+			callee: 'zonePageRulesGetAll',
+			method: 'GET',
+			path: 'zones/:zone_identifier/pagerules',
+			required: 'result',
+			params: {
+			  zone_identifier: zone_identifier
+			},
+			query: query || {}
+		}, raw));
+	},
+
+	/**
+	 * Get page rules details
 	 *
-	 * Still in beta!
-     */
+	 * https://api.cloudflare.com/#page-rules-for-a-zone-page-rule-details
+	 */
+	zonePageRulesGet: function ($deferred, zone_identifier, identifier, query, raw) {
+		$deferred.resolve(this._request({
+			params: {
+				zone_identifier: Joi.string().length(32).required(),
+				identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zonePageRulesGet',
+			method: 'GET',
+			path: 'zones/:zone_identifier/pagerules/:identifier',
+			required: 'result',
+			params: {
+				zone_identifier: zone_identifier,
+				identifier: identifier
+			},
+			query: query || {}
+		}, raw));
+	},
 
-    /**
-     * Upload a worker
-     *
-     * https://developers.cloudflare.com/workers/api/
-     */
-    workersUpload: function ($deferred, zone_identifier, script, raw) {
-        $deferred.resolve(this._request({
-            params: {
-                zone_identifier: Joi.string().length(32).required(),
-            },
-            body: Joi.string().required()
-        }, {
-            callee: 'workersUpload',
-			headers: { 'Content-Type' : 'application/javascript' },
-			json: false,
-            method: 'PUT',
-            path: 'zones/:zone_identifier/workers/script',
-            params: {
-                zone_identifier: zone_identifier
-            },
-            body: script
-        }, raw));
-    },
-
-    /**
-	 * Download a worker
-     *
-     * https://developers.cloudflare.com/workers/api/
-     */
-    workersDownload: function ($deferred, zone_identifier, raw) {
-        $deferred.resolve(this._request({
-            params: {
-                zone_identifier: Joi.string().length(32).required()
-            }
-        }, {
-            callee: 'workersDownload',
-            method: 'GET',
-            path: 'zones/:zone_identifier/workers/script',
-            params: {
-                zone_identifier: zone_identifier
-            }
-        }, raw));
-    },
-
-    /**
-     * Get assigned Routes
+	/**
+	 * Create a page rule for a zone
 	 *
-	 * https://developers.cloudflare.com/workers/api/
-     */
-    workersRoutesGet: function ($deferred, zone_identifier, raw) {
-        $deferred.resolve(this._request({
-            params: {
-                zone_identifier: Joi.string().length(32).required()
-            }
-        }, {
-            callee: 'workersRoutesGet',
-            method: 'GET',
-            path: 'zones/:zone_identifier/workers/filters',
-            required: 'result',
-            params: {
-                zone_identifier: zone_identifier
-            }
-        }, raw));
-    },
+	 * https://api.cloudflare.com/#page-rules-for-a-zone-create-a-page-rule
+	 */
+	zonePageRulesNew: function ($deferred, zone_identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+			  zone_identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				targets: Joi.array().items(Joi.object({
+				  target: Joi.string().valid('url').required(),
+				  constraint: Joi.object({
+					  operator: Joi.string().valid('matches').required(),
+					  value: Joi.string().required()
+				  })
+				})).required(),
+				actions: Joi.array().items(Joi.object({
+				  id: Joi.string(),
+				  value: Joi.string()
+				})).required(),
+				priority: Joi.number(),
+				status: Joi.string().valid('active', 'disabled')
+			}).required()
+		}, {
+			callee: 'zonePageRulesNew',
+			method: 'POST',
+			path: 'zones/:zone_identifier/pagerules',
+			required: 'result',
+			params: {
+			  zone_identifier: zone_identifier
+			},
+			body: body
+		}, raw));
+	},
 
+	/**
+	 * Update a page rule for a zone
+	 *
+	 * https://api.cloudflare.com/#page-rules-for-a-zone-update-a-page-rule
+	 */
+	zonePageRulesUpdate: function ($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+			  zone_identifier: Joi.string().length(32).required(),
+			  identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				targets: Joi.array().items(Joi.object({
+				  target: Joi.string().valid('url').required(),
+				  constraint: Joi.object({
+					  operator: Joi.string().valid('matches').required(),
+					  value: Joi.string().required()
+				  })
+				})).required(),
+				actions: Joi.array().items(Joi.object({
+				  id: Joi.string(),
+				  value: Joi.string()
+				})).required(),
+				priority: Joi.number(),
+				status: Joi.string().valid('active', 'disabled')
+			}).required()
+		}, {
+			callee: 'zonePageRulesUpdate',
+			method: 'PUT',
+			path: 'zones/:zone_identifier/pagerules/:identifier',
+			required: 'result',
+			params: {
+			  zone_identifier: zone_identifier,
+			  identifier: identifier
+			},
+			body: body
+		}, raw));
+	},
 
-    /**
-     * Create a route
-     *
-     * https://developers.cloudflare.com/workers/api/
-     */
-    workersRouteCreate: function ($deferred, zone_identifier, body, raw) {
-        $deferred.resolve(this._request({
-            params: {
-                zone_identifier: Joi.string().length(32).required()
-            },
-            body: Joi.object({
-                pattern: Joi.string().required(),
-                enabled: Joi.boolean()
-            })
-        }, {
-            callee: 'workersRouteCreate',
-            method: 'POST',
-            path: 'zones/:zone_identifier/workers/filters',
-            required: 'result',
-            params: {
-                zone_identifier: zone_identifier
-            },
-            body: body
-        }, raw));
-    },
+	/**
+	 * Change a page rule for a zone
+	 *
+	 * https://api.cloudflare.com/#page-rules-for-a-zone-change-a-page-rule
+	 */
+	zonePageRulesChange: function ($deferred, zone_identifier, identifier, body, raw) {
+		$deferred.resolve(this._request({
+			params: {
+			  zone_identifier: Joi.string().length(32).required(),
+			  identifier: Joi.string().length(32).required()
+			},
+			body: Joi.object({
+				targets: Joi.array().items(Joi.object({
+				  target: Joi.string().valid('url').required(),
+				  constraint: Joi.object({
+					  operator: Joi.string().valid('matches').required(),
+					  value: Joi.string().required()
+				  })
+				})),
+				actions: Joi.array().items(Joi.object({
+				  id: Joi.string(),
+				  value: Joi.string()
+				})),
+				priority: Joi.number(),
+				status: Joi.string().valid('active', 'disabled')
+			}).required()
+		}, {
+			callee: 'zonePageRulesChange',
+			method: 'PATCH',
+			path: 'zones/:zone_identifier/pagerules/:identifier',
+			required: 'result',
+			params: {
+			  zone_identifier: zone_identifier,
+			  identifier: identifier
+			},
+			body: body
+		}, raw));
+	},
 
-    /**
-     * Delete a route
-     *
-     * https://developers.cloudflare.com/workers/api/
-     */
-    workersRouteDelete: function ($deferred, zone_identifier, route_identifier, raw) {
-        $deferred.resolve(this._request({
-            params: {
-                zone_identifier: Joi.string().length(32).required(),
-                route_identifier: Joi.string().required()
-            }
-        }, {
-            callee: 'workersRouteDelete',
-            method: 'DELETE',
-            path: 'zones/:zone_identifier/workers/filters/:route_identifier',
-            required: 'result',
-            params: {
-                zone_identifier: zone_identifier,
-                route_identifier: route_identifier
-            }
-        }, raw));
-    },
-
-    /**
-     * Update a route (enable / disable)
-     *
-     * https://developers.cloudflare.com/workers/api/
-     */
-    workersRouteUpdate: function ($deferred, zone_identifier, route_identifier, body, raw) {
-        $deferred.resolve(this._request({
-            params: {
-                zone_identifier: Joi.string().length(32).required(),
-                route_identifier: Joi.string().required()
-            },
-            body: Joi.object({
-                pattern: Joi.string().required(),
-                enabled: Joi.boolean().required()
-            }).required()
-        }, {
-            callee: 'workersRouteUpdate',
-            method: 'PUT',
-            path: 'zones/:zone_identifier/workers/filters/:route_identifier',
-            required: 'result',
-            params: {
-                zone_identifier: zone_identifier,
-                route_identifier: route_identifier
-            },
-            body: body
-        }, raw));
-    }
-
+	/**
+	 * Delete a page rule for a zone
+	 *
+	 * https://api.cloudflare.com/#page-rules-for-a-zone-delete-a-page-rule
+	 */
+	zonePageRulesDestroy: function ($deferred, zone_identifier, identifier, raw) {
+		$deferred.resolve(this._request({
+			params: {
+			  zone_identifier: Joi.string().length(32).required(),
+			  identifier: Joi.string().length(32).required()
+			}
+		}, {
+			callee: 'zonePageRulesDestroy',
+			method: 'DELETE',
+			path: 'zones/:zone_identifier/pagerules/:identifier',
+			required: 'result',
+			params: {
+			  zone_identifier: zone_identifier,
+			  identifier: identifier
+			}
+		}, raw));
+	}
 });
 
 module.exports = CloudFlare;
