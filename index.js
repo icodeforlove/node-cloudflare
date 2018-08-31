@@ -745,7 +745,7 @@ var CloudFlare = PromiseObject.create({
 				identifier: Joi.string().length(32).required()
 			}
 		}, {
-			callee: 'workerUpdate',
+			callee: 'zoneWorkersScriptGet',
 			method: 'GET',
 			path: 'zones/:identifier/workers/script',
 			params: {
@@ -762,7 +762,7 @@ var CloudFlare = PromiseObject.create({
 			},
 			body: Joi.string().required()
 		}, {
-			callee: 'workerUpdate',
+			callee: 'zoneWorkersScriptGet',
 			method: 'PUT',
 			path: 'zones/:identifier/workers/script',
 			required: 'result',
@@ -4202,7 +4202,106 @@ var CloudFlare = PromiseObject.create({
 			  identifier: identifier
 			}
 		}, raw));
-	}
+	},
+
+    /**
+     * Get assigned Routes
+     *
+     * https://developers.cloudflare.com/workers/api/
+     */
+    zoneWorkersRoutesGet: function ($deferred, zone_identifier, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required()
+            }
+        }, {
+            callee: 'zoneWorkersRoutesGet',
+            method: 'GET',
+            path: 'zones/:zone_identifier/workers/filters',
+            required: 'result',
+            params: {
+                zone_identifier: zone_identifier
+            }
+        }, raw));
+    },
+
+    /**
+     * Create a route
+     *
+     * https://developers.cloudflare.com/workers/api/
+     */
+    zoneWorkersRouteCreate: function ($deferred, zone_identifier, body, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required()
+            },
+            body: Joi.object({
+                pattern: Joi.string().required(),
+                enabled: Joi.boolean()
+            })
+        }, {
+            callee: 'zoneWorkersRouteCreate',
+            method: 'POST',
+            path: 'zones/:zone_identifier/workers/filters',
+            required: 'result',
+            params: {
+                zone_identifier: zone_identifier
+            },
+            body: body
+        }, raw));
+    },
+
+    /**
+     * Delete a route
+     *
+     * https://developers.cloudflare.com/workers/api/
+     */
+    zoneWorkersRouteDelete: function ($deferred, zone_identifier, route_identifier, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required(),
+                route_identifier: Joi.string().required()
+            }
+        }, {
+            callee: 'zoneWorkersRouteDelete',
+            method: 'DELETE',
+            path: 'zones/:zone_identifier/workers/filters/:route_identifier',
+            required: 'result',
+            params: {
+                zone_identifier: zone_identifier,
+                route_identifier: route_identifier
+            }
+        }, raw));
+    },
+
+    /**
+     * Update a route (enable / disable)
+     *
+     * https://developers.cloudflare.com/workers/api/
+     */
+    zoneWorkersRouteUpdate: function ($deferred, zone_identifier, route_identifier, body, raw) {
+        $deferred.resolve(this._request({
+            params: {
+                zone_identifier: Joi.string().length(32).required(),
+                route_identifier: Joi.string().required()
+            },
+            body: Joi.object({
+                pattern: Joi.string().required(),
+                enabled: Joi.boolean().required()
+            }).required()
+        }, {
+            callee: 'zoneWorkersRouteUpdate',
+            method: 'PUT',
+            path: 'zones/:zone_identifier/workers/filters/:route_identifier',
+            required: 'result',
+            params: {
+                zone_identifier: zone_identifier,
+                route_identifier: route_identifier
+            },
+            body: body
+        }, raw));
+    }
+
 });
 
 module.exports = CloudFlare;
