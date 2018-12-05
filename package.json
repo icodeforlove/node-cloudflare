@@ -24,7 +24,7 @@
     "colors": "^1.1.0",
     "debug": "^2.1.1",
     "joi": "^13.3.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.11",
     "promise-object": "^0.1.5",
     "promise-retryer": "0.0.1",
     "request": "^2.87.0",
