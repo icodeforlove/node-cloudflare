@@ -111,15 +111,23 @@ var CloudFlare = PromiseObject.create({
 			},
 			promise: function (attempt) {
 				return new BlueBird(function (resolve, reject) {
+          if($self._auth_type == "token") {
+            var headers = {
+              'Authorization': "Bearer " + $self._key,
+              'Content-Type' : 'application/json'
+            }
+          } else if ($self.auth_type == "x-auth") {
+            var headers = {
+              'X-Auth-Key': $self._key,
+              'X-Auth-Email': $self._email,
+              'Content-Type': $config.contentType
+            }
+          }
 					request(
 						{
 							method: $config.method,
 							url: getURL,
-							headers: {
-								'X-Auth-Key': $self._key,
-								'X-Auth-Email': $self._email,
-								'Content-Type': $config.contentType
-							},
+							headers: headers,
 							body: typeof $config.body === 'object' ? JSON.stringify($config.body) : $config.body
 						},
 						function(error, response, body) {
