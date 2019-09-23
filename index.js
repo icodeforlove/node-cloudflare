@@ -18,6 +18,7 @@ var CloudFlare = PromiseObject.create({
 	initialize: function ($config) {
 		this._key = $config.key;
 		this._email = $config.email;
+    this._auth_type = $config.auth_type;
 
 		this._itemsPerPage = $config.itemsPerPage || 100;
 		this._maxRetries = $config.maxRetries || 1;
